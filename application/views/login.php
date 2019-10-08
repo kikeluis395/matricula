@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/animate.css">
   <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/toastr.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/login.css">
   <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/util.css">
 </head>
@@ -46,7 +47,7 @@
 					
 				</form>
 
-				<div class="login100-more" style="background-image: url('assets/img/bg-01.jpg');">
+				<div class="login100-more" style="background-image: url('assets/img/bg-unfv.jpg');background-size: cover">
 				</div>
 			</div>
 		</div>

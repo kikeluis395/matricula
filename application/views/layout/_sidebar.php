@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="index3.html" class="brand-link logo_unfv">
-		<img src="<?php echo base_url()?>assets/img/logo_unfv.png" alt="UNFV Logo" width="235px">
+	<a href="index3.html" class="brand-link bg_logo_unfv">
+		<img src="<?php echo base_url()?>assets/img/logo_unfv.png" alt="UNFV Logo" width="235px" class="logo_unfv">
 	</a>
 
 	<!-- Sidebar -->
@@ -12,7 +12,7 @@
 			<div class="image">
 				<img src="<?php echo base_url()?>assets/img/user.png" class="img-circle elevation-2" alt="User Image" style="margin-top: 15px">
 			</div>
-			<div class="info">
+			<div class="info" style="margin-left:15px">
 				<a href="#" class="d-block">
 					<span><?php echo $alumno->apellido_paterno . " " . 
 				$alumno->apellido_materno?></span>
@@ -26,299 +26,72 @@
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class
 						 with font-awesome or any other icon font library -->
-				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-dashboard"></i>
-						<p>
-							Dashboard
-							<i class="right fa fa-angle-left"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>index.php/dashboard1" class="nav-link active">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Dashboard v1</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>index.php/dashboard2" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Dashboard v2</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>index.php/dashboard3" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Dashboard v3</p>
-							</a>
-						</li>
-					</ul>
-				</li>
 				<li class="nav-item">
-					<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/widgets.html" class="nav-link">
-						<i class="nav-icon fa fa-th"></i>
+					<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/widgets.html" class="nav-link active">
+						<i class="nav-icon fas fa-home"></i>
 						<p>
-							Widgets
-							<span class="right badge badge-danger">New</span>
+							Inicio
 						</p>
 					</a>
 				</li>
 				<li class="nav-item has-treeview">
 					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-pie-chart"></i>
+						<i class="nav-icon fas fa-user-graduate"></i>
 						<p>
-							Charts
+							Alumno
 							<i class="right fa fa-angle-left"></i>
 						</p>
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
 							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/charts/chartjs.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>ChartJS</p>
+								<i class="fas fa-user-circle nav-icon"></i>
+								<p>Perfil</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/charts/flot.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Flot</p>
+								<i class="fas fa-book nav-icon"></i>
+								<p>Asignaturas</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/charts/inline.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Inline</p>
+								<i class="fas fa-file-pdf nav-icon"></i>
+								<p>Reportes</p>
 							</a>
 						</li>
 					</ul>
 				</li>
 				<li class="nav-item has-treeview">
 					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-tree"></i>
+						<i class="nav-icon far fa-address-card"></i>
 						<p>
-							UI Elements
-							<i class="fa fa-angle-left right"></i>
+							Matricula
+							<i class="right fa fa-angle-left"></i>
 						</p>
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/UI/general.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>General</p>
+							<a href="<?php echo base_url()?>index.php/dashboard1" class="nav-link">
+								<i class="fas fa-hand-holding-usd nav-icon"></i>
+								<p>Pago</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/UI/icons.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Icons</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/UI/buttons.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Buttons</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/UI/sliders.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Sliders</p>
+							<a href="<?php echo base_url()?>index.php/dashboard2" class="nav-link">
+								<i class="far fa-calendar-alt nav-icon"></i>
+								<p>Horarios</p>
 							</a>
 						</li>
 					</ul>
-				</li>
-				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-edit"></i>
-						<p>
-							Forms
-							<i class="fa fa-angle-left right"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/forms/general.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>General Elements</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/forms/advanced.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Advanced Elements</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/forms/editors.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Editors</p>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-table"></i>
-						<p>
-							Tables
-							<i class="fa fa-angle-left right"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/tables/simple.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Simple Tables</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/tables/data.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Data Tables</p>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-header">EXAMPLES</li>
-				<li class="nav-item">
-					<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/calendar.html" class="nav-link">
-						<i class="nav-icon fa fa-calendar"></i>
-						<p>
-							Calendar
-							<span class="badge badge-info right">2</span>
-						</p>
-					</a>
-				</li>
-				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-envelope-o"></i>
-						<p>
-							Mailbox
-							<i class="fa fa-angle-left right"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/mailbox/mailbox.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Inbox</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/mailbox/compose.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Compose</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/mailbox/read-mail.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Read</p>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-book"></i>
-						<p>
-							Pages
-							<i class="fa fa-angle-left right"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/invoice.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Invoice</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/profile.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Profile</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/login.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Login</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/register.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Register</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/lockscreen.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Lockscreen</p>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-plus-square-o"></i>
-						<p>
-							Extras
-							<i class="fa fa-angle-left right"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/404.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Error 404</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/500.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Error 500</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/examples/blank.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Blank Page</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="starter.html" class="nav-link">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Starter Page</p>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-header">MISCELLANEOUS</li>
-				<li class="nav-item">
-					<a href="https://adminlte.io/docs" class="nav-link">
-						<i class="nav-icon fa fa-file"></i>
-						<p>Documentation</p>
-					</a>
-				</li>
-				<li class="nav-header">LABELS</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-circle-o text-danger"></i>
-						<p class="text">Important</p>
-					</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-circle-o text-warning"></i>
-						<p>Warning</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fa fa-circle-o text-info"></i>
-						<p>Informational</p>
+					<a href="<?php echo base_url()?>assets/vendor/AdminLTE-3.0.0-alpha/pages/widgets.html" class="nav-link">
+						<i class="nav-icon fas fa-list-alt"></i>
+						<p>
+							Malla Curricular
+						</p>
 					</a>
 				</li>
 			</ul>
