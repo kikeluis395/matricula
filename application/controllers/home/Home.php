@@ -28,8 +28,11 @@ class Home extends CI_Controller {
 			$this->load->model("AlumnoModel");
 			$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
 
+			$listActiveLink = array("a_inicio" => "a_inicio");
+
 			$data = array(
-				"alumno" => $alumno
+				"alumno" => $alumno,
+				"listActiveLink" => $listActiveLink
 			);
 			
 			$this->load->view("home/home", $data);

@@ -53,4 +53,5 @@ $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['home'] = 'home/Home';
+$route['mallaCurricular'] = 'malla_curricular/Malla_curricular';
 $route['SignIn'] = 'Login/SignIn';

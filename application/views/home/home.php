@@ -7,62 +7,65 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/animate.css">
-  <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/all.min.css">
-  <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/adminlte.min.css">
+  <?php require_once(APPPATH.'views/layout/_css.php'); ?>
+  
 </head>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
-		<!-- header -->
-		<?php require_once(APPPATH.'views/layout/_nav.php'); ?>
+		<!-- Navbar -->
+<nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+	<!-- Left navbar links -->
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+		</li>
+		
+    </ul>
+    
+
+    <!-- Right navbar links -->
+	<ul class="navbar-nav ml-auto">
+		
+		<li class="nav-item">
+        <div class="content-header">
+	      <div class="container-fluid">
+	            <ol class="breadcrumb float-sm-right">
+	              <li class="breadcrumb-item active">Home</li>
+	            </ol>
+	      </div><!-- /.container-fluid -->
+	    </div>
+		</li>
+	</ul>
+
+</nav>
+<!-- /.navbar -->
 		<!-- sidebar -->
 		<?php require_once(APPPATH.'views/layout/_sidebar.php'); ?>
 
 		<div class="content-wrapper">
-	    <!-- Content Header (Page header) -->
-	    <div class="content-header">
-	      <div class="container-fluid">
-	        <div class="row mb-2">
-	          <div class="col-sm-6">
-	            <h1 class="m-0 text-dark">Dashboard</h1>
-	          </div><!-- /.col -->
-	          <div class="col-sm-6">
-	            <ol class="breadcrumb float-sm-right">
-	              <li class="breadcrumb-item"><a href="#">Home</a></li>
-	              <li class="breadcrumb-item active">Dashboard v2</li>
-	            </ol>
-	          </div><!-- /.col -->
-	        </div><!-- /.row -->
-	      </div><!-- /.container-fluid -->
-	    </div>
-	    <!-- /.content-header -->
+	    
 
 	    <!-- Main content -->
 	    <section class="content">
-	      <div class="container-fluid">
+	      <div class="container-fluid" id="contenedor-principal">
 	        
 	      </div><!-- /.container-fluid -->
 	    </section>
 	    <!-- /.content -->
 	  </div>
 
-		<!-- footer -->
-		<!-- Control Sidebar -->
-	  <aside class="control-sidebar control-sidebar-dark">
-	    <!-- Control sidebar content goes here -->
-	  </aside>
 </div>
 
-<!-- jQuery -->
-<script src="<?php echo base_url('assets'); ?>/js/jquery-3.4.1.min.js"></script>
-<script src="<?php echo base_url('assets'); ?>/js/popper.min.js"></script>
-<!-- Bootstrap 4.3 -->
-<script src="<?php echo base_url('assets'); ?>/js/bootstrap.min.js"></script>
-
-<script src="<?php echo base_url('assets'); ?>/js/toastr.min.js"></script>
-<script src="<?php echo base_url('assets'); ?>/js/config_toast.js"></script>
-<script src="<?php echo base_url('assets'); ?>/js/all.min.js"></script>
-<script src="<?php echo base_url('assets'); ?>/js/adminlte.js"></script>
+<?php require_once(APPPATH.'views/layout/_js.php'); ?>
+<script>
+	$( document ).ready(function() {
+		<?php foreach($listActiveLink as $activeid) 
+		{
+			echo "$('#" . $activeid . "').addClass('active');";
+		}
+	?>
+});
+	
+</script>
 </body>
 </html>
