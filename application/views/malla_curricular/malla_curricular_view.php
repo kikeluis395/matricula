@@ -16,7 +16,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom mb-2">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -58,7 +58,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-1 col-lg-1 col-sm-1">
-                                    <i class="fa fa-tasks text-navy mid-icon fa-3x"></i>
+                                    <i class="fa fa-tasks text-navy mid-icon fa-3x ml-3"></i>
                                 </div>
                                 <div class="col-md-11 col-lg-11 col-sm-11">
                                     <h2>Malla Curricular</h2>
@@ -67,29 +67,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-
-                        <thead>
-                            <tr>
-                                <th>First name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            echo "<tr>" .
-                                "<td>" . $anios . "</td>" .
-                                "</tr>";
-
-                            ?>
-
-                        </tbody>
-
-                    </table>
-
-
-
-
 
 
                     <div class="wrapper wrapper-content animated fadeInRight" id="renderContent" style="opacity: 1;">
@@ -107,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="career-grade">
-                                    <div class="inner">Plan Curricular 2010</div>
+                                    <div class="inner">Plan Curricular <?php echo $plan_curricular->anio?></div>
                                 </div>
                                 <!-- NEW PLANES-->
                                 <!--ORDEN SEMESTRAL-->
@@ -225,28 +202,6 @@
 
                             </div>
                         </div>
-
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                /* EVENTOS ;*/
-                                $('.isotope').isotope();
-                                //$('.career-courses').isotope();
-                                /* END EVENTOS ;*/
-                            });
-                        </script>
-
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                var parameter = HelpParameter("idArguTipoPer", $("#CboGroupPer").val());
-                                loadURL("/Mallacurricular/Listar/" + parameter, $("#RenderLista"));
-
-                                $("#CboGroupPer").change(function(evt) {
-                                    var parameter1 = HelpParameter("idArguTipoPer", $("#CboGroupPer").val());
-                                    loadURL("/Mallacurricular/Listar/" + parameter1, $("#RenderLista"));
-                                });
-
-                            });
-                        </script>
                     </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
@@ -255,14 +210,7 @@
     </div>
 
     <?php require_once(APPPATH . 'views/layout/_js.php'); ?>
-    <script>
-        $(document).ready(function() {
-            <?php foreach ($listActiveLink as $activeid) {
-                echo "$('#" . $activeid . "').addClass('active');";
-            }
-            ?>
-        });
-    </script>
+    
 </body>
 
 </html>

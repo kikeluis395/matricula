@@ -73,13 +73,13 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
-							<a href="<?php echo base_url() ?>index.php/dashboard1" class="nav-link" id="a_pago">
+							<a href="<?php echo base_url() ?>pago" class="nav-link" id="a_pago">
 								<i class="fas fa-hand-holding-usd nav-icon"></i>
 								<p>Pago</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?php echo base_url() ?>index.php/dashboard2" class="nav-link" id="a_horarios">
+							<a href="<?php echo base_url() ?>horarios" class="nav-link" id="a_horarios">
 								<i class="far fa-calendar-alt nav-icon"></i>
 								<p>Horarios</p>
 							</a>
@@ -98,6 +98,17 @@
 						<i class="nav-icon fas fa-list-alt"></i>
 						<p>
 							Malla Curricular
+						</p>
+					</a>
+				</li>
+
+				<hr>
+
+				<li class="nav-item">
+					<a href="<?php echo base_url() ?>Login/logout" class="nav-link" id="a_inicio">
+						<i class="nav-icon fas fa-power-off"></i>
+						<p>
+							Cerrar Sesión
 						</p>
 					</a>
 				</li>

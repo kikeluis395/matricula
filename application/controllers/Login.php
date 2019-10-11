@@ -64,4 +64,12 @@ class Login extends CI_Controller {
 
 		}
 	}
+
+	public function Logout(){
+
+		$this->session->unset_userdata('usuario');
+
+		header("Location:" . base_url() . "Login");
+		
+	}
 }

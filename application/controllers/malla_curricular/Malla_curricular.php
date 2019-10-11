@@ -29,7 +29,6 @@ class Malla_curricular extends CI_Controller {
 				$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
 
 				$this->load->model("Plan_curricular");
-
 				$plan_curricular = $this->Plan_curricular->getPlanCurricularByCarrera($alumno->cod_carrera_fk);
 
 				$this->load->model("CursoModel");
@@ -49,6 +48,7 @@ class Malla_curricular extends CI_Controller {
 					"anios" => $anios,
 					"listCursos" => $listCursos,
 					"listCursosLlevados" => $listCursosLlevados,
+					"plan_curricular" => $plan_curricular,
 					"listActiveLink" => $listActiveLink
 				);
 				
