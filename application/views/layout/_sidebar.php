@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: auto!important;">
 	<!-- Brand Logo -->
 	<a href="index3.html" class="brand-link bg_logo_unfv">
 		<img src="<?php echo base_url() ?>assets/img/logo_unfv.png" alt="UNFV Logo" width="235px" class="logo_unfv">

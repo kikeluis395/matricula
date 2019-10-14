@@ -36,4 +36,31 @@ class CursoModel extends CI_Model{
         
     }
 
+    public function getCursosByAnio(int $anio){
+
+        $filtros = array(
+            "ci.num_anio" => $anio
+        );
+
+        $this->db->select('cu.cod_curso, cu.descripcion, cu.num_creditos, cu.cod_plan_curricular_fk, ci.num_ciclo, ci.num_anio');
+        $this->db->join('ciclo as ci', 'cu.num_ciclo_fk = ci.num_ciclo');
+        $query = $this->db->get_where('curso as cu', $filtros);
+
+        return $query->result();
+
+    }
+
+    public function getCurso(string $cod_curso){
+
+        $filtros = array(
+            "cod_curso" => $cod_curso
+        );
+
+        $this->db->reset_query();
+        $query = $this->db->get_where('curso', $filtros);
+
+        return $query->row();
+        
+    }
+
 }
