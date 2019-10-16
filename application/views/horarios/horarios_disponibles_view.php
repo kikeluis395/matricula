@@ -26,7 +26,7 @@
                     return $return;
                 }
 
-                echo a_romano($curso->num_ciclo_fk);
+                echo a_romano($curso->num_ciclo);
             ?>
         </span>    
 </div>

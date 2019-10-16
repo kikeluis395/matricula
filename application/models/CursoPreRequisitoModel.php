@@ -20,6 +20,17 @@ class CursoPreRequisitoModel extends CI_Model{
         
     }
 
+    public function getCursosSiguientes(string $cod_curso){
+
+        $filtros = array(
+            "cod_curso_requisito_fk" => $cod_curso
+        );
+
+        $query = $this->db->get_where('cursos_pre_requisitos', $filtros);
+
+        return $query->result();
+    }
+
     
 
 }

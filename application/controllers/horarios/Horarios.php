@@ -1,4 +1,7 @@
 <?php
+
+use Dompdf\Exception;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Horarios extends CI_Controller {
@@ -76,78 +79,158 @@ class Horarios extends CI_Controller {
                 }else
                 {
 
-                    $curso_llevado = $this->Cursos_llevados->getUltimoAnio($alumno->cod_alumno);
+                    $listCursosLlevadosAprobados = $this->Cursos_llevados->getCursosLlevadosAprobados($alumno->cod_alumno);
 
-                    $anio = $curso_llevado->num_anio + 1;
-
-                    $this->load->model("CursoModel");
-                    $listCursosPermitidos = $this->CursoModel->getCursosByAnio($anio);
-
-                    if($listCursosPermitidos)
+                    if($listCursosLlevadosAprobados)
                     {
 
-                        foreach($listCursosPermitidos as $cursoPermitido)
+                        $listCursosPermitidos = array();
+                        $this->load->model("CursoPreRequisitoModel");
+                        $this->load->model("CursoModel");
+
+                        foreach($listCursosLlevadosAprobados as $cursoLllevadoAprobado)
                         {
 
-                            $this->load->model("CursoPreRequisitoModel");
-                            $listCursosPreRequisitos = $this->CursoPreRequisitoModel->getCursosPreRequisito($cursoPermitido->cod_curso);
+                            $listCursosSiguientes = $this->CursoPreRequisitoModel->getCursosSiguientes($cursoLllevadoAprobado->cod_curso_fk);
 
-                            if($listCursosPreRequisitos)
+                            if($listCursosSiguientes)
                             {
 
-                                foreach($listCursosPreRequisitos as $cursoPreRequisito)
+                                foreach($listCursosSiguientes as $cursoSiguiente)
                                 {
 
-                                    $this->load->model("Cursos_llevados");
-                                    $curso_llevado_pre = $this->Cursos_llevados->getCursoLlevadoByCurso($cursoPreRequisito->cod_curso_requisito_fk);
+                                    $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
+                                    array_push($listCursosPermitidos, $cursoPermitido);
 
-                                    if($curso_llevado_pre)
-                                    {
-
-                                        if($curso_llevado_pre->estado == 'REPROBADO')
-                                        {
-
-                                            unset($listCursosPermitidos[$cursoPermitido]);
-                                            break 1;
-
-                                        }
-
-                                    }
                                 }
-                                
 
-                                
 
                             }
+
                         }
 
-                    }
+                        $cursoMaxAnio = $this->CursoModel->getCursoMaxAnioByPlanCurricular($matricula->cod_plan_curricular_fk);
 
-                    $this->load->model("HorarioAlumnoModel");
-                    $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
+                        $anioActual = ($matricula->anio - $alumno->anio_ingreso) + 1;
 
-                    $listHorariosMatriculados = array();
-                    $listCountGroupCurso = array();
+                        $aniosParameter = array();
 
-                    if($listHorariosAlumno)
+                        if($anioActual <=  $cursoMaxAnio->num_anio)
+                        {
+                            
+                            for($anio = 1; $anio <=$anioActual; $anio++)
+                            {
+
+                                array_push($aniosParameter, $anio);
+
+                            }
+
+                        
+                        }else
+                        {
+
+                            for($anio = 1; $anio <=$cursoMaxAnio->num_anio; $anio++)
+                            {
+
+                                array_push($aniosParameter, $anio);
+
+                            }
+
+                        }
+
+                        $listCursosByAniosNotPre = $this->CursoModel->getCursosByListAniosNotPre($aniosParameter);
+
+                        if($listCursosByAniosNotPre)
+                        {
+
+                            foreach($listCursosByAniosNotPre as $cursoNotPre)
+                            {
+
+                                $curso_llevado_not_pre = $this->Cursos_llevados->getCursoLlevadoByCurso($cursoNotPre->cod_curso);
+
+                                if($curso_llevado_not_pre)
+                                {
+
+                                    if($curso_llevado_not_pre->estado == 'DESAPROBADO')
+                                    {
+
+                                        array_push($listCursosPermitidos, $cursoNotPre);
+
+                                    }
+
+                                }else
+                                {
+
+                                    array_push($listCursosPermitidos, $cursoNotPre);
+
+                                }
+
+                            }
+
+                        }
+
+                        $this->load->model("HorarioAlumnoModel");
+                        $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
+
+                        $listHorariosMatriculados = array();
+                        $listCountGroupCurso = array();
+
+                        if($listHorariosAlumno)
+                        {
+                            $this->load->model("HorariosModel");
+                            $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
+                            $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
+                        }
+
+                        $data = array(
+                            "show" => false,
+                            "message" => "",
+                            "tipo" => "",
+                            "alumno" => $alumno,
+                            "listActiveLink" => $listActiveLink,
+                            "listCursosPermitidos" => $listCursosPermitidos,
+                            "listHorariosMatriculados" => $listHorariosMatriculados,
+                            "listCountGroupCurso" => $listCountGroupCurso
+                        );
+        
+                        $this->load->view("horarios/horarios_view", $data);
+                        
+
+                    }else
                     {
-                        $this->load->model("HorariosModel");
-                        $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
-                        $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
+
+                        $anio = 1;
+
+                        $this->load->model("CursoModel");
+                        $listCursosPermitidos = $this->CursoModel->getCursosByAnio($anio);
+
+                        $this->load->model("HorarioAlumnoModel");
+                        $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
+
+                        $listHorariosMatriculados = array();
+                        $listCountGroupCurso = array();
+
+                        if($listHorariosAlumno)
+                        {
+                            $this->load->model("HorariosModel");
+                            $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
+                            $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
+                        }
+                        
+                        $data = array(
+                            "show" => false,
+                            "message" => "",
+                            "tipo" => "",
+                            "alumno" => $alumno,
+                            "listActiveLink" => $listActiveLink,
+                            "listCursosPermitidos" => $listCursosPermitidos,
+                            "listHorariosMatriculados" => $listHorariosMatriculados,
+                            "listCountGroupCurso" => $listCountGroupCurso
+                        );
+        
+                        $this->load->view("horarios/horarios_view", $data);
+
                     }
-                    
-                    $data = array(
-                        "show" => false,
-                        "message" => "",
-                        "tipo" => "",
-                        "alumno" => $alumno,
-                        "listActiveLink" => $listActiveLink,
-                        "listCursosPermitidos" => $listCursosPermitidos,
-                        "listHorariosMatriculados" => $listHorariosMatriculados,
-                        "listCountGroupCurso" => $listCountGroupCurso
-                    );
-    
-                    $this->load->view("horarios/horarios_view", $data);
 
                 }
                 
@@ -258,13 +341,13 @@ class Horarios extends CI_Controller {
             $periodo = '';
             $vez = 0;
 
-            if($curso->num_ciclo_fk == 1)
+            if($curso->num_ciclo == 1)
             {
                 $periodo = $matricula->anio . "-I";
 
             }else
             {
-                if($curso->num_ciclo_fk % 2 == 0)
+                if($curso->num_ciclo % 2 == 0)
                 {
                     $periodo = $matricula->anio . "-II";
                 }else
@@ -349,6 +432,16 @@ class Horarios extends CI_Controller {
         
             if($curso_llevado)
             {
+
+                if($curso_llevado->estado == 'EN CURSO')
+                {
+                    $this->output->set_content_type('application/json')->set_output(json_encode(array('message' => 'The email is already taken, choose another one')));
+                    //show_error('Howdy, this is my debug message', 500); 
+
+                    return Exception();
+
+                }
+                
                 $estado = 'EN CURSO';
                 $intentos = $curso_llevado->num_intentos + 1;
 

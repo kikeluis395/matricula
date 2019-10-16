@@ -69,4 +69,16 @@ class Cursos_llevados extends CI_Model{
         return $query->row();
     }
 
+    public function getCursosLlevadosAprobados(string $cod_alumno){
+
+        $filtros = array(
+            "cod_alumno_fk" => $cod_alumno,
+            "estado" => "APROBADO"
+        );
+
+        $query = $this->db->get_where('cursos_llevados', $filtros);
+
+        return $query->result();
+    }
+
 }

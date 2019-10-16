@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2019 a las 10:58:40
--- Versión del servidor: 10.1.30-MariaDB
--- Versión de PHP: 7.2.1
+-- Servidor: localhost
+-- Tiempo de generación: 15-10-2019 a las 21:14:00
+-- Versión del servidor: 10.3.17-MariaDB
+-- Versión de PHP: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -118,7 +118,7 @@ INSERT INTO `carrera` (`cod_carrera`, `descripcion`, `escuela`, `cod_facultad_fk
 (24, 'Lingüística y Literatura', 'Escuela Profesional de Lingüística y Literatura', 7),
 (25, 'Arquitectura y Urbanismo', 'Escuela Profesional de Arquitectura y Urbanismo', 8),
 (26, 'Ingeniería Civil', 'Escuela Profesional de Ingeniería Civil', 9),
-(27, 'Ingeniería de Sistemas', 'Escuela Profesional de Ingeniería de Sistemas', 10),
+(27, 'Ingenieria de Sistemas', 'Escuela Profesional de Ingenieria de Sistemas', 10),
 (28, 'Ingeniería de Transportes', 'Escuela Profesional de Ingeniería de Transportes', 10),
 (29, 'Ingeniería Agroindustrial', 'Escuela Profesional de Ingeniería Agroindustrial', 10),
 (30, 'Ingeniería Industrial', 'Escuela Profesional de Ingeniería Industrial', 10),
@@ -274,14 +274,6 @@ CREATE TABLE `cursos_llevados` (
   `num_intentos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `cursos_llevados`
---
-
-INSERT INTO `cursos_llevados` (`cod_alumno_fk`, `cod_curso_fk`, `estado`, `num_intentos`) VALUES
-('2015237215', '2A0125', 'EN CURSO', 2),
-('2015237215', '2C0187', 'EN CURSO', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -434,7 +426,7 @@ INSERT INTO `facultad` (`cod_facultad`, `descripcion`) VALUES
 (7, 'Facultad de Humanidades'),
 (8, 'Facultad de Arquitectura y Urbanismo'),
 (9, 'Facultad de Ingeniería Civil'),
-(10, 'Facultad de Ingeniería Industrial y de Sistemas'),
+(10, 'Facultad de Ingenieria Industrial y de Sistemas'),
 (11, 'Facultad de Ingeniería Geográfica, Ambiental y Ecoturismo'),
 (12, 'Facultad de Oceanografía, Pesquería, Ciencias Alimentarias y Acuicultura'),
 (13, 'Facultad de Ingeniería Electrónica e Informática'),
@@ -456,16 +448,6 @@ CREATE TABLE `horario_alumno` (
   `periodo` varchar(7) COLLATE utf8_spanish_ci NOT NULL,
   `vez` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `horario_alumno`
---
-
-INSERT INTO `horario_alumno` (`cod_horario_curso_fk`, `cod_matricula_fk`, `periodo`, `vez`) VALUES
-(10, '20152372152019', '2019-I', 1),
-(11, '20152372152019', '2019-I', 1),
-(15, '20152372152019', '2019-I', 1),
-(16, '20152372152019', '2019-I', 1);
 
 -- --------------------------------------------------------
 
@@ -496,29 +478,29 @@ INSERT INTO `horario_curso` (`cod_horario_curso`, `cod_docente_fk`, `cod_curso_f
 (3, 'A-4587', '2C0187', 'B5-5', 'A', 4, '12:10:00', '13:50:00', 'M', 44),
 (4, 'A-5678', '6C0037', 'B5-5', 'A', 4, '08:00:00', '09:40:00', 'M', 44),
 (5, 'A-5678', '6C0037', 'B5-6', 'A', 3, '08:00:00', '09:40:00', 'M', 44),
-(6, 'B-5432', '3B0103', 'B5-3', 'A', 1, '10:30:00', '13:50:00', 'M', 44),
-(7, 'B-5432', '3B0103', 'B5-3', 'A', 2, '11:20:00', '13:50:00', 'M', 44),
-(8, 'B-5432', '3B0103', 'B5-3', 'A', 5, '09:40:00', '11:20:00', 'M', 44),
-(9, 'C-4387', '8B0116', 'B5-3', 'A', 5, '11:20:00', '13:00:00', 'M', 43),
-(10, 'D-4069', '2A0125', 'LAB-1', 'A', 1, '08:50:00', '10:30:00', 'M', 39),
-(11, 'D-4069', '2A0125', 'LAB-1', 'A', 3, '09:40:00', '11:20:00', 'M', 39),
+(6, 'B-5432', '3B0103', 'B5-3', 'A', 1, '10:30:00', '13:50:00', 'M', 43),
+(7, 'B-5432', '3B0103', 'B5-3', 'A', 2, '11:20:00', '13:50:00', 'M', 43),
+(8, 'B-5432', '3B0103', 'B5-3', 'A', 5, '09:40:00', '11:20:00', 'M', 43),
+(9, 'C-4387', '8B0116', 'B5-3', 'A', 5, '11:20:00', '13:00:00', 'M', 42),
+(10, 'D-4069', '2A0125', 'LAB-1', 'A', 1, '08:50:00', '10:30:00', 'M', 34),
+(11, 'D-4069', '2A0125', 'LAB-1', 'A', 3, '09:40:00', '11:20:00', 'M', 34),
 (12, 'E-0489', '5A0060', 'LAB-1', 'A', 5, '08:00:00', '09:40:00', 'M', 45),
 (13, 'E-0489', '5A0060', 'B5-3', 'A', 4, '09:40:00', '12:10:00', 'M', 45),
 (14, 'A-1234', '3B0058', 'B5-6', 'B', 3, '13:00:00', '14:40:00', 'M', 45),
-(15, 'A-4587', '2C0187', 'B5-4', 'B', 1, '08:00:00', '10:30:00', 'M', 39),
-(16, 'A-4587', '2C0187', 'B5-4', 'B', 4, '08:00:00', '09:40:00', 'M', 39),
-(17, 'A-5678', '6C0037', 'B5-5', 'B', 1, '13:00:00', '14:40:00', 'M', 44),
-(18, 'A-5678', '6C0037', 'B5-6', 'B', 3, '09:40:00', '11:20:00', 'M', 44),
-(19, 'B-5432', '3B0103', 'B5-4', 'B', 1, '10:30:00', '13:00:00', 'M', 43),
-(20, 'B-5432', '3B0103', 'B5-4', 'B', 4, '10:30:00', '12:10:00', 'M', 43),
-(21, 'B-5432', '3B0103', 'B5-4', 'B', 5, '08:00:00', '09:40:00', 'M', 43),
+(15, 'A-4587', '2C0187', 'B5-4', 'B', 1, '08:00:00', '10:30:00', 'M', 38),
+(16, 'A-4587', '2C0187', 'B5-4', 'B', 4, '08:00:00', '09:40:00', 'M', 38),
+(17, 'A-5678', '6C0037', 'B5-5', 'B', 1, '13:00:00', '14:40:00', 'M', 43),
+(18, 'A-5678', '6C0037', 'B5-6', 'B', 3, '09:40:00', '11:20:00', 'M', 43),
+(19, 'B-5432', '3B0103', 'B5-4', 'B', 1, '10:30:00', '13:00:00', 'M', 42),
+(20, 'B-5432', '3B0103', 'B5-4', 'B', 4, '10:30:00', '12:10:00', 'M', 42),
+(21, 'B-5432', '3B0103', 'B5-4', 'B', 5, '08:00:00', '09:40:00', 'M', 42),
 (22, 'C-4387', '8B0116', 'B5-3', 'B', 2, '08:00:00', '09:40:00', 'M', 44),
 (23, 'D-4069', '2A0125', 'LAB-2', 'B', 5, '11:20:00', '13:00:00', 'M', 44),
 (24, 'D-4069', '2A0125', 'LAB-1', 'B', 2, '13:00:00', '14:40:00', 'M', 44),
 (25, 'E-0489', '5A0060', 'LAB-1', 'B', 2, '10:30:00', '12:10:00', 'M', 44),
 (26, 'E-0489', '5A0060', 'LAB-1', 'B', 5, '09:40:00', '11:20:00', 'M', 44),
 (27, 'E-0489', '5A0060', 'B5-3', 'B', 4, '12:10:00', '14:40:00', 'M', 44),
-(28, 'A-1234', '3B0058', 'B5-5', 'C', 5, '09:40:00', '11:20:00', 'M', 42),
+(28, 'A-1234', '3B0058', 'B5-5', 'C', 5, '09:40:00', '11:20:00', 'M', 41),
 (29, 'A-4587', '2C0187', 'B5-5', 'C', 2, '10:30:00', '12:10:00', 'M', 45),
 (30, 'A-4587', '2C0187', 'B5-5', 'C', 4, '09:40:00', '12:10:00', 'M', 45),
 (31, 'A-5678', '6C0037', 'B5-5', 'C', 1, '11:20:00', '13:00:00', 'M', 44),
@@ -527,9 +509,9 @@ INSERT INTO `horario_curso` (`cod_horario_curso`, `cod_docente_fk`, `cod_curso_f
 (34, 'B-5432', '3B0103', 'B5-5', 'C', 5, '11:20:00', '13:00:50', 'M', 43),
 (35, 'C-4387', '8B0116', 'B5-5', 'C', 3, '10:30:00', '12:10:00', 'M', 45),
 (36, 'D-4069', '2A0125', 'LAB-1', 'C', 1, '13:00:00', '16:20:00', 'M', 45),
-(37, 'E-0489', '5A0060', 'LAB-1', 'C', 2, '07:10:00', '09:40:00', 'M', 42),
-(38, 'E-0489', '5A0060', 'LAB-2', 'C', 6, '07:10:00', '08:50:00', 'M', 42),
-(39, 'E-0489', '5A0060', 'B5-4', 'C', 2, '12:10:00', '13:50:00', 'M', 42);
+(37, 'E-0489', '5A0060', 'LAB-1', 'C', 2, '07:10:00', '09:40:00', 'M', 41),
+(38, 'E-0489', '5A0060', 'LAB-2', 'C', 6, '07:10:00', '08:50:00', 'M', 41),
+(39, 'E-0489', '5A0060', 'B5-4', 'C', 2, '12:10:00', '13:50:00', 'M', 41);
 
 -- --------------------------------------------------------
 

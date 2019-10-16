@@ -100,9 +100,11 @@ function RegistrarCursosLlevados(baseURL){
 
     ShowSuccess("Se registraron los cursos exitosamente!");
 })
- .fail(function(e) {
-  console.log(e);
-  ShowError("No se pueden registrar los cursos!");
+ .fail(function(jqXHR, errorType, error) {
+  //console.log(e);
+  console.log(jqXHR);
+  console.log(errorType + ": " + error);
+  //ShowError("No se pueden registrar los cursos!");
 });
 
 }

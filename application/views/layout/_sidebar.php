@@ -44,19 +44,19 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
-							<a href="<?php echo base_url() ?>assets/vendor/AdminLTE-3.0.0-alpha/pages/charts/chartjs.html" class="nav-link" id="a_perfil">
+							<a href="<?php echo base_url() ?>perfil" class="nav-link" id="a_perfil">
 								<i class="fas fa-user-circle nav-icon"></i>
 								<p>Perfil</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?php echo base_url() ?>assets/vendor/AdminLTE-3.0.0-alpha/pages/charts/flot.html" class="nav-link" id="a_asignaturas">
+							<a href="<?php echo base_url() ?>asignaturas" class="nav-link" id="a_asignaturas">
 								<i class="fas fa-book nav-icon"></i>
 								<p>Asignaturas</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?php echo base_url() ?>assets/vendor/AdminLTE-3.0.0-alpha/pages/charts/inline.html" class="nav-link" id="a_reportes">
+							<a href="<?php echo base_url() ?>reportes" class="nav-link" id="a_reportes">
 								<i class="fas fa-file-pdf nav-icon"></i>
 								<p>Reportes</p>
 							</a>
