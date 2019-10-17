@@ -33,17 +33,62 @@ class Asignaturas extends CI_Controller {
 			$this->load->model("MatriculaModel");
 			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
 
-			$this->load->model("HorarioAlumnoModel");
-            $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByMatricula($matricula->cod_matricula);
 
-			$data = array(
-				"alumno" => $alumno,
-				"listActiveLink" => $listActiveLink,
-				"listAsignaturas" => $listAsignaturas,
-				"matricula" => $matricula
-			);
+
+			if($matricula)
+			{
+
+                $this->load->model("HorarioAlumnoModel");
+	            $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByMatricula($matricula->cod_matricula);
+
+	            if($listAsignaturas){
+
+	            	$data = array(
+					"show" => false,
+					"message" => "",
+					"tipo" => "",
+					"alumno" => $alumno,
+					"listActiveLink" => $listActiveLink,
+					"listAsignaturas" => $listAsignaturas,
+					"matricula" => $matricula
+					);
+
+	            }else{
+
+	            	$data = array(
+					"show" => true,
+					"message" => "Aun no hay cursos matriculados!",
+					"tipo" => "Warning",
+					"alumno" => $alumno,
+					"listActiveLink" => $listActiveLink,
+					"listAsignaturas" => $listAsignaturas,
+					"matricula" => $matricula
+					);
+
+	            }
+
+				
 			
-			$this->load->view("asignaturas/asignaturas_view", $data);
+				$this->load->view("asignaturas/asignaturas_view", $data);
+                
+            }else
+            {
+            	$listAsignaturas = array();
+            	
+                $data = array(
+					"show" => true,
+					"message" => "Usted aún no se ha matriculado!",
+					"tipo" => "Error",
+					"alumno" => $alumno,
+					"listActiveLink" => $listActiveLink,
+					"listAsignaturas" => $listAsignaturas,
+					"matricula" => $matricula
+				);
+
+                $this->load->view("asignaturas/asignaturas_view", $data);
+            }
+
+			
 
 		}else{
 

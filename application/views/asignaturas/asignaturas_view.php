@@ -69,6 +69,21 @@
                         </div>
                     </div>
 
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Periodo</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            </select>
+                        </div>
+                        </div>
+                    </div>
+
 
                     <div class="wrapper wrapper-content animated fadeInDown" style="opacity: 1;">
 
@@ -77,7 +92,12 @@
 
                             <div class="card" style="font-size: 14px">
                                 <div class="card-header">
-                                    <div class="card-title">Matricula <?php echo $matricula->anio?></div>
+                                    <div class="card-title">
+                                        <?php if($matricula!=null){
+                                            echo "Matricula" . $matricula->anio;
+                                            }
+                                        ?>
+                                    </div>
                                 </div>
                                 <div class="card-body body-cursos-permitidos">
 
@@ -156,6 +176,9 @@
         $('[data-toggle="tooltip"]').tooltip();
     </script>
 
+    <?php if($show == true) : ?>
+    <?php echo "<script>Show".$tipo."('".$message."');</script>"; ?>
+    <?php endif; ?>
     
 </body>
 

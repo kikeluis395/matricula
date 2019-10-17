@@ -1,7 +1,4 @@
 <?php
-
-use Dompdf\Exception;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Horarios extends CI_Controller {
@@ -236,12 +233,19 @@ class Horarios extends CI_Controller {
                 
             }else
             {
+                $listCursosPermitidos = array();
+                $listHorariosMatriculados = array();
+                $listCountGroupCurso = array();
+
                 $data = array(
 					"show" => true,
 					"message" => "Usted aún no se ha matriculado!",
 					"tipo" => "Error",
 					"alumno" => $alumno,
-					"listActiveLink" => $listActiveLink
+					"listActiveLink" => $listActiveLink,
+                    "listCursosPermitidos" => $listCursosPermitidos,
+                    "listHorariosMatriculados" => $listHorariosMatriculados,
+                    "listCountGroupCurso" => $listCountGroupCurso
 				);
 
                 $this->load->view("horarios/horarios_view", $data);
@@ -432,16 +436,6 @@ class Horarios extends CI_Controller {
         
             if($curso_llevado)
             {
-
-                if($curso_llevado->estado == 'EN CURSO')
-                {
-                    $this->output->set_content_type('application/json')->set_output(json_encode(array('message' => 'The email is already taken, choose another one')));
-                    //show_error('Howdy, this is my debug message', 500); 
-
-                    return Exception();
-
-                }
-                
                 $estado = 'EN CURSO';
                 $intentos = $curso_llevado->num_intentos + 1;
 
