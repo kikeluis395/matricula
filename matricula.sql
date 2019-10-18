@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 15-10-2019 a las 21:14:00
--- Versión del servidor: 10.3.17-MariaDB
--- Versión de PHP: 7.2.22
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 18-10-2019 a las 13:56:37
+-- Versión del servidor: 10.1.30-MariaDB
+-- Versión de PHP: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,18 +25,53 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `activacion`
+--
+
+CREATE TABLE `activacion` (
+  `cod_activacion` int(11) NOT NULL,
+  `descripcion` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `periodo` varchar(2) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `estado` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `activacion`
+--
+
+INSERT INTO `activacion` (`cod_activacion`, `descripcion`, `periodo`, `estado`) VALUES
+(1, 'MATRICULA', '1', 1),
+(2, 'RECTIFICACION', '1', 0),
+(3, 'PAGO', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `administrador`
+--
+
+CREATE TABLE `administrador` (
+  `cod_administrador` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `dni_fk` varchar(8) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `administrador`
+--
+
+INSERT INTO `administrador` (`cod_administrador`, `dni_fk`) VALUES
+('2015111111', '11111111');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `alumno`
 --
 
 CREATE TABLE `alumno` (
   `cod_alumno` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `apellido_paterno` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `apellido_materno` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `nombres` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `anio_nacimiento` date NOT NULL,
-  `dni` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
+  `dni_fk` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
   `anio_ingreso` int(11) NOT NULL,
-  `sexo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `cod_carrera_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -44,8 +79,8 @@ CREATE TABLE `alumno` (
 -- Volcado de datos para la tabla `alumno`
 --
 
-INSERT INTO `alumno` (`cod_alumno`, `apellido_paterno`, `apellido_materno`, `nombres`, `anio_nacimiento`, `dni`, `anio_ingreso`, `sexo`, `cod_carrera_fk`) VALUES
-('2015237215', 'AYALA', 'VIVAS', 'JESUS DANIEL', '1996-11-21', '70776456', 2015, 'MASCULINO', 27);
+INSERT INTO `alumno` (`cod_alumno`, `dni_fk`, `anio_ingreso`, `cod_carrera_fk`) VALUES
+('2015237215', '70776456', 2015, 27);
 
 -- --------------------------------------------------------
 
@@ -118,7 +153,7 @@ INSERT INTO `carrera` (`cod_carrera`, `descripcion`, `escuela`, `cod_facultad_fk
 (24, 'Lingüística y Literatura', 'Escuela Profesional de Lingüística y Literatura', 7),
 (25, 'Arquitectura y Urbanismo', 'Escuela Profesional de Arquitectura y Urbanismo', 8),
 (26, 'Ingeniería Civil', 'Escuela Profesional de Ingeniería Civil', 9),
-(27, 'Ingenieria de Sistemas', 'Escuela Profesional de Ingenieria de Sistemas', 10),
+(27, 'Ingeniería de Sistemas', 'Escuela Profesional de Ingeniería de Sistemas', 10),
 (28, 'Ingeniería de Transportes', 'Escuela Profesional de Ingeniería de Transportes', 10),
 (29, 'Ingeniería Agroindustrial', 'Escuela Profesional de Ingeniería Agroindustrial', 10),
 (30, 'Ingeniería Industrial', 'Escuela Profesional de Ingeniería Industrial', 10),
@@ -380,26 +415,21 @@ INSERT INTO `dia` (`cod_dia`, `descripcion`) VALUES
 
 CREATE TABLE `docente` (
   `cod_docente` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `apellido_paterno` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `apellido_materno` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `nombres` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `anio_nacimiento` date NOT NULL,
-  `dni` varchar(8) COLLATE utf8_spanish_ci NOT NULL
+  `dni_fk` varchar(8) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `docente`
 --
 
-INSERT INTO `docente` (`cod_docente`, `apellido_paterno`, `apellido_materno`, `nombres`, `anio_nacimiento`, `dni`) VALUES
-('A-1234', 'TICSE', 'NAVARRETE', 'ELOY', '1984-07-13', '11457801'),
-('A-4587', 'RAMIREZ', 'VEGA', 'JULIO SAMUEL', '1980-06-07', '11679360'),
-('A-5678', 'OBREGON', 'LASO', 'MARIA', '1982-12-09', '11679361'),
-('B-5432', 'BAUTISTA', 'CUETO', 'JHAIR', '1989-04-07', '33467090'),
-('C-4387', 'MEDRANO', 'ALARCON', 'JORGE', '1985-06-12', '22579845'),
-('D-4069', 'SAAVEDRA', 'DELGADO', 'NANCY', '1984-03-15', '77948534'),
-('E-0489', 'QUISPE', 'PEREZ', 'LEONARDO', '1988-01-24', '55970468'),
-('F-6548', 'VILCHEZ', 'ANDIA', 'ANTONIO', '1984-10-06', '68574907');
+INSERT INTO `docente` (`cod_docente`, `dni_fk`) VALUES
+('A-1234', '49706895'),
+('B-4321', '58690498'),
+('C-45678', '68950134'),
+('D-0987', '70473512'),
+('E-6093', '74637589'),
+('F-9358', '79509789'),
+('G-3687', '86957843');
 
 -- --------------------------------------------------------
 
@@ -426,7 +456,7 @@ INSERT INTO `facultad` (`cod_facultad`, `descripcion`) VALUES
 (7, 'Facultad de Humanidades'),
 (8, 'Facultad de Arquitectura y Urbanismo'),
 (9, 'Facultad de Ingeniería Civil'),
-(10, 'Facultad de Ingenieria Industrial y de Sistemas'),
+(10, 'Facultad de Ingeniería Industrial y de Sistemas'),
 (11, 'Facultad de Ingeniería Geográfica, Ambiental y Ecoturismo'),
 (12, 'Facultad de Oceanografía, Pesquería, Ciencias Alimentarias y Acuicultura'),
 (13, 'Facultad de Ingeniería Electrónica e Informática'),
@@ -448,6 +478,14 @@ CREATE TABLE `horario_alumno` (
   `periodo` varchar(7) COLLATE utf8_spanish_ci NOT NULL,
   `vez` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `horario_alumno`
+--
+
+INSERT INTO `horario_alumno` (`cod_horario_curso_fk`, `cod_matricula_fk`, `periodo`, `vez`) VALUES
+(23, '20152372152019', '2019-I', 1),
+(24, '20152372152019', '2019-II', 1);
 
 -- --------------------------------------------------------
 
@@ -473,45 +511,46 @@ CREATE TABLE `horario_curso` (
 --
 
 INSERT INTO `horario_curso` (`cod_horario_curso`, `cod_docente_fk`, `cod_curso_fk`, `cod_aula_fk`, `seccion`, `cod_dia_fk`, `hora_entrada`, `hora_salida`, `turno`, `cupos`) VALUES
-(1, 'A-1234', '3B0058', 'B5-6', 'A', 3, '11:20:00', '13:00:00', 'M', 44),
-(2, 'A-4587', '2C0187', 'B5-4', 'A', 2, '08:00:00', '10:30:00', 'M', 44),
-(3, 'A-4587', '2C0187', 'B5-5', 'A', 4, '12:10:00', '13:50:00', 'M', 44),
-(4, 'A-5678', '6C0037', 'B5-5', 'A', 4, '08:00:00', '09:40:00', 'M', 44),
-(5, 'A-5678', '6C0037', 'B5-6', 'A', 3, '08:00:00', '09:40:00', 'M', 44),
-(6, 'B-5432', '3B0103', 'B5-3', 'A', 1, '10:30:00', '13:50:00', 'M', 43),
-(7, 'B-5432', '3B0103', 'B5-3', 'A', 2, '11:20:00', '13:50:00', 'M', 43),
-(8, 'B-5432', '3B0103', 'B5-3', 'A', 5, '09:40:00', '11:20:00', 'M', 43),
-(9, 'C-4387', '8B0116', 'B5-3', 'A', 5, '11:20:00', '13:00:00', 'M', 42),
-(10, 'D-4069', '2A0125', 'LAB-1', 'A', 1, '08:50:00', '10:30:00', 'M', 34),
-(11, 'D-4069', '2A0125', 'LAB-1', 'A', 3, '09:40:00', '11:20:00', 'M', 34),
-(12, 'E-0489', '5A0060', 'LAB-1', 'A', 5, '08:00:00', '09:40:00', 'M', 45),
-(13, 'E-0489', '5A0060', 'B5-3', 'A', 4, '09:40:00', '12:10:00', 'M', 45),
-(14, 'A-1234', '3B0058', 'B5-6', 'B', 3, '13:00:00', '14:40:00', 'M', 45),
-(15, 'A-4587', '2C0187', 'B5-4', 'B', 1, '08:00:00', '10:30:00', 'M', 38),
-(16, 'A-4587', '2C0187', 'B5-4', 'B', 4, '08:00:00', '09:40:00', 'M', 38),
-(17, 'A-5678', '6C0037', 'B5-5', 'B', 1, '13:00:00', '14:40:00', 'M', 43),
-(18, 'A-5678', '6C0037', 'B5-6', 'B', 3, '09:40:00', '11:20:00', 'M', 43),
-(19, 'B-5432', '3B0103', 'B5-4', 'B', 1, '10:30:00', '13:00:00', 'M', 42),
-(20, 'B-5432', '3B0103', 'B5-4', 'B', 4, '10:30:00', '12:10:00', 'M', 42),
-(21, 'B-5432', '3B0103', 'B5-4', 'B', 5, '08:00:00', '09:40:00', 'M', 42),
-(22, 'C-4387', '8B0116', 'B5-3', 'B', 2, '08:00:00', '09:40:00', 'M', 44),
-(23, 'D-4069', '2A0125', 'LAB-2', 'B', 5, '11:20:00', '13:00:00', 'M', 44),
-(24, 'D-4069', '2A0125', 'LAB-1', 'B', 2, '13:00:00', '14:40:00', 'M', 44),
-(25, 'E-0489', '5A0060', 'LAB-1', 'B', 2, '10:30:00', '12:10:00', 'M', 44),
-(26, 'E-0489', '5A0060', 'LAB-1', 'B', 5, '09:40:00', '11:20:00', 'M', 44),
-(27, 'E-0489', '5A0060', 'B5-3', 'B', 4, '12:10:00', '14:40:00', 'M', 44),
-(28, 'A-1234', '3B0058', 'B5-5', 'C', 5, '09:40:00', '11:20:00', 'M', 41),
-(29, 'A-4587', '2C0187', 'B5-5', 'C', 2, '10:30:00', '12:10:00', 'M', 45),
-(30, 'A-4587', '2C0187', 'B5-5', 'C', 4, '09:40:00', '12:10:00', 'M', 45),
-(31, 'A-5678', '6C0037', 'B5-5', 'C', 1, '11:20:00', '13:00:00', 'M', 44),
-(32, 'A-5678', '6C0037', 'B5-5', 'C', 3, '12:10:00', '13:50:00', 'M', 44),
-(33, 'B-5432', '3B0103', 'B5-5', 'C', 3, '07:10:00', '10:30:00', 'M', 43),
-(34, 'B-5432', '3B0103', 'B5-5', 'C', 5, '11:20:00', '13:00:50', 'M', 43),
-(35, 'C-4387', '8B0116', 'B5-5', 'C', 3, '10:30:00', '12:10:00', 'M', 45),
-(36, 'D-4069', '2A0125', 'LAB-1', 'C', 1, '13:00:00', '16:20:00', 'M', 45),
-(37, 'E-0489', '5A0060', 'LAB-1', 'C', 2, '07:10:00', '09:40:00', 'M', 41),
-(38, 'E-0489', '5A0060', 'LAB-2', 'C', 6, '07:10:00', '08:50:00', 'M', 41),
-(39, 'E-0489', '5A0060', 'B5-4', 'C', 2, '12:10:00', '13:50:00', 'M', 41);
+(1, 'C-45678', '3B0058', 'B5-6', 'A', 3, '11:20:00', '13:00:00', 'M', 44),
+(2, 'B-4321', '2C0187', 'B5-4', 'A', 2, '08:00:00', '10:30:00', 'M', 44),
+(3, 'B-4321', '2C0187', 'B5-5', 'A', 4, '12:10:00', '13:50:00', 'M', 44),
+(4, 'F-9358', '6C0037', 'B5-5', 'A', 4, '08:00:00', '09:40:00', 'M', 44),
+(5, 'F-9358', '6C0037', 'B5-6', 'A', 3, '08:00:00', '09:40:00', 'M', 44),
+(6, 'D-0987', '3B0103', 'B5-3', 'A', 1, '10:30:00', '13:50:00', 'M', 44),
+(7, 'D-0987', '3B0103', 'B5-3', 'A', 2, '11:20:00', '13:50:00', 'M', 44),
+(8, 'D-0987', '3B0103', 'B5-3', 'A', 5, '09:40:00', '11:20:00', 'M', 44),
+(9, 'G-3687', '8B0116', 'B5-3', 'A', 5, '11:20:00', '13:00:00', 'M', 43),
+(10, 'A-1234', '2A0125', 'LAB-1', 'A', 1, '08:50:00', '10:30:00', 'M', 0),
+(11, 'A-1234', '2A0125', 'LAB-1', 'A', 3, '09:40:00', '11:20:00', 'M', 0),
+(12, 'E-6093', '5A0060', 'LAB-1', 'A', 5, '08:00:00', '09:40:00', 'M', 45),
+(13, 'E-6093', '5A0060', 'B5-3', 'A', 4, '09:40:00', '12:10:00', 'M', 45),
+(14, 'C-45678', '3B0058', 'B5-6', 'B', 3, '13:00:00', '14:40:00', 'M', 45),
+(15, 'B-4321', '2C0187', 'B5-4', 'B', 1, '08:00:00', '10:30:00', 'M', 39),
+(16, 'B-4321', '2C0187', 'B5-4', 'B', 4, '08:00:00', '09:40:00', 'M', 39),
+(17, 'F-9358', '6C0037', 'B5-5', 'B', 1, '13:00:00', '14:40:00', 'M', 44),
+(18, 'F-9358', '6C0037', 'B5-6', 'B', 3, '09:40:00', '11:20:00', 'M', 44),
+(19, 'D-0987', '3B0103', 'B5-4', 'B', 1, '10:30:00', '13:00:00', 'M', 43),
+(20, 'D-0987', '3B0103', 'B5-4', 'B', 4, '10:30:00', '12:10:00', 'M', 43),
+(21, 'D-0987', '3B0103', 'B5-4', 'B', 5, '08:00:00', '09:40:00', 'M', 43),
+(22, 'G-3687', '8B0116', 'B5-3', 'B', 2, '08:00:00', '09:40:00', 'M', 44),
+(23, 'A-1234', '2A0125', 'LAB-2', 'B', 5, '11:20:00', '13:00:00', 'M', 43),
+(24, 'A-1234', '2A0125', 'LAB-1', 'B', 2, '13:00:00', '14:40:00', 'M', 43),
+(25, 'E-6093', '5A0060', 'LAB-1', 'B', 2, '10:30:00', '12:10:00', 'M', 44),
+(26, 'E-6093', '5A0060', 'LAB-1', 'B', 5, '09:40:00', '11:20:00', 'M', 44),
+(27, 'E-6093', '5A0060', 'B5-3', 'B', 4, '12:10:00', '14:40:00', 'M', 44),
+(28, 'C-45678', '3B0058', 'B5-5', 'C', 5, '09:40:00', '11:20:00', 'M', 42),
+(29, 'B-4321', '2C0187', 'B5-5', 'C', 2, '10:30:00', '12:10:00', 'M', 45),
+(30, 'B-4321', '2C0187', 'B5-5', 'C', 4, '09:40:00', '12:10:00', 'M', 45),
+(31, 'F-9358', '6C0037', 'B5-5', 'C', 1, '11:20:00', '13:00:00', 'M', 44),
+(32, 'F-9358', '6C0037', 'B5-5', 'C', 3, '12:10:00', '13:50:00', 'M', 44),
+(33, 'D-0987', '3B0103', 'B5-5', 'C', 3, '07:10:00', '10:30:00', 'M', 43),
+(34, 'D-0987', '3B0103', 'B5-5', 'C', 5, '11:20:00', '13:00:50', 'M', 43),
+(35, 'G-3687', '8B0116', 'B5-5', 'C', 3, '10:30:00', '12:10:00', 'M', 45),
+(36, 'A-1234', '2A0125', 'LAB-1', 'C', 1, '13:00:00', '16:20:00', 'M', 45),
+(37, 'E-6093', '5A0060', 'LAB-1', 'C', 2, '07:10:00', '09:40:00', 'M', 42),
+(38, 'E-6093', '5A0060', 'LAB-2', 'C', 6, '07:10:00', '08:50:00', 'M', 42),
+(39, 'E-6093', '5A0060', 'B5-4', 'C', 2, '12:10:00', '13:50:00', 'M', 42),
+(40, 'C-45678', '3A0014', 'B5-3', 'A', 3, '12:10:00', '14:40:00', 'M', 40);
 
 -- --------------------------------------------------------
 
@@ -588,7 +627,38 @@ CREATE TABLE `pago` (
 --
 
 INSERT INTO `pago` (`cod_pago`, `fecha`, `monto`) VALUES
-('1234567890', 1570772324835, '164.00');
+('1234567890', 1571368788315, '164.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `persona`
+--
+
+CREATE TABLE `persona` (
+  `dni` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
+  `apellido_paterno` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `apellido_materno` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombres` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `anio_nacimiento` date NOT NULL,
+  `sexo` varchar(10) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`dni`, `apellido_paterno`, `apellido_materno`, `nombres`, `anio_nacimiento`, `sexo`) VALUES
+('11111111', 'VILCHEZ', 'GONZALES', 'RAUL', '1990-03-28', 'MASCULINO'),
+('49706895', 'MANRIQUE', 'TAPIA', 'ALEXIS', '1988-12-04', 'MASCULINO'),
+('58690498', 'QUISPE', 'RODRIGUEZ', 'LEONARDO', '1987-08-22', 'MASCULINO'),
+('68950134', 'SAAVEDRA', 'RAMIREZ', 'NANCY', '1986-07-16', 'FEMENINO'),
+('70473512', 'CORDOVA', 'SANCHEZ', 'JULIETA', '1989-02-18', 'FEMENINO'),
+('70594822', 'CALIXTRO', 'MENDOZA', 'HUMBERTO', '1979-05-26', 'MASCULINO'),
+('70776456', 'AYALA', 'VIVAS', 'JESUS DANIEL', '1996-11-21', 'MASCULINO'),
+('74637589', 'MEDRANO', 'VELARDE', 'JORGE', '1982-04-15', 'MASCULINO'),
+('79509789', 'BAUTISTA', 'LASO', 'TERESA', '1985-06-03', 'FEMENINO'),
+('86957843', 'TICSE', 'NAVARRETE', 'ELOY', '1980-10-09', 'MASCULINO');
 
 -- --------------------------------------------------------
 
@@ -617,7 +687,8 @@ INSERT INTO `plan_curricular` (`cod_plan_curricular`, `cod_carrera_fk`, `anio`) 
 
 CREATE TABLE `usuario` (
   `cod_usuario` int(11) NOT NULL,
-  `cod_alumno_fk` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `dni_fk` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `clave` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `cod_nivel_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -626,19 +697,34 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`cod_usuario`, `cod_alumno_fk`, `clave`, `cod_nivel_fk`) VALUES
-(1, '2015237215', 'daniel7712', 3);
+INSERT INTO `usuario` (`cod_usuario`, `dni_fk`, `codigo`, `clave`, `cod_nivel_fk`) VALUES
+(2, '70776456', '2015237215', 'daniel7712', 3),
+(3, '11111111', '2015111111', 'admin123.', 1);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `activacion`
+--
+ALTER TABLE `activacion`
+  ADD PRIMARY KEY (`cod_activacion`);
+
+--
+-- Indices de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  ADD PRIMARY KEY (`cod_administrador`),
+  ADD KEY `dni_fk` (`dni_fk`);
+
+--
 -- Indices de la tabla `alumno`
 --
 ALTER TABLE `alumno`
   ADD PRIMARY KEY (`cod_alumno`),
-  ADD KEY `cod_carrera_fk` (`cod_carrera_fk`);
+  ADD KEY `cod_carrera_fk` (`cod_carrera_fk`),
+  ADD KEY `dni_fk` (`dni_fk`);
 
 --
 -- Indices de la tabla `aula`
@@ -691,7 +777,8 @@ ALTER TABLE `dia`
 -- Indices de la tabla `docente`
 --
 ALTER TABLE `docente`
-  ADD PRIMARY KEY (`cod_docente`);
+  ADD PRIMARY KEY (`cod_docente`),
+  ADD KEY `dni` (`dni_fk`);
 
 --
 -- Indices de la tabla `facultad`
@@ -744,6 +831,12 @@ ALTER TABLE `pago`
   ADD PRIMARY KEY (`cod_pago`);
 
 --
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`dni`);
+
+--
 -- Indices de la tabla `plan_curricular`
 --
 ALTER TABLE `plan_curricular`
@@ -756,7 +849,7 @@ ALTER TABLE `plan_curricular`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`cod_usuario`),
   ADD KEY `cod_nivel_fk` (`cod_nivel_fk`),
-  ADD KEY `cod_alumno_fk` (`cod_alumno_fk`);
+  ADD KEY `cod_alumno_fk` (`dni_fk`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -778,7 +871,7 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `horario_curso`
 --
 ALTER TABLE `horario_curso`
-  MODIFY `cod_horario_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `cod_horario_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `plan_curricular`
@@ -790,17 +883,24 @@ ALTER TABLE `plan_curricular`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
+-- Filtros para la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  ADD CONSTRAINT `administrador_ibfk_1` FOREIGN KEY (`dni_fk`) REFERENCES `persona` (`dni`);
+
+--
 -- Filtros para la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  ADD CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`cod_carrera_fk`) REFERENCES `carrera` (`cod_carrera`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`dni_fk`) REFERENCES `persona` (`dni`),
+  ADD CONSTRAINT `alumno_ibfk_2` FOREIGN KEY (`cod_carrera_fk`) REFERENCES `carrera` (`cod_carrera`);
 
 --
 -- Filtros para la tabla `carrera`
@@ -820,7 +920,7 @@ ALTER TABLE `curso`
 --
 ALTER TABLE `cursos_llevados`
   ADD CONSTRAINT `cursos_llevados_ibfk_1` FOREIGN KEY (`cod_curso_fk`) REFERENCES `curso` (`cod_curso`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cursos_llevados_ibfk_2` FOREIGN KEY (`cod_alumno_fk`) REFERENCES `alumno` (`cod_alumno`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `cursos_llevados_ibfk_2` FOREIGN KEY (`cod_alumno_fk`) REFERENCES `alumno` (`cod_alumno`);
 
 --
 -- Filtros para la tabla `cursos_pre_requisitos`
@@ -828,6 +928,12 @@ ALTER TABLE `cursos_llevados`
 ALTER TABLE `cursos_pre_requisitos`
   ADD CONSTRAINT `cursos_pre_requisitos_ibfk_1` FOREIGN KEY (`cod_curso_fk`) REFERENCES `curso` (`cod_curso`),
   ADD CONSTRAINT `cursos_pre_requisitos_ibfk_2` FOREIGN KEY (`cod_curso_requisito_fk`) REFERENCES `curso` (`cod_curso`);
+
+--
+-- Filtros para la tabla `docente`
+--
+ALTER TABLE `docente`
+  ADD CONSTRAINT `docente_ibfk_1` FOREIGN KEY (`dni_fk`) REFERENCES `persona` (`dni`);
 
 --
 -- Filtros para la tabla `horario_alumno`
@@ -850,8 +956,8 @@ ALTER TABLE `horario_curso`
 --
 ALTER TABLE `matricula`
   ADD CONSTRAINT `matricula_ibfk_1` FOREIGN KEY (`cod_pago_fk`) REFERENCES `pago` (`cod_pago`),
-  ADD CONSTRAINT `matricula_ibfk_2` FOREIGN KEY (`cod_alumno_fk`) REFERENCES `alumno` (`cod_alumno`),
-  ADD CONSTRAINT `matricula_ibfk_3` FOREIGN KEY (`cod_plan_curricular_fk`) REFERENCES `plan_curricular` (`cod_plan_curricular`);
+  ADD CONSTRAINT `matricula_ibfk_3` FOREIGN KEY (`cod_plan_curricular_fk`) REFERENCES `plan_curricular` (`cod_plan_curricular`),
+  ADD CONSTRAINT `matricula_ibfk_4` FOREIGN KEY (`cod_alumno_fk`) REFERENCES `alumno` (`cod_alumno`);
 
 --
 -- Filtros para la tabla `plan_curricular`
@@ -863,8 +969,8 @@ ALTER TABLE `plan_curricular`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`cod_alumno_fk`) REFERENCES `alumno` (`cod_alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`cod_nivel_fk`) REFERENCES `nivel` (`cod_nivel`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`cod_nivel_fk`) REFERENCES `nivel` (`cod_nivel`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`dni_fk`) REFERENCES `persona` (`dni`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
