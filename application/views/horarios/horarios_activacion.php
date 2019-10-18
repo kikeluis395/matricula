@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Matricula | Reportes</title>
+    <title>Matricula | Horarios</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -34,7 +34,7 @@
                         <div class="container-fluid">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>home">Home</a></li>
-                                <li class="breadcrumb-item active">Reportes</li>
+                                <li class="breadcrumb-item active">Horarios</li>
                             </ol>
                         </div><!-- /.container-fluid -->
                     </div>
@@ -62,8 +62,8 @@
                                     <i class="fas fa-file-invoice-dollar text-navy mid-icon fa-3x ml-3"></i>
                                 </div>
                                 <div class="col-md-11 col-lg-11 col-sm-11">
-                                    <h2>Reportes</h2>
-                                    <span>Muestra de asignaturas en formato PDF por periodo.</span>
+                                    <h2>Horarios</h2>
+                                    <span>Elegir horarios de acuerdo a los cursos deseados.</span>
                                 </div>
                             </div>
                         </div>
@@ -74,17 +74,12 @@
 
                         <div class="no-margins" style="opacity: 1;">
                            
-                        <?php if(count($listPeriodos)>0):?>
 
                             <div class="card" style="padding: 10px">
                                 <div class="card-body text-center">
-                                    <img src="<?php echo base_url() ?>assets/img/logo_pdf.png" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
-                                    
-                                    <a class="btn btn-primary" href="<?php echo base_url() ?>asignaturas/Asignaturas/PdfAsignaturas" target="_blank" role="button">Ver PDF</a>
-                                </div>
+                                    <img src="<?php echo base_url() ?>assets/img/countdown.png" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
+                                    <h4>Los horarios aún no se han sido activado!</h4></div>
                             </div>
-
-                        <?php endif; ?>
 
                         </div>
                     </div>
@@ -96,11 +91,7 @@
     </div>
 
     <?php require_once(APPPATH . 'views/layout/_js.php'); ?>
-    <script src="<?php echo base_url('assets'); ?>/js/login.js"></script>
     
-    <?php if($show == true) : ?>
-    <?php echo "<script>Show".$tipo."('".$message."');</script>"; ?>
-    <?php endif; ?>
 
 </body>
 

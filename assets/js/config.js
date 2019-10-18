@@ -108,3 +108,21 @@ function RegistrarCursosLlevados(baseURL){
 });
 
 }
+
+
+function VerAsignaturas(baseURL){
+  var periodo = $("#selectPeriodo option:selected").val();
+
+  var datos = {
+    "periodo" : periodo
+  };
+
+  $.post( baseURL + "asignaturas/Asignaturas/VerAsignaturas", datos, function(response) {
+
+    $("#contenedor-asignaturas").html(response);
+
+  })
+  .fail(function(jqXHR, errorType, error) {
+    console.log("No se listaron las asignaturas!")
+  });
+}

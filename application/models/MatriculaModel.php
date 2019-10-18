@@ -11,7 +11,8 @@ class MatriculaModel extends CI_Model{
     public function getMatriculaFromAlumno(string $cod_alumno){
 
         $filtros = array(
-            "cod_alumno_fk" => $cod_alumno
+            "cod_alumno_fk" => $cod_alumno,
+            "anio" => date("Y")
         );
 
         return $this->db->get_where("matricula", $filtros)->row();

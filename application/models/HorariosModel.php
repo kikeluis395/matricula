@@ -14,11 +14,12 @@ class HorariosModel extends CI_Model{
             "cu.cod_curso" => $cod_curso
         );
 
-        $this->db->select('cu.cod_curso, cu.descripcion, cu.num_creditos, cu.cod_plan_curricular_fk, cu.num_ciclo_fk, ho_cu.seccion, di.descripcion, ho_cu.cod_dia_fk, doc.apellido_paterno, doc.apellido_materno, doc.nombres, ho_cu.hora_entrada, ho_cu.hora_salida');
+        $this->db->select('cu.cod_curso, cu.descripcion, cu.num_creditos, cu.cod_plan_curricular_fk, cu.num_ciclo_fk, ho_cu.seccion, di.descripcion, ho_cu.cod_dia_fk, pe.apellido_paterno, pe.apellido_materno, pe.nombres, ho_cu.hora_entrada, ho_cu.hora_salida');
         $this->db->join('docente as doc', 'ho_cu.cod_docente_fk = doc.cod_docente');
         $this->db->join('aula as au', 'ho_cu.cod_aula_fk = au.cod_aula');
         $this->db->join('curso as cu', 'ho_cu.cod_curso_fk = cu.cod_curso');
         $this->db->join('dia as di', 'ho_cu.cod_dia_fk = di.cod_dia');
+        $this->db->join('persona as pe', 'doc.dni_fk = pe.dni');
         $this->db->order_by('ho_cu.seccion', 'ASC');
         $this->db->order_by('ho_cu.cod_dia_fk', 'ASC');
         $query = $this->db->get_where('horario_curso as ho_cu', $filtros);
@@ -48,6 +49,7 @@ class HorariosModel extends CI_Model{
             "seccion" => $seccion
         );
 
+        $this->db->reset_query();
         $this->db->select('cupos');
         $this->db->limit(1);
         $query = $this->db->get_where('horario_curso', $filtros);
@@ -95,10 +97,11 @@ class HorariosModel extends CI_Model{
             array_push($listIDHorarioCurso, $horario_curso->cod_horario_curso_fk);
         }
 
-        $this->db->select('cu.cod_curso, cu.descripcion, ho_cu.hora_entrada, ho_cu.seccion, ho_cu.hora_salida, ho_cu.cod_dia_fk,di.descripcion as descripcion_dia, doc.apellido_paterno, doc.apellido_materno, doc.nombres');
+        $this->db->select('cu.cod_curso, cu.descripcion, ho_cu.hora_entrada, ho_cu.seccion, ho_cu.hora_salida, ho_cu.cod_dia_fk,di.descripcion as descripcion_dia, pe.apellido_paterno, pe.apellido_materno, pe.nombres');
         $this->db->join('curso as cu', 'ho_cu.cod_curso_fk = cu.cod_curso');
         $this->db->join('docente as doc', 'ho_cu.cod_docente_fk = doc.cod_docente');
         $this->db->join('dia as di', 'ho_cu.cod_dia_fk = di.cod_dia');
+        $this->db->join('persona as pe', 'doc.dni_fk = pe.dni');
         $this->db->where_in('ho_cu.cod_horario_curso', $listIDHorarioCurso);
         $this->db->order_by('cu.cod_curso', 'ASC');
         $this->db->order_by('di.cod_dia', 'ASC');

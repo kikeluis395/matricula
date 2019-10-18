@@ -25,23 +25,44 @@ class Reportes extends CI_Controller {
 
 			$usuario = $this->session->userdata('usuario');
 
-			$this->load->model("AlumnoModel");
-			$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
-
-			$this->load->model("MatriculaModel");
-			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
-
 			$listActiveLink = array("a_alumno" => "a_alumno", "a_reportes" => "a_reportes");
 
-			$data = array(
-				"show" => false,
-				"message" => "",
-				"tipo" => "",
-				"alumno" => $alumno,
-				"listActiveLink" => $listActiveLink
-			);
+			$this->load->model("HorarioAlumnoModel");
+			$listPeriodos = $this->HorarioAlumnoModel->getPeriodosByMatriculaAndAlumno($usuario->cod_alumno);
 
-			$this->load->view("reportes/reportes_view", $data);
+			if($listPeriodos)
+			{
+
+				// $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByMatricula($matricula->cod_matricula);
+
+				// $data = array(
+				// 	"show" => true,
+				// 	"message" => "Aun no hay periodos matriculados!",
+				// 	"tipo" => "Warning",
+				// 	"usuario" => $usuario,
+				// 	"listActiveLink" => $listActiveLink,
+				// 	"listAsignaturas" => array(),
+				// 	"listPeriodos" => $listPeriodos
+				// );
+
+				// $this->load->view("asignaturas/asignaturas_view", $data);
+
+			}else
+			{
+
+				$data = array(
+					"show" => true,
+					"message" => "Aun no hay periodos matriculados!",
+					"tipo" => "Warning",
+					"usuario" => $usuario,
+					"listActiveLink" => $listActiveLink,
+					"listPeriodos" => array()
+				);
+
+				$this->load->view("reportes/reportes_view", $data);
+
+			}
+			
 
 		}else{
 

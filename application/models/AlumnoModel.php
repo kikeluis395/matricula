@@ -14,12 +14,13 @@ class AlumnoModel extends CI_Model{
 
     }
 
-    public function getAlumno(string $cod_alumno_fk){
+    public function getAlumnoByDni(string $dni){
 
         $filtros = array(
-            "cod_alumno" => $cod_alumno_fk
+            "dni_fk" => $dni
         );
 
-        return $this->db->get_where("alumno", $filtros)->row();
+        $this->db->join('persona as pe', 'pe.dni = al.dni_fk');
+        return $this->db->get_where("alumno as al", $filtros)->row();
     }
 }

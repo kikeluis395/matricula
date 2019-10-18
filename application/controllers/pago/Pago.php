@@ -24,30 +24,48 @@ class Pago extends CI_Controller {
 		if($this->session->has_userdata('usuario')){
 
 			$usuario = $this->session->userdata('usuario');
-
-			$this->load->model("AlumnoModel");
-			$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
-
-			$this->load->model("MatriculaModel");
-			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
-
 			$listActiveLink = array("a_matricula" => "a_matricula", "a_pago" => "a_pago");
 
-			$data = array(
-				"show" => false,
-				"message" => "",
-				"tipo" => "",
-				"alumno" => $alumno,
-				"listActiveLink" => $listActiveLink
-			);
+			$cod_activacion = 3;
+			$this->load->model("ActivacionModel");
+			$activacionPago = $this->ActivacionModel->getActivacionByCodigo($cod_activacion);
 
-			if($matricula)
+			if($activacionPago->estado == 1)
 			{
-				$this->load->view("pago/pago_exito", $data);
+
+				$this->load->model("MatriculaModel");
+				$matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
+
+
+				$data = array(
+					"show" => false,
+					"message" => "",
+					"tipo" => "",
+					"usuario" => $usuario,
+					"listActiveLink" => $listActiveLink
+				);
+
+				if($matricula)
+				{
+					$this->load->view("pago/pago_exito", $data);
+				}else
+				{
+					$this->load->view("pago/pago_view", $data);
+				}
+
 			}else
 			{
-				$this->load->view("pago/pago_view", $data);
+
+				$data = array(
+					"usuario" => $usuario,
+					"listActiveLink" => $listActiveLink
+				);
+
+				$this->load->view("pago/pago_activacion", $data);
+
 			}
+
+			
 
 		}else{
 
@@ -64,13 +82,10 @@ class Pago extends CI_Controller {
 
 			$usuario = $this->session->userdata('usuario');
 
-			$this->load->model("AlumnoModel");
-			$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
-
 			$listActiveLink = array("a_matricula" => "a_matricula", "a_pago" => "a_pago");
 
 			$this->load->model("MatriculaModel");
-			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
+			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
 
 			if($matricula)
 			{
@@ -78,7 +93,7 @@ class Pago extends CI_Controller {
 					"show" => true,
 					"message" => "Usted se encuentra ya matriculado!",
 					"tipo" => "Warning",
-					"alumno" => $alumno,
+					"usuario" => $usuario,
 					"listActiveLink" => $listActiveLink
 				);
 
@@ -99,11 +114,11 @@ class Pago extends CI_Controller {
 					$pago = $this->PagoModel->getPago($cod_liquidacion);
 
 					$this->load->model("Plan_curricular");
-					$plan_curricular = $this->Plan_curricular->getPlanCurricularByCarrera($alumno->cod_carrera_fk);
+					$plan_curricular = $this->Plan_curricular->getPlanCurricularByCarrera($usuario->cod_carrera_fk);
 
 					$this->load->model("MatriculaModel");
-					$this->MatriculaModel->insertMatricula((string)$alumno->cod_alumno,(string)$pago->cod_pago,(string)$plan_curricular->cod_plan_curricular );
-					$matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
+					$this->MatriculaModel->insertMatricula((string)$usuario->cod_alumno,(string)$pago->cod_pago,(string)$plan_curricular->cod_plan_curricular );
+					$matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
 
 					if($matricula)
 					{
@@ -111,7 +126,7 @@ class Pago extends CI_Controller {
 							"show" => true,
 							"message" => "El pago ha sido encontrado",
 							"tipo" => "Success",
-							"alumno" => $alumno,
+							"usuario" => $usuario,
 							"listActiveLink" => $listActiveLink
 						);
 
@@ -122,7 +137,7 @@ class Pago extends CI_Controller {
 							"show" => true,
 							"message" => "No se pudo realizar el pago!",
 							"tipo" => "Error",
-							"alumno" => $alumno,
+							"usuario" => $usuario,
 							"listActiveLink" => $listActiveLink
 						);
 
@@ -135,7 +150,7 @@ class Pago extends CI_Controller {
 						"show" => true,
 						"message" => "No se encontraron coincidencias del numero de liquidacion",
 						"tipo" => "Error",
-						"alumno" => $alumno,
+						"usuario" => $usuario,
 						"listActiveLink" => $listActiveLink
 					);
 

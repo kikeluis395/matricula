@@ -25,68 +25,44 @@ class Asignaturas extends CI_Controller {
 
 			$usuario = $this->session->userdata('usuario');
 
-			$this->load->model("AlumnoModel");
-			$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
-
 			$listActiveLink = array("a_alumno" => "a_alumno","a_asignaturas" => "a_asignaturas");
 
-			$this->load->model("MatriculaModel");
-			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
+			$this->load->model("HorarioAlumnoModel");
+			$listPeriodos = $this->HorarioAlumnoModel->getPeriodosByMatriculaAndAlumno($usuario->cod_alumno);
 
-
-
-			if($matricula)
+			if($listPeriodos)
 			{
 
-                $this->load->model("HorarioAlumnoModel");
-	            $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByMatricula($matricula->cod_matricula);
+				$listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByPeriodo($listPeriodos[0]->periodo);
 
-	            if($listAsignaturas){
-
-	            	$data = array(
+				$data = array(
 					"show" => false,
 					"message" => "",
 					"tipo" => "",
-					"alumno" => $alumno,
+					"usuario" => $usuario,
 					"listActiveLink" => $listActiveLink,
-					"listAsignaturas" => $listAsignaturas,
-					"matricula" => $matricula
-					);
-
-	            }else{
-
-	            	$data = array(
-					"show" => true,
-					"message" => "Aun no hay cursos matriculados!",
-					"tipo" => "Warning",
-					"alumno" => $alumno,
-					"listActiveLink" => $listActiveLink,
-					"listAsignaturas" => $listAsignaturas,
-					"matricula" => $matricula
-					);
-
-	            }
-
-				
-			
-				$this->load->view("asignaturas/asignaturas_view", $data);
-                
-            }else
-            {
-            	$listAsignaturas = array();
-            	
-                $data = array(
-					"show" => true,
-					"message" => "Usted aún no se ha matriculado!",
-					"tipo" => "Error",
-					"alumno" => $alumno,
-					"listActiveLink" => $listActiveLink,
-					"listAsignaturas" => $listAsignaturas,
-					"matricula" => $matricula
+					"listAsignaturas" => array(),
+					"listPeriodos" => $listPeriodos
 				);
 
-                $this->load->view("asignaturas/asignaturas_view", $data);
-            }
+				$this->load->view("asignaturas/asignaturas_view", $data);
+
+			}else
+			{
+
+				$data = array(
+					"show" => true,
+					"message" => "Aun no hay periodos matriculados!",
+					"tipo" => "Warning",
+					"usuario" => $usuario,
+					"listActiveLink" => $listActiveLink,
+					"listAsignaturas" => array(),
+					"listPeriodos" => array()
+				);
+
+				$this->load->view("asignaturas/asignaturas_view", $data);
+
+			}
 
 			
 
@@ -148,5 +124,21 @@ class Asignaturas extends CI_Controller {
         
         // Output the generated PDF (1 = download and 0 = preview)
         $this->pdf->stream("asignaturas.pdf", array("Attachment"=>1));
+	}
+
+	public function VerAsignaturas(){
+
+		$periodo = (string)$this->input->post('periodo');
+
+		$this->load->model("HorarioAlumnoModel");
+		$listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByPeriodo($periodo);
+
+		$data = array(
+			"listAsignaturas" => $listAsignaturas
+		);
+
+		$this->load->view("asignaturas/asignaturas_periodo_view", $data);
+
+		
 	}
 }

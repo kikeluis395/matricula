@@ -49,6 +49,18 @@ class Login extends CI_Controller {
 
 		if($usuario){
 
+			if($usuario->cod_nivel_fk == 3)
+			{
+
+				$usuario = $this->UsuarioModel->getUserJoinAlumno($codigo, $clave);
+
+			}else
+			{
+
+				$usuario = $this->UsuarioModel->getUserJoinAdministrador($codigo, $clave);
+
+			}
+
 			$this->session->set_userdata('usuario', $usuario);
 			header("Location:" . base_url() . "home");
 

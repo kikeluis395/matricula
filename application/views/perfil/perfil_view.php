@@ -80,7 +80,7 @@
                                     <div class="text-center">
                                         
                                         <img src="<?php echo base_url() ?>assets/img/logo_alumno.jpg" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
-                                    <h4><?php echo $alumno->apellido_paterno . " " . $alumno->apellido_materno . " " . $alumno->nombres?></h4>
+                                    <h4><?php echo $usuario->apellido_paterno . " " . $usuario->apellido_materno . " " . $usuario->nombres?></h4>
                                     </div>
                                     
                                     <div class="row" style="margin-top: 15px">
@@ -115,7 +115,7 @@
                                             <div class="form-group row">
                                             <label for="inputPassword" class="col-sm-3 col-form-label">Año ingreso:</label>
                                             <div class="col-sm-9">
-                                              <label for="staticEmail" class="col-sm-9 "><?php echo $alumno->anio_ingreso?></label>
+                                              <label for="staticEmail" class="col-sm-9 "><?php echo $usuario->anio_ingreso?></label>
                                             </div>
                                           </div>
                                         </div>

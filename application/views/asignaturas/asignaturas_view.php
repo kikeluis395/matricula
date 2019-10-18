@@ -69,39 +69,33 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Periodo</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            </select>
-                        </div>
-                        </div>
-                    </div>
-
-
                     <div class="wrapper wrapper-content animated fadeInDown" style="opacity: 1;">
 
                         <div class="no-margins" style="opacity: 1;">
                            
 
+                        <?php if(count($listPeriodos)>0):?>
                             <div class="card" style="font-size: 14px">
                                 <div class="card-header">
                                     <div class="card-title">
-                                        <?php if($matricula!=null){
-                                            echo "Matricula" . $matricula->anio;
-                                            }
-                                        ?>
+                                        <div class="form-group-inline">
+                                            <label for="exampleFormControlSelect1">Periodo</label>
+                                            <select class="form-control" id="selectPeriodo" onchange="VerAsignaturas('<?php echo base_url()?>')">
+                                                <?php 
+                                                    foreach($listPeriodos as $periodo)
+                                                    {
+
+                                                        echo "<option value='".$periodo->periodo."'>".$periodo->periodo."</option>";
+
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card-body body-cursos-permitidos">
+                                <div class="card-body body-asignaturas">
 
-                                    <table class="table table-hover" id="tableCursosPermitidos">
+                                    <table class="table table-hover" id="tableAsignaturas">
                                         <thead>
                                             <tr class="text-center">
                                             <th scope="col">Descripción</th>
@@ -112,7 +106,7 @@
                                             <th scope="col">Sección</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="contenedor-asignaturas">
                                         <?php 
 
                                         
@@ -159,7 +153,7 @@
                                 </div>
                             </div>
 
-
+                            <?php endif; ?>
                             
                         </div>
                     </div>

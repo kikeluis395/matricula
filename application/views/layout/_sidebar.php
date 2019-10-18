@@ -14,10 +14,10 @@
 			</div>
 			<div class="info" style="margin-left:15px">
 				<a href="#" class="d-block">
-					<span><?php echo $alumno->apellido_paterno . " " .
-								$alumno->apellido_materno ?></span>
+					<span><?php echo $usuario->apellido_paterno . " " .
+								$usuario->apellido_materno ?></span>
 					<br>
-					<span><?php echo $alumno->nombres ?></span></a>
+					<span><?php echo $usuario->nombres ?></span></a>
 			</div>
 		</div>
 

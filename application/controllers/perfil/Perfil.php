@@ -25,22 +25,19 @@ class Perfil extends CI_Controller {
 
 			$usuario = $this->session->userdata('usuario');
 
-			$this->load->model("AlumnoModel");
-			$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
-
 			$this->load->model("MatriculaModel");
-			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
+			$matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
 
 			$listActiveLink = array("a_alumno" => "a_alumno", "a_perfil" => "a_perfil");
 
 			$this->load->model("CarreraModel");
-        	$carrera = $this->CarreraModel->getCarreraJoinFacultad($alumno->cod_carrera_fk);
+        	$carrera = $this->CarreraModel->getCarreraJoinFacultad($usuario->cod_carrera_fk);
 
 			$data = array(
 				"show" => false,
 				"message" => "",
 				"tipo" => "",
-				"alumno" => $alumno,
+				"usuario" => $usuario,
 				"listActiveLink" => $listActiveLink,
 				"carrera" => $carrera,
 				"universidad" => "UNIVERSIDAD NACIONAL FEDERICO VILLARREAL",
