@@ -8,6 +8,15 @@ class MatriculaModel extends CI_Model{
         parent::__construct();
     }
 
+    public function getMatricula(string $cod_matricula){
+
+        $filtros = array(
+            "cod_matricula" => $cod_matricula
+        );
+
+        return $this->db->get_where("matricula", $filtros)->row();
+    }
+
     public function getMatriculaFromAlumno(string $cod_alumno){
 
         $filtros = array(

@@ -25,11 +25,8 @@ class Malla_curricular extends CI_Controller {
 
 				$usuario = $this->session->userdata('usuario');
 
-				$this->load->model("AlumnoModel");
-				$alumno = $this->AlumnoModel->getAlumno($usuario->cod_alumno_fk);
-
 				$this->load->model("Plan_curricular");
-				$plan_curricular = $this->Plan_curricular->getPlanCurricularByCarrera($alumno->cod_carrera_fk);
+				$plan_curricular = $this->Plan_curricular->getPlanCurricularByCarrera($usuario->cod_carrera_fk);
 
 				$this->load->model("CursoModel");
 
@@ -39,12 +36,12 @@ class Malla_curricular extends CI_Controller {
 				$anios = $curso->num_ciclo_fk / 2;
 
 				$this->load->model("Cursos_llevados");
-				$listCursosLlevados = $this->Cursos_llevados->getCursosLlevados($alumno->cod_alumno);
+				$listCursosLlevados = $this->Cursos_llevados->getCursosLlevadosAprobados($usuario->cod_alumno);
 
 				$listActiveLink = array("a_malla_curricular" => "a_malla_curricular");
 
 				$data = array(
-					"alumno" => $alumno,
+					"usuario" => $usuario,
 					"anios" => $anios,
 					"listCursos" => $listCursos,
 					"listCursosLlevados" => $listCursosLlevados,

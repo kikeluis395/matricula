@@ -33,19 +33,16 @@ class Reportes extends CI_Controller {
 			if($listPeriodos)
 			{
 
-				// $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByMatricula($matricula->cod_matricula);
+				$data = array(
+					"show" => false,
+					"message" => "",
+					"tipo" => "",
+					"usuario" => $usuario,
+					"listActiveLink" => $listActiveLink,
+					"listPeriodos" => $listPeriodos
+				);
 
-				// $data = array(
-				// 	"show" => true,
-				// 	"message" => "Aun no hay periodos matriculados!",
-				// 	"tipo" => "Warning",
-				// 	"usuario" => $usuario,
-				// 	"listActiveLink" => $listActiveLink,
-				// 	"listAsignaturas" => array(),
-				// 	"listPeriodos" => $listPeriodos
-				// );
-
-				// $this->load->view("asignaturas/asignaturas_view", $data);
+				$this->load->view("reportes/reportes_view", $data);
 
 			}else
 			{
@@ -70,6 +67,51 @@ class Reportes extends CI_Controller {
 
 		}
 
+		
+	}
+
+
+	public function PdfAsignaturas(){
+
+		$periodo = (string)$this->input->get('periodo');
+
+		$usuario = $this->session->userdata('usuario');
+
+		$this->load->model("HorarioAlumnoModel");
+        $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByPeriodo($periodo);
+
+        $this->load->model("CarreraModel");
+        $carrera = $this->CarreraModel->getCarreraJoinFacultad($usuario->cod_carrera_fk);
+
+		$asignatura = reset($listAsignaturas);
+
+		$data = array(
+			"usuario" => $usuario,
+			"listAsignaturas" => $listAsignaturas,
+			"carrera" => $carrera,
+			"universidad" => "UNIVERSIDAD NACIONAL FEDERICO VILLARREAL",
+			"asignatura" => $asignatura
+		);
+		
+		$this->load->view("asignaturas/asignaturas_pdf", $data);
+        
+        // Get output html
+        $html = $this->output->get_output();
+        
+        // Load pdf library
+        $this->load->library('pdf');
+        
+        // Load HTML content
+        $this->pdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation
+        $this->pdf->setPaper('A4');
+        
+        // Render the HTML as PDF
+        $this->pdf->render();
+        
+        // Output the generated PDF (1 = download and 0 = preview)
+		$file = $this->pdf->stream("asignaturas.pdf", array("Attachment"=>1));
 		
 	}
 

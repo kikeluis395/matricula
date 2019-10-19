@@ -50,6 +50,8 @@
 </head>
 
 <body>
+    <?php date_default_timezone_set("America/Lima");
+    ?>
     <img src="./assets/img/logo_unfv.png" alt="UNFV Logo" width="235px" class="logo_unfv">
     <center>
     <div class="universidad">
@@ -82,12 +84,12 @@
 
     <div class="parametro">
         <label>ALUMNO:</label>
-        <p><?php echo strtoupper($alumno->apellido_paterno) . " " . strtoupper($alumno->apellido_materno) . " " . strtoupper($alumno->nombres)?></p>
+        <p><?php echo strtoupper($usuario->apellido_paterno) . " " . strtoupper($usuario->apellido_materno) . " " . strtoupper($usuario->nombres)?></p>
     </div>
 
     <div class="parametro">
         <label>CODIGO:</label>
-        <p>&nbsp;<?php echo strtoupper($alumno->cod_alumno)?></p>
+        <p>&nbsp;<?php echo strtoupper($usuario->cod_alumno)?></p>
     </div>
 
     <div class="parametro">
@@ -97,7 +99,7 @@
 
     <div class="parametro">
         <label>PERIODO:</label>
-        <p><?php echo strtoupper($periodo)?></p>
+        <p><?php echo strtoupper($asignatura->periodo)?></p>
     </div>
 
     <table class="table">

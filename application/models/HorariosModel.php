@@ -88,7 +88,7 @@ class HorariosModel extends CI_Model{
 
     }
 
-    public function getHorariosByHorarioCurso(array $list_horario_curso){
+    public function getHorariosByHorarioCurso(array $list_horario_curso, string $periodoActual){
 
         $listIDHorarioCurso  =  array ();
 
@@ -102,7 +102,9 @@ class HorariosModel extends CI_Model{
         $this->db->join('docente as doc', 'ho_cu.cod_docente_fk = doc.cod_docente');
         $this->db->join('dia as di', 'ho_cu.cod_dia_fk = di.cod_dia');
         $this->db->join('persona as pe', 'doc.dni_fk = pe.dni');
+        $this->db->join('horario_alumno as ho_al', 'ho_al.cod_horario_curso_fk = ho_cu.cod_horario_curso');
         $this->db->where_in('ho_cu.cod_horario_curso', $listIDHorarioCurso);
+        $this->db->where('ho_al.periodo', $periodoActual);
         $this->db->order_by('cu.cod_curso', 'ASC');
         $this->db->order_by('di.cod_dia', 'ASC');
         $query = $this->db->get('horario_curso as ho_cu');

@@ -77,7 +77,7 @@
 
                             <div class="card" style="padding: 10px">
                                 <div class="card-body text-center">
-                                    <img src="<?php echo base_url() ?>assets/img/advertencia.png" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
+                                    <img src="<?php echo base_url() ?>assets/img/advertencia.png" class="mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
                                     <h4>Usted aún no se encuentra matriculado!</h4>
                                     <p class="mb-3">Por favor, confirmar el pago</p>
                                     <a class="btn btn-primary" href="<?php echo base_url() ?>pago" role="button">Ver Pagos</a>

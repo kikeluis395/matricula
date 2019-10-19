@@ -77,10 +77,27 @@
                         <?php if(count($listPeriodos)>0):?>
 
                             <div class="card" style="padding: 10px">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <div class="form-group-inline">
+                                            <label for="exampleFormControlSelect1">Periodo</label>
+                                            <select class="form-control" id="selectPeriodo">
+                                                <?php 
+                                                    foreach($listPeriodos as $periodo)
+                                                    {
+
+                                                        echo "<option value='".$periodo->periodo."'>".$periodo->periodo."</option>";
+
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body text-center">
                                     <img src="<?php echo base_url() ?>assets/img/logo_pdf.png" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
                                     
-                                    <a class="btn btn-primary" href="<?php echo base_url() ?>asignaturas/Asignaturas/PdfAsignaturas" target="_blank" role="button">Ver PDF</a>
+                                    <button class="btn btn-primary" onclick="VerPDFAsignaturas('<?php echo base_url()?>')" target="_blank" role="button">Ver PDF</button>
                                 </div>
                             </div>
 

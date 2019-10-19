@@ -116,7 +116,7 @@
                                                     if($cont == 1)
                                                     {
                                                         echo "<tr>".
-                                                            "<td class='text-center'>".$asignatura->descripcion."</td>".
+                                                            "<td>".$asignatura->descripcion."</td>".
                                                             "<td class='text-center'>".$asignatura->num_creditos."</td>".
                                                             "<td class='text-center'>".$asignatura->num_ciclo_fk."</td>".
                                                             "<td class='text-center'>".$asignatura->cod_aula."</td>".
@@ -133,7 +133,7 @@
                                                     if($asignaturaActual != $asignatura->cod_curso)
                                                     {
                                                         echo "<tr>".
-                                                            "<td class='text-center'>".$asignatura->descripcion."</td>".
+                                                            "<td>".$asignatura->descripcion."</td>".
                                                             "<td class='text-center'>".$asignatura->num_creditos."</td>".
                                                             "<td class='text-center'>".$asignatura->num_ciclo_fk."</td>".
                                                             "<td class='text-center'>".$asignatura->cod_aula."</td>".

@@ -41,6 +41,13 @@ class Horarios extends CI_Controller {
                 if($activacionHorarios->estado == 1)
 			    {
 
+                    $periodoActual = date('Y') . '-I';
+
+                    if($activacionHorarios->periodo == 2){
+
+                        $periodoActual = date('Y') . '-II';
+
+                    }
                    // ------------- SI ESTAN ACTIVADOS LOS HORARIOS ----------------------
 
                     $this->load->model("Cursos_llevados");
@@ -63,7 +70,7 @@ class Horarios extends CI_Controller {
                         if($listHorariosAlumno)
                         {
                             $this->load->model("HorariosModel");
-                            $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
+                            $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
                             $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
                         }
                         
@@ -84,7 +91,7 @@ class Horarios extends CI_Controller {
                     {
 
 
-
+                        $this->load->model("CursoModel");
                         $cursoMaxAnio = $this->CursoModel->getCursoMaxAnioByPlanCurricular($matricula->cod_plan_curricular_fk);
 
                         $anioActual = ($matricula->anio - $usuario->anio_ingreso) + 1;
@@ -124,13 +131,14 @@ class Horarios extends CI_Controller {
                                             if($curso_llevado->estado != 'APROBADO')
                                             {
 
-                                                if($cursoSiguiente->num_ciclo_fk == 1)
+                                                $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
+
+                                                if($cursoPermitido->num_ciclo == 1)
                                                 {
 
                                                     if($activacionHorarios->periodo == 1)
                                                     {
-
-                                                        $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
+      
                                                         array_push($listCursosPermitidos, $cursoPermitido);
 
                                                     }
@@ -138,13 +146,12 @@ class Horarios extends CI_Controller {
                                                 }else
                                                 {
 
-                                                    if($cursoSiguiente->num_ciclo_fk % 2 == 0)
+                                                    if($cursoPermitido->num_ciclo % 2 == 0)
                                                     {
 
                                                         if($activacionHorarios->periodo == 2)
                                                         {
 
-                                                            $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
                                                             array_push($listCursosPermitidos, $cursoPermitido);
 
                                                         }
@@ -155,8 +162,7 @@ class Horarios extends CI_Controller {
                                                         if($activacionHorarios->periodo == 1)
                                                         {
 
-                                                            $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
+                                                             array_push($listCursosPermitidos, $cursoPermitido);
 
                                                         }
 
@@ -169,14 +175,14 @@ class Horarios extends CI_Controller {
 
                                         }else
                                         {
-
-                                            if($cursoSiguiente->num_ciclo_fk == 1)
+                                            $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
+                                                    
+                                            if($cursoPermitido->num_ciclo == 1)
                                             {
 
                                                 if($activacionHorarios->periodo == 1)
                                                 {
 
-                                                    $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
                                                     array_push($listCursosPermitidos, $cursoPermitido);
 
                                                 }
@@ -184,13 +190,12 @@ class Horarios extends CI_Controller {
                                             }else
                                             {
 
-                                                if($cursoSiguiente->num_ciclo_fk % 2 == 0)
+                                                if($cursoPermitido->num_ciclo % 2 == 0)
                                                 {
 
                                                     if($activacionHorarios->periodo == 2)
                                                     {
 
-                                                        $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
                                                         array_push($listCursosPermitidos, $cursoPermitido);
 
                                                     }
@@ -201,7 +206,6 @@ class Horarios extends CI_Controller {
                                                     if($activacionHorarios->periodo == 1)
                                                     {
 
-                                                        $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
                                                         array_push($listCursosPermitidos, $cursoPermitido);
 
                                                     }
@@ -232,14 +236,14 @@ class Horarios extends CI_Controller {
 
                             }
 
-                            for($ciclo = 1; $ciclo <=$$numCicloMax; $anio+=2)
+                            for($ciclo = 1; $ciclo <=$numCicloMax; $ciclo +=2)
                             {
 
                                 array_push($listCiclos, $ciclo);
 
                             }
 
-                            $listCursosByAniosNotPre = $this->CursoModel->getCursosByListAniosNotPre($aniosParameter);
+                            $listCursosByAniosNotPre = $this->CursoModel->getCursosByListAniosNotPre($listCiclos);
 
                             if($listCursosByAniosNotPre)
                             {
@@ -255,13 +259,14 @@ class Horarios extends CI_Controller {
                                         if($curso_llevado_not_pre->estado == 'DESAPROBADO')
                                         {
 
-                                            if($cursoNotPre->num_ciclo_fk == 1)
+                                            $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
+                                  
+                                            if($cursoPermitido->num_ciclo == 1)
                                             {
 
                                                 if($activacionHorarios->periodo == 1)
                                                 {
 
-                                                    $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
                                                     array_push($listCursosPermitidos, $cursoPermitido);
 
                                                 }
@@ -269,13 +274,12 @@ class Horarios extends CI_Controller {
                                             }else
                                             {
 
-                                                if($cursoSiguiente->num_ciclo_fk % 2 == 0)
+                                                if($cursoPermitido->num_ciclo % 2 == 0)
                                                 {
 
                                                     if($activacionHorarios->periodo == 2)
                                                     {
 
-                                                        $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
                                                         array_push($listCursosPermitidos, $cursoPermitido);
 
                                                     }
@@ -286,7 +290,6 @@ class Horarios extends CI_Controller {
                                                     if($activacionHorarios->periodo == 1)
                                                     {
 
-                                                        $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
                                                         array_push($listCursosPermitidos, $cursoPermitido);
 
                                                     }
@@ -299,28 +302,27 @@ class Horarios extends CI_Controller {
 
                                     }else
                                     {
-
-                                        if($cursoNotPre->num_ciclo_fk == 1)
+                                        $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
+                                                   
+                                        if($cursoPermitido->num_ciclo == 1)
                                             {
 
                                                 if($activacionHorarios->periodo == 1)
                                                 {
 
-                                                    $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
-                                                    array_push($listCursosPermitidos, $cursoPermitido);
+                                                     array_push($listCursosPermitidos, $cursoPermitido);
 
                                                 }
 
                                             }else
                                             {
 
-                                                if($cursoSiguiente->num_ciclo_fk % 2 == 0)
+                                                if($cursoPermitido->num_ciclo % 2 == 0)
                                                 {
 
                                                     if($activacionHorarios->periodo == 2)
                                                     {
 
-                                                        $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
                                                         array_push($listCursosPermitidos, $cursoPermitido);
 
                                                     }
@@ -331,7 +333,6 @@ class Horarios extends CI_Controller {
                                                     if($activacionHorarios->periodo == 1)
                                                     {
 
-                                                        $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
                                                         array_push($listCursosPermitidos, $cursoPermitido);
 
                                                     }
@@ -358,7 +359,7 @@ class Horarios extends CI_Controller {
                             if($listHorariosAlumno)
                             {
                                 $this->load->model("HorariosModel");
-                                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
+                                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
                                 $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
                             }
 
@@ -366,7 +367,7 @@ class Horarios extends CI_Controller {
                                 "show" => false,
                                 "message" => "",
                                 "tipo" => "",
-                                "alumno" => $alumno,
+                                "usuario" => $usuario,
                                 "listActiveLink" => $listActiveLink,
                                 "listCursosPermitidos" => $listCursosPermitidos,
                                 "listHorariosMatriculados" => $listHorariosMatriculados,
@@ -392,7 +393,7 @@ class Horarios extends CI_Controller {
                             if($listHorariosAlumno)
                             {
                                 $this->load->model("HorariosModel");
-                                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
+                                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
                                 $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
                             }
                             
@@ -473,6 +474,18 @@ class Horarios extends CI_Controller {
 
     public function RegistrarHorarios()
     {
+        $cod_activacion = 1;
+        $this->load->model("ActivacionModel");
+        $activacionHorarios = $this->ActivacionModel->getActivacionByCodigo($cod_activacion);
+
+        $periodoActual = date('Y') . '-I';
+
+        if($activacionHorarios->periodo == 2){
+
+            $periodoActual = date('Y') . '-II';
+
+        }
+
         $cod_curso = (string)$this->input->post('cod_curso');
         $seccion = (string)$this->input->post('seccion');
 
@@ -497,7 +510,7 @@ class Horarios extends CI_Controller {
             if($listHorariosAlumno)
             {
 
-                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
+                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
                 $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
 
             }
@@ -566,7 +579,7 @@ class Horarios extends CI_Controller {
             if($listHorariosAlumno)
             {
 
-                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno);
+                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
                 $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
 
             }
@@ -590,11 +603,8 @@ class Horarios extends CI_Controller {
 
         $usuario = $this->session->userdata('usuario');
 
-        $this->load->model("AlumnoModel");
-        $alumno = $this->AlumnoModel->getAlumno($usuario->cod_fk);
-        
         $this->load->model("MatriculaModel");
-        $matricula = $this->MatriculaModel->getMatriculaFromAlumno($alumno->cod_alumno);
+        $matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
         
         $this->load->model("HorarioAlumnoModel");
         $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
@@ -618,10 +628,17 @@ class Horarios extends CI_Controller {
         
             if($curso_llevado)
             {
-                $estado = 'EN CURSO';
-                $intentos = $curso_llevado->num_intentos + 1;
 
-                $this->Cursos_llevados->modifyCursoLlevado($alumno->cod_alumno, $horarioMatriculado->cod_curso, $estado, $intentos);
+                if($curso_llevado->estado == 'DESAPROBADO')
+                {
+
+                    $estado = 'EN CURSO';
+                    $intentos = $curso_llevado->num_intentos + 1;
+
+                    $this->Cursos_llevados->modifyCursoLlevado($usuario->cod_alumno, $horarioMatriculado->cod_curso, $estado, $intentos);
+
+                }
+                
 
             }else
             {
@@ -629,7 +646,7 @@ class Horarios extends CI_Controller {
                 $estado = 'EN CURSO';
                 $intentos = 1;
 
-                $this->Cursos_llevados->insertCursoLlevado($alumno->cod_alumno, $horarioMatriculado->cod_curso, $estado, $intentos);
+                $this->Cursos_llevados->insertCursoLlevado($usuario->cod_alumno, $horarioMatriculado->cod_curso, $estado, $intentos);
 
             }
         

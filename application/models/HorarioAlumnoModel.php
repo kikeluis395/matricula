@@ -75,7 +75,7 @@ class HorarioAlumnoModel extends CI_Model{
             "ho_al.periodo" => $periodo
         );
 
-        $this->db->select('cu.cod_curso, cu.descripcion, cu.num_creditos, cu.num_ciclo_fk, pe.apellido_paterno, pe.apellido_materno, pe.nombres, au.cod_aula, ho_cu.seccion, ho_cu.turno, ho_al.vez, ho_al.periodo');
+        $this->db->select('ho_al.cod_matricula_fk, cu.cod_curso, cu.descripcion, cu.num_creditos, cu.num_ciclo_fk, pe.apellido_paterno, pe.apellido_materno, pe.nombres, au.cod_aula, ho_cu.seccion, ho_cu.turno, ho_al.vez, ho_al.periodo');
         $this->db->join('horario_curso as ho_cu', 'ho_al.cod_horario_curso_fk = ho_cu.cod_horario_curso');
         $this->db->join('docente as doc', 'ho_cu.cod_docente_fk = doc.cod_docente');
         $this->db->join('aula as au', 'ho_cu.cod_aula_fk = au.cod_aula');

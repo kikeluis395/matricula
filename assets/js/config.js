@@ -126,3 +126,14 @@ function VerAsignaturas(baseURL){
     console.log("No se listaron las asignaturas!")
   });
 }
+
+function VerPDFAsignaturas(baseURL){
+  var periodo = $("#selectPeriodo option:selected").val();
+
+  var datos = {
+    "periodo" : periodo
+  };
+
+  ShowSuccess("Descargando...");
+  window.open(baseURL + 'reportes/Reportes/PdfAsignaturas?periodo=' + periodo, '_blank');
+}
