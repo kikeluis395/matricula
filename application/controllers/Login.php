@@ -53,16 +53,19 @@ class Login extends CI_Controller {
 			{
 
 				$usuario = $this->UsuarioModel->getUserJoinAlumno($codigo, $clave);
+				$this->session->set_userdata('usuario', $usuario);
+				header("Location:" . base_url() . "home");
 
 			}else
 			{
 
 				$usuario = $this->UsuarioModel->getUserJoinAdministrador($codigo, $clave);
+				$this->session->set_userdata('usuario', $usuario);
+				header("Location:" . base_url() . "home_admin");
 
 			}
 
-			$this->session->set_userdata('usuario', $usuario);
-			header("Location:" . base_url() . "home");
+			
 
 		}else{
 

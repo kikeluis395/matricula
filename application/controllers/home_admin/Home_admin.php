@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home_admin extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -25,19 +25,16 @@ class Home extends CI_Controller {
 
 			$usuario = $this->session->userdata('usuario');
 
+			// ----------------- ADMINISTRADOR ------------------
 
-			// ----------------- ALUMNO ------------------
+            $listActiveLink = array("a_inicio" => "a_inicio");
 
-			$listActiveLink = array("a_inicio" => "a_inicio");
-
-			$data = array(
-				"usuario" => $usuario,
-				"listActiveLink" => $listActiveLink
-			);
-			
-			$this->load->view("home/home", $data);
-
-			
+            $data = array(
+                "usuario" => $usuario,
+                "listActiveLink" => $listActiveLink
+            );
+            
+            $this->load->view("home_admin/home_admin_view", $data);
 
 			
 

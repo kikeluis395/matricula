@@ -21,7 +21,9 @@
 			</div>
 		</div>
 
-		<!-- Sidebar Menu -->
+		<?php if($usuario->cod_nivel_fk == 3) :?>
+
+		<!-- Sidebar Menu Alumno-->
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class
@@ -114,7 +116,90 @@
 				</li>
 			</ul>
 		</nav>
-		<!-- /.sidebar-menu -->
+		<!-- /.sidebar-menu alumno-->
+
+		<?php endif; ?>
+
+
+
+		<?php if($usuario->cod_nivel_fk == 1) :?>
+
+		<!-- Sidebar Menu Administrador-->
+		<nav class="mt-2">
+			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				<!-- Add icons to the links using the .nav-icon class
+						 with font-awesome or any other icon font library -->
+				<li class="nav-item">
+					<a href="<?php echo base_url() ?>home" class="nav-link" id="a_inicio">
+						<i class="nav-icon fas fa-home"></i>
+						<p>
+							Inicio
+						</p>
+					</a>
+				</li>
+				<li class="nav-item has-treeview">
+					<a href="#" class="nav-link" id="a_admin">
+						<i class="nav-icon fas fa-user-graduate"></i>
+						<p>
+							Administrador
+							<i class="right fa fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="<?php echo base_url() ?>perfilAdmin" class="nav-link" id="a_perfil">
+								<i class="fas fa-user-circle nav-icon"></i>
+								<p>Perfil</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item has-treeview">
+					<a href="#" class="nav-link" id="a_activaciones">
+						<i class="nav-icon fas fa-cogs"></i>
+						<p>
+							Activaciones
+							<i class="right fa fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="<?php echo base_url() ?>activarPago" class="nav-link" id="a_pago">
+								<i class="fas fa-toggle-on nav-icon"></i>
+								<p>Pago</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="<?php echo base_url() ?>activarHorarios" class="nav-link" id="a_horarios">
+								<i class="fas fa-toggle-on nav-icon"></i>
+								<p>Horarios</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="<?php echo base_url() ?>activarRectificacion" class="nav-link" id="a_rectificacion">
+								<i class="fas fa-toggle-on nav-icon"></i>
+								<p>Rectificacion</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				<hr>
+
+				<li class="nav-item">
+					<a href="<?php echo base_url() ?>Login/logout" class="nav-link" id="a_inicio">
+						<i class="nav-icon fas fa-power-off"></i>
+						<p>
+							Cerrar Sesión
+						</p>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu Administrador -->
+
+		<?php endif; ?>
+
 	</div>
 	<!-- /.sidebar -->
 </aside>

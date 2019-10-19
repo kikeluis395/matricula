@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Perfil_admin extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -18,28 +18,25 @@ class Home extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+	 public function index()
 	{
 		
 		if($this->session->has_userdata('usuario')){
 
 			$usuario = $this->session->userdata('usuario');
 
+			$listActiveLink = array("a_admin" => "a_admin", "a_perfil" => "a_perfil");
 
-			// ----------------- ALUMNO ------------------
-
-			$listActiveLink = array("a_inicio" => "a_inicio");
 
 			$data = array(
+				"show" => false,
+				"message" => "",
+				"tipo" => "",
 				"usuario" => $usuario,
 				"listActiveLink" => $listActiveLink
 			);
-			
-			$this->load->view("home/home", $data);
 
-			
-
-			
+			$this->load->view("perfil_admin/perfil_admin_view", $data);
 
 		}else{
 
@@ -49,4 +46,6 @@ class Home extends CI_Controller {
 
 		
 	}
+
+	
 }

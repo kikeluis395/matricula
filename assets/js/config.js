@@ -137,3 +137,38 @@ function VerPDFAsignaturas(baseURL){
   ShowSuccess("Descargando...");
   window.open(baseURL + 'reportes/Reportes/PdfAsignaturas?periodo=' + periodo, '_blank');
 }
+
+function CambiarEstado(baseURL, estadoActual, ruta){
+
+  var estado = 0;
+  var periodo = '';
+
+  
+
+  if(estadoActual == '0'){
+    estado = 1;
+  }
+
+  var datos;
+
+  if(ruta != 'Pago'){
+    datos = {
+      "estado" : estado,
+      "periodo" : $("#selectPeriodo option:selected").val()
+    };
+  }else{
+    datos = {
+      "estado" : estado
+    };
+  }
+
+  $.post( baseURL + "activaciones/activar" + ruta + "/CambiarEstado", datos, function(response) {
+
+    $("#contenedor-activaciones").html(response);
+    ShowSuccess("Se cambio el estado");
+  })
+  .fail(function(jqXHR, errorType, error) {
+    ShowSuccess("Ocurrio un error cambiando el estado");
+  });
+
+}
