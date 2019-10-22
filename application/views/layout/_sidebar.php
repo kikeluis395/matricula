@@ -86,6 +86,12 @@
 								<p>Horarios</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="<?php echo base_url() ?>rectificacion" class="nav-link" id="a_rectificacion">
+								<i class="fas fa-exchange-alt nav-icon"></i>
+								<p>Rectificacion</p>
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li class="nav-item">

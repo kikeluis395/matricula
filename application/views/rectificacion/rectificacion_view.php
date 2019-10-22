@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Matricula | Horarios</title>
+    <title>Matricula | Rectificacion</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -147,6 +147,7 @@
                     <th scope="col">Viernes</th>
                     <th scope="col">Sábado</th>
                     <th scope="col">Docente</th>
+                    <th scope="col" colspan="2">Acción</th>
                 </tr>
             </thead>
             <tbody class="text-center" style="font-size:13px">
@@ -207,7 +208,8 @@
                                         }
 
                                         echo "<td>".$horarioMatriculado->apellido_paterno." ".$horarioMatriculado->apellido_materno.", ".$horarioMatriculado->nombres."</td>";
-                        
+                                        echo "<td class='text-center'><button type='button' class='btn btn-danger btn-sm' data-toggle='tooltip' data-placement='top' title='Dejar curso' onclick='DejarCurso(\"".base_url()."\",\"".$cursoPermitido->cod_curso."\",\"".$horarioMatriculado->seccion."\")'><i class='fas fa-trash'></i></button></td>";
+                                        echo "<td class='text-center'><button type='button' class='btn btn-info btn-sm' data-toggle='tooltip' data-placement='top' title='Cambiar horario' onclick='VerHorariosDisponiblesRectificacion(\"".base_url()."\",\"".$cursoPermitido->cod_curso."\",\"".$horarioMatriculado->seccion."\")'><i class='fas fa-exchange-alt'></i></button></td>";
                                         echo "</tr>";
 
                                         break;
@@ -261,7 +263,8 @@
                                 }
 
                                 echo "<td>".$horarioMatriculado->apellido_paterno." ".$horarioMatriculado->apellido_materno.", ".$horarioMatriculado->nombres."</td>";
-                
+                                echo "<td class='text-center'><button type='button' class='btn btn-danger btn-sm' data-toggle='tooltip' data-placement='top' title='Dejar curso' onclick='DejarCurso(\"".base_url()."\",\"".$cursoPermitido->cod_curso."\",\"".$horarioMatriculado->seccion."\")'><i class='fas fa-trash'></i></button></td>";
+                                echo "<td class='text-center'><button type='button' class='btn btn-info btn-sm' data-toggle='tooltip' data-placement='top' title='Cambiar horario' onclick='VerHorariosDisponiblesRectificacion(\"".base_url()."\",\"".$horarioMatriculado->cod_curso."\",\"".$horarioMatriculado->seccion."\")'><i class='fas fa-exchange-alt'></i></button></td>";
                                 echo "</tr>";
 
                                 break;
@@ -323,29 +326,7 @@
         //     "lengthChange": false,
         //     "searching": false,
         //     "responsive": true,
-        //     "info":     false,
-        //     "fnDrawCallback": function (oSettings) {
-        //         $('#example tbody tr').each(function () {
-        //             var sTitle;
-        //             var nTds = $('td', this);
-        //             var s0 = $(nTds[0]).text();
-        //             var s1 = $(nTds[1]).text();
-        //             var s2 = $(nTds[2]).text();
-        //             var s3 = $(nTds[3]).text();
-        //             var s4 = $(nTds[4]).text();
-        //             var s5 = $(nTds[5]).text();
-
-        //             sTitle = "<h1>"+s0+"</h1>";
-
-        //             this.setAttribute('rel', 'tooltip');
-        //             this.setAttribute('title', sTitle);
-        //             console.log(this);
-        //             console.log($(this));
-        //             $(this).tooltip({
-        //                 html: true
-        //             });
-        //         });
-        //     }
+        //     "info":     false
         // });
 
 

@@ -40,23 +40,6 @@ function VerHorariosDisponibles(baseURL, cod_curso){
     
     $("#contenedor-horarios-disponibles").html(response);
 
-  //   $('#tableHorariosElegidos').DataTable( {
-  //     scrollY:        300,
-  //     scrollCollapse: true,
-  //     paging:         false,
-  //     "language": {
-  //         "lengthMenu": "Mostrar _MENU_ registros por página",
-  //         "zeroRecords": "No hay elementos encontrados!",
-  //         "info": "Mostrando _TOTAL_ registros",
-  //         "infoEmpty": "No hay elementos",
-  //         "infoFiltered": "(Filtrado de _MAX_ registros totales)",
-  //         "search": "Buscar:",
-  //     },
-  //     "lengthChange": false,
-  //     "searching": false,
-  //     "responsive": true,
-  //     "info":     false
-  // });
   $('#modalHorariosDisponibles').modal('show');
   $('[data-toggle="tooltip"]').tooltip();
 
@@ -169,6 +152,30 @@ function CambiarEstado(baseURL, estadoActual, ruta){
   })
   .fail(function(jqXHR, errorType, error) {
     ShowSuccess("Ocurrio un error cambiando el estado");
+  });
+
+}
+
+function VerHorariosDisponiblesRectificacion(baseURL, cod_curso, seccion){
+
+  var cod = "" + cod_curso;
+  var seccion = "" + seccion;
+
+  var datos = {
+    "cod_curso" : cod,
+    "seccion" : seccion
+  };
+
+  $.post( baseURL + "rectificacion/Rectificacion/VerHorariosDisponiblesRectificacion", datos, function(response) {
+    $('#modalHorariosMatriculados').modal('hide');
+    $("#contenedor-horarios-disponibles").html(response);
+
+  $('#modalHorariosDisponibles').modal('show');
+  $('[data-toggle="tooltip"]').tooltip();
+
+  })
+  .fail(function(e) {
+    console.log(e);
   });
 
 }

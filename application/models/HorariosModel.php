@@ -28,6 +28,25 @@ class HorariosModel extends CI_Model{
 
     }
 
+    public function getHorariosByCursoRectificacion(string $cod_curso, string $seccion){
+
+
+        $this->db->select('cu.cod_curso, cu.descripcion, cu.num_creditos, cu.cod_plan_curricular_fk, cu.num_ciclo_fk, ho_cu.seccion, di.descripcion, ho_cu.cod_dia_fk, pe.apellido_paterno, pe.apellido_materno, pe.nombres, ho_cu.hora_entrada, ho_cu.hora_salida');
+        $this->db->join('docente as doc', 'ho_cu.cod_docente_fk = doc.cod_docente');
+        $this->db->join('aula as au', 'ho_cu.cod_aula_fk = au.cod_aula');
+        $this->db->join('curso as cu', 'ho_cu.cod_curso_fk = cu.cod_curso');
+        $this->db->join('dia as di', 'ho_cu.cod_dia_fk = di.cod_dia');
+        $this->db->join('persona as pe', 'doc.dni_fk = pe.dni');
+        $this->db->order_by('ho_cu.seccion', 'ASC');
+        $this->db->order_by('ho_cu.cod_dia_fk', 'ASC');
+        $this->db->where('ho_cu.cod_curso_fk', $cod_curso);
+        $this->db->where('ho_cu.seccion !=', $seccion);
+        $query = $this->db->get('horario_curso as ho_cu');
+
+        return $query->result();
+
+    }
+
     public function getCountGroupByCurso(string $cod_curso){
 
         $filtros = array(

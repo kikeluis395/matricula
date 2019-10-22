@@ -56,6 +56,7 @@ $route['home'] = 'home/Home';
 $route['home_admin'] = 'home_admin/Home_admin';
 $route['pago'] = 'pago/Pago';
 $route['horarios'] = 'horarios/Horarios';
+$route['rectificacion'] = 'rectificacion/Rectificacion';
 $route['asignaturas'] = 'asignaturas/Asignaturas';
 $route['reportes'] = 'reportes/Reportes';
 $route['perfil'] = 'perfil/Perfil';
