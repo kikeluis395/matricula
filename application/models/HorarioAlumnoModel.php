@@ -85,4 +85,21 @@ class HorarioAlumnoModel extends CI_Model{
 
         return $query->result();
     }
+
+    public function deleteHorarioAlumnoByListHorarioCurso(array $listHorarioCurso){
+
+        $listCodHorarioCurso = array();
+
+        foreach($listHorarioCurso as $horarioCurso)
+        {
+
+            array_push($listCodHorarioCurso, $horarioCurso->cod_horario_curso);
+
+        }
+
+        
+        $this->db->where_in('cod_horario_curso_fk', $listCodHorarioCurso);
+        $this->db->delete('horario_alumno');
+
+    }
 }

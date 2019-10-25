@@ -50,6 +50,28 @@ function VerHorariosDisponibles(baseURL, cod_curso){
 
 }
 
+function VerHorariosDisponiblesTodosRectificacion(baseURL, cod_curso){
+
+  var cod = "" + cod_curso;
+
+  var datos = {
+    "cod_curso" : cod
+  };
+
+  $.post( baseURL + "rectificacion/Rectificacion/VerHorariosDisponiblesTodosRectificacion", datos, function(response) {
+    
+    $("#contenedor-horarios-disponibles").html(response);
+
+  $('#modalHorariosDisponibles').modal('show');
+  $('[data-toggle="tooltip"]').tooltip();
+
+  })
+  .fail(function(e) {
+    console.log(e);
+  });
+
+}
+
 function RegistrarHorario(baseURL, cod_curso, seccion){
 
 
@@ -73,6 +95,30 @@ function RegistrarHorario(baseURL, cod_curso, seccion){
 
 }
 
+function RegistrarHorarioRectificacion(baseURL, cod_curso, seccion){
+
+
+  var otro = {
+    "cod_curso" : cod_curso,
+    "seccion" : seccion
+  };
+
+  console.log(cod_curso);
+  console.log(seccion);
+
+  $.post( baseURL + "rectificacion/Rectificacion/RegistrarHorarios", otro, function(response) {
+
+    $("#contenedor-horarios-matriculados").html(response);
+    ShowSuccess("Se registro el horario exitosamente!");
+    $('#modalHorariosDisponibles').modal('hide');
+
+})
+ .fail(function(e) {
+  console.log(e);
+});
+
+}
+
 function RegistrarCursosLlevados(baseURL){
 
 
@@ -82,6 +128,27 @@ function RegistrarCursosLlevados(baseURL){
     $('#modalHorariosMatriculados').modal('hide');
 
     ShowSuccess("Se registraron los cursos exitosamente!");
+})
+ .fail(function(jqXHR, errorType, error) {
+  //console.log(e);
+  console.log(jqXHR);
+  console.log(errorType + ": " + error);
+  //ShowError("No se pueden registrar los cursos!");
+});
+
+}
+
+function RegistrarCursosLlevadosRectificacion(baseURL){
+
+
+
+  $.post( baseURL + "horarios/Horarios/RegistrarCursosLlevados", function(response) {
+
+    $('#modalHorariosMatriculados').modal('hide');
+
+    ShowSuccess("Se registraron los cursos exitosamente!");
+
+    LlenarCursosPermitidos(baseURL);
 })
  .fail(function(jqXHR, errorType, error) {
   //console.log(e);
@@ -177,5 +244,95 @@ function VerHorariosDisponiblesRectificacion(baseURL, cod_curso, seccion){
   .fail(function(e) {
     console.log(e);
   });
+
+}
+
+function DejarCurso(baseURL, cod_curso, seccion){
+
+  var cod = "" + cod_curso;
+  var seccion = "" + seccion;
+
+  var datos = {
+    "cod_curso" : cod,
+    "seccion" : seccion
+  };
+
+  $.post( baseURL + "rectificacion/Rectificacion/DejarCurso", datos, function(response) {
+    $('#modalHorariosMatriculados').modal('hide');
+    $("#contenedor-horarios-matriculados").html(response);
+    ShowSuccess("Se dejo el curso");
+    LlenarCursosPermitidos(baseURL);
+    $('[data-toggle="tooltip"]').tooltip();
+
+  })
+  .fail(function(e) {
+    console.log(e);
+  });
+
+}
+
+function LlenarCursosPermitidos(baseURL){
+
+  $.post( baseURL + "rectificacion/Rectificacion/VerCursosPermitidos", function(response) {
+   
+    $("#contenedor-horarios-permitidos").html(response);
+
+  })
+  .fail(function(e) {
+    console.log(e);
+  });
+
+}
+
+function DejarCurso(baseURL, cod_curso, seccion){
+
+  var cod = "" + cod_curso;
+  var seccion = "" + seccion;
+
+  var datos = {
+    "cod_curso" : cod,
+    "seccion" : seccion
+  };
+
+  $.post( baseURL + "rectificacion/Rectificacion/DejarCurso", datos, function(response) {
+    $('#modalHorariosMatriculados').modal('hide');
+    $("#contenedor-horarios-matriculados").html(response);
+    ShowSuccess("Se dejo el curso");
+    LlenarCursosPermitidos(baseURL);
+    $('[data-toggle="tooltip"]').tooltip();
+
+  })
+  .fail(function(e) {
+    console.log(e);
+  });
+
+}
+
+function RegistrarHorarioCambioRectificacion(baseURL, cod_curso, seccion){
+
+  var seccionAnterior = "" + $('#inputseccion').val();
+
+var cod = "" + cod_curso;
+  var seccion = "" + seccion;
+
+  var datosCambio = {
+    "cod_curso" : cod_curso,
+    "seccion" : seccion,
+    "seccion_anterior" : seccionAnterior
+  };
+
+console.log(cod_curso);
+console.log(seccion);
+console.log(seccionAnterior);
+
+  $.post( baseURL + "rectificacion/Rectificacion/RegistrarHorariosCambio", datosCambio, function(response) {
+
+    $("#contenedor-horarios-matriculados").html(response);
+    ShowSuccess("Se cambio el horario exitosamente!");
+    $('#modalHorariosDisponibles').modal('hide');
+})
+ .fail(function(e) {
+  console.log(e);
+});
 
 }

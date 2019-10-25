@@ -27,118 +27,235 @@ class Horarios extends CI_Controller {
 
             $listActiveLink = array("a_matricula" => "a_matricula", "a_horarios" => "a_horarios");
             
-            $this->load->model("MatriculaModel");
-            $matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
+            if($usuario->estado == 1)
+			{
 
-            if($matricula)
-            {
-                // ------------- SI TIENE MATRICULA ----------------------
+                $this->load->model("MatriculaModel");
+                $matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
 
-                $cod_activacion = 1;
-                $this->load->model("ActivacionModel");
-                $activacionHorarios = $this->ActivacionModel->getActivacionByCodigo($cod_activacion);
+                if($matricula)
+                {
+                    // ------------- SI TIENE MATRICULA ----------------------
 
-                if($activacionHorarios->estado == 1)
-			    {
+                    $cod_activacion = 1;
+                    $this->load->model("ActivacionModel");
+                    $activacionHorarios = $this->ActivacionModel->getActivacionByCodigo($cod_activacion);
 
-                    $periodoActual = date('Y') . '-I';
-
-                    if($activacionHorarios->periodo == 2){
-
-                        $periodoActual = date('Y') . '-II';
-
-                    }
-                   // ------------- SI ESTAN ACTIVADOS LOS HORARIOS ----------------------
-
-                    $this->load->model("Cursos_llevados");
-                    $listCursosLlevados = $this->Cursos_llevados->getCursosLlevados($usuario->cod_alumno);
-                    
-                    if(empty($listCursosLlevados))
+                    if($activacionHorarios->estado == 1)
                     {
 
-                        $ciclo = 1;
+                        $periodoActual = date('Y') . '-I';
 
-                        $this->load->model("CursoModel");
-                        $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
+                        if($activacionHorarios->periodo == 2){
 
-                        $this->load->model("HorarioAlumnoModel");
-                        $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
+                            $periodoActual = date('Y') . '-II';
 
-                        $listHorariosMatriculados = array();
-                        $listCountGroupCurso = array();
-
-                        if($listHorariosAlumno)
-                        {
-                            $this->load->model("HorariosModel");
-                            $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
-                            $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
                         }
+                    // ------------- SI ESTAN ACTIVADOS LOS HORARIOS ----------------------
+
+                        $this->load->model("Cursos_llevados");
+                        $listCursosLlevados = $this->Cursos_llevados->getCursosLlevados($usuario->cod_alumno);
                         
-                        $data = array(
-                            "show" => false,
-                            "message" => "",
-                            "tipo" => "",
-                            "usuario" => $usuario,
-                            "listActiveLink" => $listActiveLink,
-                            "listCursosPermitidos" => $listCursosPermitidos,
-                            "listHorariosMatriculados" => $listHorariosMatriculados,
-                            "listCountGroupCurso" => $listCountGroupCurso
-                        );
-        
-                        $this->load->view("horarios/horarios_view", $data);
-
-                    }else
-                    {
-
-
-                        $this->load->model("CursoModel");
-                        $cursoMaxAnio = $this->CursoModel->getCursoMaxAnioByPlanCurricular($matricula->cod_plan_curricular_fk);
-
-                        $anioActual = ($matricula->anio - $usuario->anio_ingreso) + 1;
-
-                        $anioAlumno = $anioActual;
-
-                        if($anioActual > $cursoMaxAnio->num_anio)
-                        {
-                            $anioAlumno = $cursoMaxAnio->num_anio;
-                        }
-
-                        $listCursosLlevadosAprobados = $this->Cursos_llevados->getCursosLlevadosAprobados($usuario->cod_alumno);
-
-                        if($listCursosLlevadosAprobados)
+                        if(empty($listCursosLlevados))
                         {
 
-                            $listCursosPermitidos = array();
-                            $this->load->model("CursoPreRequisitoModel");
+                            $ciclo = 1;
+
                             $this->load->model("CursoModel");
+                            $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
 
-                            foreach($listCursosLlevadosAprobados as $cursoLllevadoAprobado)
+                            $this->load->model("HorarioAlumnoModel");
+                            $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
+
+                            $listHorariosMatriculados = array();
+                            $listCountGroupCurso = array();
+
+                            if($listHorariosAlumno)
+                            {
+                                $this->load->model("HorariosModel");
+                                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
+                                $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
+                            }
+                            
+                            $data = array(
+                                "show" => false,
+                                "message" => "",
+                                "tipo" => "",
+                                "usuario" => $usuario,
+                                "listActiveLink" => $listActiveLink,
+                                "listCursosPermitidos" => $listCursosPermitidos,
+                                "listHorariosMatriculados" => $listHorariosMatriculados,
+                                "listCountGroupCurso" => $listCountGroupCurso
+                            );
+            
+                            $this->load->view("horarios/horarios_view", $data);
+
+                        }else
+                        {
+
+
+                            $this->load->model("CursoModel");
+                            $cursoMaxAnio = $this->CursoModel->getCursoMaxAnioByPlanCurricular($matricula->cod_plan_curricular_fk);
+
+                            $anioActual = ($matricula->anio - $usuario->anio_ingreso) + 1;
+
+                            $anioAlumno = $anioActual;
+
+                            if($anioActual > $cursoMaxAnio->num_anio)
+                            {
+                                $anioAlumno = $cursoMaxAnio->num_anio;
+                            }
+
+                            $listCursosLlevadosAprobados = $this->Cursos_llevados->getCursosLlevadosAprobados($usuario->cod_alumno);
+
+                            if($listCursosLlevadosAprobados)
                             {
 
-                                $listCursosSiguientes = $this->CursoPreRequisitoModel->getCursosSiguientes($cursoLllevadoAprobado->cod_curso_fk);
+                                $listCursosPermitidos = array();
+                                $this->load->model("CursoPreRequisitoModel");
+                                $this->load->model("CursoModel");
 
-                                if($listCursosSiguientes)
+                                foreach($listCursosLlevadosAprobados as $cursoLllevadoAprobado)
                                 {
 
-                                    foreach($listCursosSiguientes as $cursoSiguiente)
+                                    $listCursosSiguientes = $this->CursoPreRequisitoModel->getCursosSiguientes($cursoLllevadoAprobado->cod_curso_fk);
+
+                                    if($listCursosSiguientes)
                                     {
 
-                                        $curso_llevado = $this->Cursos_llevados->getCursoLlevadoByCurso($cursoSiguiente->cod_curso_fk);
-                                        
-                                        if($curso_llevado)
+                                        foreach($listCursosSiguientes as $cursoSiguiente)
                                         {
 
-                                            if($curso_llevado->estado != 'APROBADO' && $curso_llevado->estado != 'EN CURSO')
+                                            $curso_llevado = $this->Cursos_llevados->getCursoLlevadoByCurso($cursoSiguiente->cod_curso_fk);
+                                            
+                                            if($curso_llevado)
                                             {
 
-                                                $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
+                                                if($curso_llevado->estado != 'APROBADO' && $curso_llevado->estado != 'EN CURSO')
+                                                {
 
+                                                    $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
+
+                                                    if($cursoPermitido->num_ciclo == 1)
+                                                    {
+
+                                                        if($activacionHorarios->periodo == 1)
+                                                        {
+        
+                                                            if(count($listCursosPermitidos) > 0)
+                                                            {
+                                                                $duplicado = false;
+                                                                foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                {
+                                                                    if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                    {
+                                                                        $duplicado = true;
+                                                                        break;
+                                                                    }
+
+                                                                }
+
+                                                                if(!$duplicado)
+                                                                {
+
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                }
+
+                                                            }else
+                                                            {
+                                                                array_push($listCursosPermitidos, $cursoPermitido);
+                                                            }
+                                                            
+
+                                                        }
+
+                                                    }else
+                                                    {
+
+                                                        if($cursoPermitido->num_ciclo % 2 == 0)
+                                                        {
+
+                                                            if($activacionHorarios->periodo == 2)
+                                                            {
+
+                                                                if(count($listCursosPermitidos) > 0)
+                                                                {
+                                                                    $duplicado = false;
+                                                                    foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                    {
+                                                                        if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                        {
+                                                                            $duplicado = true;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+
+                                                                    if(!$duplicado)
+                                                                    {
+
+                                                                        array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                    }
+
+                                                                }else
+                                                                {
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+                                                                }
+
+                                                            }
+
+                                                        }else
+                                                        {
+
+                                                            if($activacionHorarios->periodo == 1)
+                                                            {
+
+                                                                if(count($listCursosPermitidos) > 0)
+                                                                {
+                                                                    $duplicado = false;
+                                                                    foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                    {
+                                                                        if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                        {
+                                                                            $duplicado = true;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+
+                                                                    if(!$duplicado)
+                                                                    {
+
+                                                                        array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                    }
+
+                                                                }else
+                                                                {
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+                                                                }
+
+                                                            }
+
+                                                        }
+
+                                                    }
+                                                    
+
+                                                }
+
+                                            }else
+                                            {
+                                                $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
+                                                        
                                                 if($cursoPermitido->num_ciclo == 1)
                                                 {
 
                                                     if($activacionHorarios->periodo == 1)
                                                     {
-      
+
                                                         if(count($listCursosPermitidos) > 0)
                                                         {
                                                             $duplicado = false;
@@ -163,7 +280,6 @@ class Horarios extends CI_Controller {
                                                         {
                                                             array_push($listCursosPermitidos, $cursoPermitido);
                                                         }
-                                                        
 
                                                     }
 
@@ -233,270 +349,6 @@ class Horarios extends CI_Controller {
                                                             {
                                                                 array_push($listCursosPermitidos, $cursoPermitido);
                                                             }
-
-                                                        }
-
-                                                    }
-
-                                                }
-                                                
-
-                                            }
-
-                                        }else
-                                        {
-                                            $cursoPermitido = $this->CursoModel->getCurso($cursoSiguiente->cod_curso_fk);
-                                                    
-                                            if($cursoPermitido->num_ciclo == 1)
-                                            {
-
-                                                if($activacionHorarios->periodo == 1)
-                                                {
-
-                                                    if(count($listCursosPermitidos) > 0)
-                                                    {
-                                                        $duplicado = false;
-                                                        foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                        {
-                                                            if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                            {
-                                                                $duplicado = true;
-                                                                break;
-                                                            }
-
-                                                        }
-
-                                                        if(!$duplicado)
-                                                        {
-
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                        }
-
-                                                    }else
-                                                    {
-                                                        array_push($listCursosPermitidos, $cursoPermitido);
-                                                    }
-
-                                                }
-
-                                            }else
-                                            {
-
-                                                if($cursoPermitido->num_ciclo % 2 == 0)
-                                                {
-
-                                                    if($activacionHorarios->periodo == 2)
-                                                    {
-
-                                                        if(count($listCursosPermitidos) > 0)
-                                                        {
-                                                            $duplicado = false;
-                                                            foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                            {
-                                                                if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                                {
-                                                                    $duplicado = true;
-                                                                    break;
-                                                                }
-
-                                                            }
-
-                                                            if(!$duplicado)
-                                                            {
-
-                                                                array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                            }
-
-                                                        }else
-                                                        {
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-                                                        }
-
-                                                    }
-
-                                                }else
-                                                {
-
-                                                    if($activacionHorarios->periodo == 1)
-                                                    {
-
-                                                        if(count($listCursosPermitidos) > 0)
-                                                        {
-                                                            $duplicado = false;
-                                                            foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                            {
-                                                                if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                                {
-                                                                    $duplicado = true;
-                                                                    break;
-                                                                }
-
-                                                            }
-
-                                                            if(!$duplicado)
-                                                            {
-
-                                                                array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                            }
-
-                                                        }else
-                                                        {
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-                                                        }
-                                                    }
-
-                                                }
-
-                                            }
-
-                                        }
-
-                                    }
-
-
-                                }
-
-                            }
-
-                            // -------------- LOS QUE NO TIENEN RELACION ------------------
-
-                            $listCiclos = array();
-
-                            $numCicloMax = ($anioAlumno * 2) - 1;
-
-                            if($activacionHorarios->periodo == 2)
-                            {
-
-                                $numCicloMax++;
-
-                            }
-
-                            for($ciclo = 1; $ciclo <=$numCicloMax; $ciclo +=2)
-                            {
-
-                                array_push($listCiclos, $ciclo);
-
-                            }
-
-                            $listCursosByAniosNotPre = $this->CursoModel->getCursosByListAniosNotPre($listCiclos);
-
-                            if($listCursosByAniosNotPre)
-                            {
-
-                                foreach($listCursosByAniosNotPre as $cursoNotPre)
-                                {
-
-                                    $curso_llevado_not_pre = $this->Cursos_llevados->getCursoLlevadoByCurso($cursoNotPre->cod_curso);
-
-                                    if($curso_llevado_not_pre)
-                                    {
-
-                                        if($curso_llevado_not_pre->estado == 'DESAPROBADO')
-                                        {
-
-                                            $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
-                                  
-                                            if($cursoPermitido->num_ciclo == 1)
-                                            {
-
-                                                if($activacionHorarios->periodo == 1)
-                                                {
-
-                                                    if(count($listCursosPermitidos) > 0)
-                                                    {
-                                                        $duplicado = false;
-                                                        foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                        {
-                                                            if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                            {
-                                                                $duplicado = true;
-                                                                break;
-                                                            }
-
-                                                        }
-
-                                                        if(!$duplicado)
-                                                        {
-
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                        }
-
-                                                    }else
-                                                    {
-                                                        array_push($listCursosPermitidos, $cursoPermitido);
-                                                    }
-
-                                                }
-
-                                            }else
-                                            {
-
-                                                if($cursoPermitido->num_ciclo % 2 == 0)
-                                                {
-
-                                                    if($activacionHorarios->periodo == 2)
-                                                    {
-
-                                                        if(count($listCursosPermitidos) > 0)
-                                                        {
-                                                            $duplicado = false;
-                                                            foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                            {
-                                                                if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                                {
-                                                                    $duplicado = true;
-                                                                    break;
-                                                                }
-
-                                                            }
-
-                                                            if(!$duplicado)
-                                                            {
-
-                                                                array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                            }
-
-                                                        }else
-                                                        {
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-                                                        }
-
-                                                    }
-
-                                                }else
-                                                {
-
-                                                    if($activacionHorarios->periodo == 1)
-                                                    {
-
-                                                        if(count($listCursosPermitidos) > 0)
-                                                        {
-                                                            $duplicado = false;
-                                                            foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                            {
-                                                                if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                                {
-                                                                    $duplicado = true;
-                                                                    break;
-                                                                }
-
-                                                            }
-
-                                                            if(!$duplicado)
-                                                            {
-
-                                                                array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                            }
-
-                                                        }else
-                                                        {
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
                                                         }
 
                                                     }
@@ -507,202 +359,12 @@ class Horarios extends CI_Controller {
 
                                         }
 
-                                    }else
-                                    {
-                                        $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
-                                                   
-                                        if($cursoPermitido->num_ciclo == 1)
-                                            {
-
-                                                if($activacionHorarios->periodo == 1)
-                                                {
-
-                                                    if(count($listCursosPermitidos) > 0)
-                                                    {
-                                                        $duplicado = false;
-                                                        foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                        {
-                                                            if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                            {
-                                                                $duplicado = true;
-                                                                break;
-                                                            }
-
-                                                        }
-
-                                                        if(!$duplicado)
-                                                        {
-
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                        }
-
-                                                    }else
-                                                    {
-                                                        array_push($listCursosPermitidos, $cursoPermitido);
-                                                    }
-
-                                                }
-
-                                            }else
-                                            {
-
-                                                if($cursoPermitido->num_ciclo % 2 == 0)
-                                                {
-
-                                                    if($activacionHorarios->periodo == 2)
-                                                    {
-
-                                                        if(count($listCursosPermitidos) > 0)
-                                                        {
-                                                            $duplicado = false;
-                                                            foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                            {
-                                                                if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                                {
-                                                                    $duplicado = true;
-                                                                    break;
-                                                                }
-
-                                                            }
-
-                                                            if(!$duplicado)
-                                                            {
-
-                                                                array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                            }
-
-                                                        }else
-                                                        {
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-                                                        }
-
-                                                    }
-
-                                                }else
-                                                {
-
-                                                    if($activacionHorarios->periodo == 1)
-                                                    {
-
-                                                        if(count($listCursosPermitidos) > 0)
-                                                        {
-                                                            $duplicado = false;
-                                                            foreach($listCursosPermitidos as $cursoPermitidoTemp)
-                                                            {
-                                                                if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
-                                                                {
-                                                                    $duplicado = true;
-                                                                    break;
-                                                                }
-
-                                                            }
-
-                                                            if(!$duplicado)
-                                                            {
-
-                                                                array_push($listCursosPermitidos, $cursoPermitido);
-
-                                                            }
-
-                                                        }else
-                                                        {
-                                                            array_push($listCursosPermitidos, $cursoPermitido);
-                                                        }
-
-                                                    }
-
-                                                }
-
-                                            }
 
                                     }
 
                                 }
 
-                            }
-
-                            // -------------- FIN DE LA LISTA DE PERMITIDOS ------------------
-
-
-                            $this->load->model("HorarioAlumnoModel");
-                            $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
-
-                            $listHorariosMatriculados = array();
-                            $listCountGroupCurso = array();
-
-                            if($listHorariosAlumno)
-                            {
-                                $this->load->model("HorariosModel");
-                                $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
-                                $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
-                            }
-
-                            $data = array(
-                                "show" => false,
-                                "message" => "",
-                                "tipo" => "",
-                                "usuario" => $usuario,
-                                "listActiveLink" => $listActiveLink,
-                                "listCursosPermitidos" => $listCursosPermitidos,
-                                "listHorariosMatriculados" => $listHorariosMatriculados,
-                                "listCountGroupCurso" => $listCountGroupCurso
-                            );
-            
-                            $this->load->view("horarios/horarios_view", $data);
-
-                        }else
-                        {
-
-                            // ------------------ NO HAY CURSOS APROBADOS -------------------
-
-                            if($activacionHorarios->periodo == 1)
-                            {
-
-                                $ciclo = 1;
-
-                                $this->load->model("CursoModel");
-                                $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
-
-                                $this->load->model("HorarioAlumnoModel");
-                                $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
-
-                                $listHorariosMatriculados = array();
-                                $listCountGroupCurso = array();
-
-                                if($listHorariosAlumno)
-                                {
-                                    $this->load->model("HorariosModel");
-                                    $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
-                                    $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
-                                }
-                                
-                                $data = array(
-                                    "show" => false,
-                                    "message" => "",
-                                    "tipo" => "",
-                                    "usuario" => $usuario,
-                                    "listActiveLink" => $listActiveLink,
-                                    "listCursosPermitidos" => $listCursosPermitidos,
-                                    "listHorariosMatriculados" => $listHorariosMatriculados,
-                                    "listCountGroupCurso" => $listCountGroupCurso
-                                );
-                
-                                $this->load->view("horarios/horarios_view", $data);
-
-                            }else
-                            {
-
-                                $ciclo = 2;
-
-                                $this->load->model("CursoModel");
-                                //$listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
-
-
-                                $listCursosPermitidos = array();
-
-
+                                // -------------- LOS QUE NO TIENEN RELACION ------------------
 
                                 $listCiclos = array();
 
@@ -715,14 +377,14 @@ class Horarios extends CI_Controller {
 
                                 }
 
-                                for($ciclo = $activacionHorarios->periodo; $ciclo <=$numCicloMax; $ciclo +=2)
+                                for($ciclo = 1; $ciclo <=$numCicloMax; $ciclo +=2)
                                 {
 
                                     array_push($listCiclos, $ciclo);
 
                                 }
 
-                                $listCursosByAniosNotPre = $this->CursoModel->getCursosByListCiclosNotPre($listCiclos);
+                                $listCursosByAniosNotPre = $this->CursoModel->getCursosByListAniosNotPre($listCiclos);
 
                                 if($listCursosByAniosNotPre)
                                 {
@@ -964,6 +626,8 @@ class Horarios extends CI_Controller {
 
                                 }
 
+                                // -------------- FIN DE LA LISTA DE PERMITIDOS ------------------
+
 
                                 $this->load->model("HorarioAlumnoModel");
                                 $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
@@ -977,7 +641,7 @@ class Horarios extends CI_Controller {
                                     $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
                                     $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
                                 }
-                                
+
                                 $data = array(
                                     "show" => false,
                                     "message" => "",
@@ -991,40 +655,390 @@ class Horarios extends CI_Controller {
                 
                                 $this->load->view("horarios/horarios_view", $data);
 
-                            }
+                            }else
+                            {
 
-                            
+                                // ------------------ NO HAY CURSOS APROBADOS -------------------
 
-                        }
+                                if($activacionHorarios->periodo == 1)
+                                {
+
+                                    $ciclo = 1;
+
+                                    $this->load->model("CursoModel");
+                                    $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
+
+                                    $this->load->model("HorarioAlumnoModel");
+                                    $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
+
+                                    $listHorariosMatriculados = array();
+                                    $listCountGroupCurso = array();
+
+                                    if($listHorariosAlumno)
+                                    {
+                                        $this->load->model("HorariosModel");
+                                        $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
+                                        $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
+                                    }
+                                    
+                                    $data = array(
+                                        "show" => false,
+                                        "message" => "",
+                                        "tipo" => "",
+                                        "usuario" => $usuario,
+                                        "listActiveLink" => $listActiveLink,
+                                        "listCursosPermitidos" => $listCursosPermitidos,
+                                        "listHorariosMatriculados" => $listHorariosMatriculados,
+                                        "listCountGroupCurso" => $listCountGroupCurso
+                                    );
                     
+                                    $this->load->view("horarios/horarios_view", $data);
+
+                                }else
+                                {
+
+                                    $ciclo = 2;
+
+                                    $this->load->model("CursoModel");
+                                    //$listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
+
+
+                                    $listCursosPermitidos = array();
+
+
+
+                                    $listCiclos = array();
+
+                                    $numCicloMax = ($anioAlumno * 2) - 1;
+
+                                    if($activacionHorarios->periodo == 2)
+                                    {
+
+                                        $numCicloMax++;
+
+                                    }
+
+                                    for($ciclo = $activacionHorarios->periodo; $ciclo <=$numCicloMax; $ciclo +=2)
+                                    {
+
+                                        array_push($listCiclos, $ciclo);
+
+                                    }
+
+                                    $listCursosByAniosNotPre = $this->CursoModel->getCursosByListCiclosNotPre($listCiclos);
+
+                                    if($listCursosByAniosNotPre)
+                                    {
+
+                                        foreach($listCursosByAniosNotPre as $cursoNotPre)
+                                        {
+
+                                            $curso_llevado_not_pre = $this->Cursos_llevados->getCursoLlevadoByCurso($cursoNotPre->cod_curso);
+
+                                            if($curso_llevado_not_pre)
+                                            {
+
+                                                if($curso_llevado_not_pre->estado == 'DESAPROBADO')
+                                                {
+
+                                                    $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
+                                        
+                                                    if($cursoPermitido->num_ciclo == 1)
+                                                    {
+
+                                                        if($activacionHorarios->periodo == 1)
+                                                        {
+
+                                                            if(count($listCursosPermitidos) > 0)
+                                                            {
+                                                                $duplicado = false;
+                                                                foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                {
+                                                                    if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                    {
+                                                                        $duplicado = true;
+                                                                        break;
+                                                                    }
+
+                                                                }
+
+                                                                if(!$duplicado)
+                                                                {
+
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                }
+
+                                                            }else
+                                                            {
+                                                                array_push($listCursosPermitidos, $cursoPermitido);
+                                                            }
+
+                                                        }
+
+                                                    }else
+                                                    {
+
+                                                        if($cursoPermitido->num_ciclo % 2 == 0)
+                                                        {
+
+                                                            if($activacionHorarios->periodo == 2)
+                                                            {
+
+                                                                if(count($listCursosPermitidos) > 0)
+                                                                {
+                                                                    $duplicado = false;
+                                                                    foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                    {
+                                                                        if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                        {
+                                                                            $duplicado = true;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+
+                                                                    if(!$duplicado)
+                                                                    {
+
+                                                                        array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                    }
+
+                                                                }else
+                                                                {
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+                                                                }
+
+                                                            }
+
+                                                        }else
+                                                        {
+
+                                                            if($activacionHorarios->periodo == 1)
+                                                            {
+
+                                                                if(count($listCursosPermitidos) > 0)
+                                                                {
+                                                                    $duplicado = false;
+                                                                    foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                    {
+                                                                        if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                        {
+                                                                            $duplicado = true;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+
+                                                                    if(!$duplicado)
+                                                                    {
+
+                                                                        array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                    }
+
+                                                                }else
+                                                                {
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+                                                                }
+
+                                                            }
+
+                                                        }
+
+                                                    }
+
+                                                }
+
+                                            }else
+                                            {
+                                                $cursoPermitido = $this->CursoModel->getCurso($cursoNotPre->cod_curso);
+                                                        
+                                                if($cursoPermitido->num_ciclo == 1)
+                                                    {
+
+                                                        if($activacionHorarios->periodo == 1)
+                                                        {
+
+                                                            if(count($listCursosPermitidos) > 0)
+                                                            {
+                                                                $duplicado = false;
+                                                                foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                {
+                                                                    if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                    {
+                                                                        $duplicado = true;
+                                                                        break;
+                                                                    }
+
+                                                                }
+
+                                                                if(!$duplicado)
+                                                                {
+
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                }
+
+                                                            }else
+                                                            {
+                                                                array_push($listCursosPermitidos, $cursoPermitido);
+                                                            }
+
+                                                        }
+
+                                                    }else
+                                                    {
+
+                                                        if($cursoPermitido->num_ciclo % 2 == 0)
+                                                        {
+
+                                                            if($activacionHorarios->periodo == 2)
+                                                            {
+
+                                                                if(count($listCursosPermitidos) > 0)
+                                                                {
+                                                                    $duplicado = false;
+                                                                    foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                    {
+                                                                        if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                        {
+                                                                            $duplicado = true;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+
+                                                                    if(!$duplicado)
+                                                                    {
+
+                                                                        array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                    }
+
+                                                                }else
+                                                                {
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+                                                                }
+
+                                                            }
+
+                                                        }else
+                                                        {
+
+                                                            if($activacionHorarios->periodo == 1)
+                                                            {
+
+                                                                if(count($listCursosPermitidos) > 0)
+                                                                {
+                                                                    $duplicado = false;
+                                                                    foreach($listCursosPermitidos as $cursoPermitidoTemp)
+                                                                    {
+                                                                        if($cursoPermitidoTemp->cod_curso == $cursoPermitido->cod_curso)
+                                                                        {
+                                                                            $duplicado = true;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+
+                                                                    if(!$duplicado)
+                                                                    {
+
+                                                                        array_push($listCursosPermitidos, $cursoPermitido);
+
+                                                                    }
+
+                                                                }else
+                                                                {
+                                                                    array_push($listCursosPermitidos, $cursoPermitido);
+                                                                }
+
+                                                            }
+
+                                                        }
+
+                                                    }
+
+                                            }
+
+                                        }
+
+                                    }
+
+
+                                    $this->load->model("HorarioAlumnoModel");
+                                    $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
+
+                                    $listHorariosMatriculados = array();
+                                    $listCountGroupCurso = array();
+
+                                    if($listHorariosAlumno)
+                                    {
+                                        $this->load->model("HorariosModel");
+                                        $listHorariosMatriculados = $this->HorariosModel->getHorariosByHorarioCurso($listHorariosAlumno, $periodoActual);
+                                        $listCountGroupCurso = $this->HorariosModel->getCountGroupByMatricula($matricula->cod_matricula);
+                                    }
+                                    
+                                    $data = array(
+                                        "show" => false,
+                                        "message" => "",
+                                        "tipo" => "",
+                                        "usuario" => $usuario,
+                                        "listActiveLink" => $listActiveLink,
+                                        "listCursosPermitidos" => $listCursosPermitidos,
+                                        "listHorariosMatriculados" => $listHorariosMatriculados,
+                                        "listCountGroupCurso" => $listCountGroupCurso
+                                    );
+                    
+                                    $this->load->view("horarios/horarios_view", $data);
+
+                                }
+
+                                
+
+                            }
+                        
+                        }
+                    }else
+                    {
+        
+                        // -------------- NO ESTAN ACTIVADO LOS HORARIOS -----------------
+        
+                        $data = array(
+                            "usuario" => $usuario,
+                            "listActiveLink" => $listActiveLink
+                        );
+        
+                        $this->load->view("horarios/horarios_activacion", $data);
                     }
                 }else
                 {
-    
-                    // -------------- NO ESTAN ACTIVADO LOS HORARIOS -----------------
-    
+
+                    // ------------- NO TIENE MATRICULA ----------------------
+
                     $data = array(
                         "usuario" => $usuario,
                         "listActiveLink" => $listActiveLink
                     );
-    
-                    $this->load->view("horarios/horarios_activacion", $data);
+
+                    $this->load->view("horarios/horarios_no_matricula_view", $data);
                 }
+
             }else
             {
 
-                // ------------- NO TIENE MATRICULA ----------------------
+                // ------------- ALUMNO NO ACTIVO ----------------------
 
                 $data = array(
                     "usuario" => $usuario,
                     "listActiveLink" => $listActiveLink
                 );
 
-                $this->load->view("horarios/horarios_no_matricula_view", $data);
+                $this->load->view("horarios/alumno_no_activo_view", $data);
+
             }
-
-            
-
 			
 		}else{
 

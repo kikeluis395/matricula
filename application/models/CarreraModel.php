@@ -8,7 +8,7 @@ class CarreraModel extends CI_Model{
         parent::__construct();
     }
 
-    public function getCarreraJoinFacultad(int $cod_carrera){
+    public function getCarreraJoinFacultad(string $cod_carrera){
 
         $filtros = array(
             "ca.cod_carrera" => $cod_carrera

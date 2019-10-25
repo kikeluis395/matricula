@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2019 a las 13:56:37
+-- Tiempo de generación: 25-10-2019 a las 06:13:34
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.1
 
@@ -40,9 +40,9 @@ CREATE TABLE `activacion` (
 --
 
 INSERT INTO `activacion` (`cod_activacion`, `descripcion`, `periodo`, `estado`) VALUES
-(1, 'MATRICULA', '1', 1),
-(2, 'RECTIFICACION', '1', 0),
-(3, 'PAGO', '', 1);
+(1, 'MATRICULA', '2', 0),
+(2, 'RECTIFICACION', '2', 1),
+(3, 'PAGO', '', 0);
 
 -- --------------------------------------------------------
 
@@ -72,15 +72,16 @@ CREATE TABLE `alumno` (
   `cod_alumno` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `dni_fk` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
   `anio_ingreso` int(11) NOT NULL,
-  `cod_carrera_fk` int(11) NOT NULL
+  `cod_carrera_fk` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `alumno`
 --
 
-INSERT INTO `alumno` (`cod_alumno`, `dni_fk`, `anio_ingreso`, `cod_carrera_fk`) VALUES
-('2015237215', '70776456', 2015, 27);
+INSERT INTO `alumno` (`cod_alumno`, `dni_fk`, `anio_ingreso`, `cod_carrera_fk`, `estado`) VALUES
+('2015237215', '70776456', 2015, 'ABDC', 1);
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,7 @@ INSERT INTO `aula` (`cod_aula`, `pabellon`) VALUES
 --
 
 CREATE TABLE `carrera` (
-  `cod_carrera` int(11) NOT NULL,
+  `cod_carrera` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `escuela` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `cod_facultad_fk` int(11) NOT NULL
@@ -127,61 +128,61 @@ CREATE TABLE `carrera` (
 --
 
 INSERT INTO `carrera` (`cod_carrera`, `descripcion`, `escuela`, `cod_facultad_fk`) VALUES
-(1, 'Administración de Turismo y de Negocios Internacionales', 'Escuela Profesional de Administración de Turismo y de Negocios Internacionales', 1),
-(2, 'Administración Privada', 'Escuela Profesional de Administración Privada', 1),
-(3, 'Administración Pública y Gestión Social', 'Escuela Profesional de Administración Pública y Gestión Social', 1),
-(4, 'Economía', 'Escuela Profesional de Economía', 2),
-(5, 'Contabilidad', 'Escuela Profesional de Contabilidad', 3),
-(6, 'Ciencias de la Comunicación', 'Escuela Profesional de Ciencias de la Comunicación', 4),
-(7, 'Sociología', 'Escuela Profesional de Sociología', 4),
-(8, 'Trabajo Social', 'Escuela Profesional de Trabajo Social', 4),
-(9, 'Ciencias Políticas', 'Escuela Profesional de Ciencias Políticas', 5),
-(10, 'Derecho', 'Escuela Profesional de Derecho', 5),
-(11, 'Educación Inicial', 'Escuela Profesional de Inicial', 6),
-(12, 'Educación Primaria', 'Escuela Profesional de Primaria', 6),
-(13, 'Educación Secundaria Especialidad: Computación e Informática', 'Escuela Profesional de Secundaria', 6),
-(14, 'Educación Secundaria Especialidad: Idioma Inglés', 'Escuela Profesional de Secundaria', 6),
-(15, 'Educación Secundaria Especialidad: Matemática y Física', 'Escuela Profesional de Secundaria', 6),
-(16, 'Educación Secundaria Especialidad: Ciencias Naturales', 'Escuela Profesional de Secundaria', 6),
-(17, 'Educación Secundaria Especialidad: Filosofía y Ciencias Sociales', 'Escuela Profesional de Secundaria', 6),
-(18, 'Educación Secundaria Especialidad: Ciencias Histórico Sociales', 'Escuela Profesional de Secundaria', 6),
-(19, 'Educación Secundaria Especialidad: Lenguaje y Literatura', 'Escuela Profesional de Secundaria', 6),
-(20, 'Educación Física', 'Escuela Profesional de Educación Física', 6),
-(21, 'Antropología y Arqueología', 'Escuela Profesional de Antropología y Arqueología', 7),
-(22, 'Filosofía', 'Escuela Profesional de Filosofía', 7),
-(23, 'Historia', 'Escuela Profesional de Historia', 7),
-(24, 'Lingüística y Literatura', 'Escuela Profesional de Lingüística y Literatura', 7),
-(25, 'Arquitectura y Urbanismo', 'Escuela Profesional de Arquitectura y Urbanismo', 8),
-(26, 'Ingeniería Civil', 'Escuela Profesional de Ingeniería Civil', 9),
-(27, 'Ingeniería de Sistemas', 'Escuela Profesional de Ingeniería de Sistemas', 10),
-(28, 'Ingeniería de Transportes', 'Escuela Profesional de Ingeniería de Transportes', 10),
-(29, 'Ingeniería Agroindustrial', 'Escuela Profesional de Ingeniería Agroindustrial', 10),
-(30, 'Ingeniería Industrial', 'Escuela Profesional de Ingeniería Industrial', 10),
-(31, 'Ingeniería Geográfica', 'Escuela Profesional de Ingeniería Geográfica', 11),
-(32, 'Ingeniería Ambiental', 'Escuela Profesional de Ingeniería Ambiental', 11),
-(33, 'Ingeniería en Ecoturismo', 'Escuela Profesional de Ingeniería en Ecoturismo', 11),
-(34, 'Ingeniería Alimentaria', 'Escuela Profesional de Ingeniería Alimentaria', 12),
-(35, 'Ingeniería en Acuicultura', 'Escuela Profesional de Ingeniería en Acuicultura', 12),
-(36, 'Ingeniería Pesquera', 'Escuela Profesional de Ingeniería Pesquera', 12),
-(37, 'Ingeniería Electrónica', 'Escuela Profesional de Ingeniería Electrónica', 13),
-(38, 'Ingeniería Informática', 'Escuela Profesional de Ingeniería Informática', 13),
-(39, 'Ingeniería Mecatrónica', 'Escuela Profesional de Ingeniería Mecatrónica', 13),
-(40, 'Ingeniería de Telecomunicaciones', 'Escuela Profesional de Ingeniería de Telecomunicaciones', 13),
-(41, 'Biología', 'Escuela Profesional de Biología', 14),
-(42, 'Física', 'Escuela Profesional de Física', 14),
-(43, 'Matemática y Estadística', 'Escuela Profesional de Matemática y Estadística', 14),
-(44, 'Química', 'Escuela Profesional de Química', 14),
-(45, 'Medicina', 'Escuela Profesional de Medicina', 15),
-(46, 'Enfermería', 'Escuela Profesional de Enfermería', 15),
-(47, 'Nutrición', 'Escuela Profesional de Nutrición', 15),
-(48, 'Obstetricia', 'Escuela Profesional de Obstetricia', 15),
-(49, 'Odontología', 'Escuela Profesional de Odontología', 16),
-(50, 'Terapia Física y Rehabilitación', 'Escuela Profesional de Terapias de Rehabilitación', 17),
-(51, 'Terapia de Lenguaje', 'Escuela Profesional de Terapias de Rehabilitación', 17),
-(52, 'Radiología', 'Escuela Profesional de Radioimagen', 17),
-(53, 'Optometría', 'Escuela Profesional de Radioimagen', 17),
-(54, 'Laboratorio y Anatomía Patológica', 'Escuela Profesional de Laboratorio y Anatomía Patológica', 17),
-(55, 'Psicología', 'Escuela Profesional de Psicología', 18);
+('1', 'Administración de Turismo y de Negocios Internacionales', 'Escuela Profesional de Administración de Turismo y de Negocios Internacionales', 1),
+('10', 'Derecho', 'Escuela Profesional de Derecho', 5),
+('11', 'Educación Inicial', 'Escuela Profesional de Inicial', 6),
+('12', 'Educación Primaria', 'Escuela Profesional de Primaria', 6),
+('13', 'Educación Secundaria Especialidad: Computación e Informática', 'Escuela Profesional de Secundaria', 6),
+('14', 'Educación Secundaria Especialidad: Idioma Inglés', 'Escuela Profesional de Secundaria', 6),
+('15', 'Educación Secundaria Especialidad: Matemática y Física', 'Escuela Profesional de Secundaria', 6),
+('16', 'Educación Secundaria Especialidad: Ciencias Naturales', 'Escuela Profesional de Secundaria', 6),
+('17', 'Educación Secundaria Especialidad: Filosofía y Ciencias Sociales', 'Escuela Profesional de Secundaria', 6),
+('18', 'Educación Secundaria Especialidad: Ciencias Histórico Sociales', 'Escuela Profesional de Secundaria', 6),
+('19', 'Educación Secundaria Especialidad: Lenguaje y Literatura', 'Escuela Profesional de Secundaria', 6),
+('2', 'Administración Privada', 'Escuela Profesional de Administración Privada', 1),
+('20', 'Educación Física', 'Escuela Profesional de Educación Física', 6),
+('21', 'Antropología y Arqueología', 'Escuela Profesional de Antropología y Arqueología', 7),
+('22', 'Filosofía', 'Escuela Profesional de Filosofía', 7),
+('23', 'Historia', 'Escuela Profesional de Historia', 7),
+('24', 'Lingüística y Literatura', 'Escuela Profesional de Lingüística y Literatura', 7),
+('25', 'Arquitectura y Urbanismo', 'Escuela Profesional de Arquitectura y Urbanismo', 8),
+('26', 'Ingeniería Civil', 'Escuela Profesional de Ingeniería Civil', 9),
+('28', 'Ingeniería de Transportes', 'Escuela Profesional de Ingeniería de Transportes', 10),
+('29', 'Ingeniería Agroindustrial', 'Escuela Profesional de Ingeniería Agroindustrial', 10),
+('3', 'Administración Pública y Gestión Social', 'Escuela Profesional de Administración Pública y Gestión Social', 1),
+('30', 'Ingeniería Industrial', 'Escuela Profesional de Ingeniería Industrial', 10),
+('31', 'Ingeniería Geográfica', 'Escuela Profesional de Ingeniería Geográfica', 11),
+('32', 'Ingeniería Ambiental', 'Escuela Profesional de Ingeniería Ambiental', 11),
+('33', 'Ingeniería en Ecoturismo', 'Escuela Profesional de Ingeniería en Ecoturismo', 11),
+('34', 'Ingeniería Alimentaria', 'Escuela Profesional de Ingeniería Alimentaria', 12),
+('35', 'Ingeniería en Acuicultura', 'Escuela Profesional de Ingeniería en Acuicultura', 12),
+('36', 'Ingeniería Pesquera', 'Escuela Profesional de Ingeniería Pesquera', 12),
+('37', 'Ingeniería Electrónica', 'Escuela Profesional de Ingeniería Electrónica', 13),
+('38', 'Ingeniería Informática', 'Escuela Profesional de Ingeniería Informática', 13),
+('39', 'Ingeniería Mecatrónica', 'Escuela Profesional de Ingeniería Mecatrónica', 13),
+('4', 'Economía', 'Escuela Profesional de Economía', 2),
+('40', 'Ingeniería de Telecomunicaciones', 'Escuela Profesional de Ingeniería de Telecomunicaciones', 13),
+('41', 'Biología', 'Escuela Profesional de Biología', 14),
+('42', 'Física', 'Escuela Profesional de Física', 14),
+('43', 'Matemática y Estadística', 'Escuela Profesional de Matemática y Estadística', 14),
+('44', 'Química', 'Escuela Profesional de Química', 14),
+('45', 'Medicina', 'Escuela Profesional de Medicina', 15),
+('46', 'Enfermería', 'Escuela Profesional de Enfermería', 15),
+('47', 'Nutrición', 'Escuela Profesional de Nutrición', 15),
+('48', 'Obstetricia', 'Escuela Profesional de Obstetricia', 15),
+('49', 'Odontología', 'Escuela Profesional de Odontología', 16),
+('5', 'Contabilidad', 'Escuela Profesional de Contabilidad', 3),
+('50', 'Terapia Física y Rehabilitación', 'Escuela Profesional de Terapias de Rehabilitación', 17),
+('51', 'Terapia de Lenguaje', 'Escuela Profesional de Terapias de Rehabilitación', 17),
+('52', 'Radiología', 'Escuela Profesional de Radioimagen', 17),
+('53', 'Optometría', 'Escuela Profesional de Radioimagen', 17),
+('54', 'Laboratorio y Anatomía Patológica', 'Escuela Profesional de Laboratorio y Anatomía Patológica', 17),
+('55', 'Psicología', 'Escuela Profesional de Psicología', 18),
+('6', 'Ciencias de la Comunicación', 'Escuela Profesional de Ciencias de la Comunicación', 4),
+('7', 'Sociología', 'Escuela Profesional de Sociología', 4),
+('8', 'Trabajo Social', 'Escuela Profesional de Trabajo Social', 4),
+('9', 'Ciencias Políticas', 'Escuela Profesional de Ciencias Políticas', 5),
+('ABDC', 'Ingeniería de Sistemas', 'Escuela Profesional de Ingeniería de Sistemas', 10);
 
 -- --------------------------------------------------------
 
@@ -308,6 +309,22 @@ CREATE TABLE `cursos_llevados` (
   `estado` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `num_intentos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `cursos_llevados`
+--
+
+INSERT INTO `cursos_llevados` (`cod_alumno_fk`, `cod_curso_fk`, `estado`, `num_intentos`) VALUES
+('2015237215', '2A0125', 'APROBADO', 1),
+('2015237215', '2C0187', 'APROBADO', 1),
+('2015237215', '3B0058', 'APROBADO', 1),
+('2015237215', '3B0103', 'APROBADO', 1),
+('2015237215', '5A0060', 'APROBADO', 1),
+('2015237215', '6C0037', 'APROBADO', 1),
+('2015237215', '8B0116', 'APROBADO', 1),
+('2015237215', '3B0165', 'EN CURSO', 1),
+('2015237215', '3A0014', 'EN CURSO', 1),
+('2015237215', '7C0080', 'EN CURSO', 1);
 
 -- --------------------------------------------------------
 
@@ -484,8 +501,23 @@ CREATE TABLE `horario_alumno` (
 --
 
 INSERT INTO `horario_alumno` (`cod_horario_curso_fk`, `cod_matricula_fk`, `periodo`, `vez`) VALUES
-(23, '20152372152019', '2019-I', 1),
-(24, '20152372152019', '2019-II', 1);
+(10, '20152372152019', '2019-I', 1),
+(11, '20152372152019', '2019-I', 1),
+(15, '20152372152019', '2019-I', 1),
+(16, '20152372152019', '2019-I', 1),
+(28, '20152372152019', '2019-I', 1),
+(6, '20152372152019', '2019-I', 1),
+(7, '20152372152019', '2019-I', 1),
+(8, '20152372152019', '2019-I', 1),
+(25, '20152372152019', '2019-I', 1),
+(26, '20152372152019', '2019-I', 1),
+(27, '20152372152019', '2019-I', 1),
+(31, '20152372152019', '2019-I', 1),
+(32, '20152372152019', '2019-I', 1),
+(9, '20152372152019', '2019-I', 1),
+(45, '20152372152019', '2019-II', 1),
+(40, '20152372152019', '2019-II', 1),
+(42, '20152372152019', '2019-II', 1);
 
 -- --------------------------------------------------------
 
@@ -516,17 +548,17 @@ INSERT INTO `horario_curso` (`cod_horario_curso`, `cod_docente_fk`, `cod_curso_f
 (3, 'B-4321', '2C0187', 'B5-5', 'A', 4, '12:10:00', '13:50:00', 'M', 44),
 (4, 'F-9358', '6C0037', 'B5-5', 'A', 4, '08:00:00', '09:40:00', 'M', 44),
 (5, 'F-9358', '6C0037', 'B5-6', 'A', 3, '08:00:00', '09:40:00', 'M', 44),
-(6, 'D-0987', '3B0103', 'B5-3', 'A', 1, '10:30:00', '13:50:00', 'M', 44),
-(7, 'D-0987', '3B0103', 'B5-3', 'A', 2, '11:20:00', '13:50:00', 'M', 44),
-(8, 'D-0987', '3B0103', 'B5-3', 'A', 5, '09:40:00', '11:20:00', 'M', 44),
-(9, 'G-3687', '8B0116', 'B5-3', 'A', 5, '11:20:00', '13:00:00', 'M', 43),
-(10, 'A-1234', '2A0125', 'LAB-1', 'A', 1, '08:50:00', '10:30:00', 'M', 0),
-(11, 'A-1234', '2A0125', 'LAB-1', 'A', 3, '09:40:00', '11:20:00', 'M', 0),
+(6, 'D-0987', '3B0103', 'B5-3', 'A', 1, '10:30:00', '13:50:00', 'M', 43),
+(7, 'D-0987', '3B0103', 'B5-3', 'A', 2, '11:20:00', '13:50:00', 'M', 43),
+(8, 'D-0987', '3B0103', 'B5-3', 'A', 5, '09:40:00', '11:20:00', 'M', 43),
+(9, 'G-3687', '8B0116', 'B5-3', 'A', 5, '11:20:00', '13:00:00', 'M', 42),
+(10, 'A-1234', '2A0125', 'LAB-1', 'A', 1, '08:50:00', '10:30:00', 'M', 44),
+(11, 'A-1234', '2A0125', 'LAB-1', 'A', 3, '09:40:00', '11:20:00', 'M', 44),
 (12, 'E-6093', '5A0060', 'LAB-1', 'A', 5, '08:00:00', '09:40:00', 'M', 45),
 (13, 'E-6093', '5A0060', 'B5-3', 'A', 4, '09:40:00', '12:10:00', 'M', 45),
 (14, 'C-45678', '3B0058', 'B5-6', 'B', 3, '13:00:00', '14:40:00', 'M', 45),
-(15, 'B-4321', '2C0187', 'B5-4', 'B', 1, '08:00:00', '10:30:00', 'M', 39),
-(16, 'B-4321', '2C0187', 'B5-4', 'B', 4, '08:00:00', '09:40:00', 'M', 39),
+(15, 'B-4321', '2C0187', 'B5-4', 'B', 1, '08:00:00', '10:30:00', 'M', 38),
+(16, 'B-4321', '2C0187', 'B5-4', 'B', 4, '08:00:00', '09:40:00', 'M', 38),
 (17, 'F-9358', '6C0037', 'B5-5', 'B', 1, '13:00:00', '14:40:00', 'M', 44),
 (18, 'F-9358', '6C0037', 'B5-6', 'B', 3, '09:40:00', '11:20:00', 'M', 44),
 (19, 'D-0987', '3B0103', 'B5-4', 'B', 1, '10:30:00', '13:00:00', 'M', 43),
@@ -535,14 +567,14 @@ INSERT INTO `horario_curso` (`cod_horario_curso`, `cod_docente_fk`, `cod_curso_f
 (22, 'G-3687', '8B0116', 'B5-3', 'B', 2, '08:00:00', '09:40:00', 'M', 44),
 (23, 'A-1234', '2A0125', 'LAB-2', 'B', 5, '11:20:00', '13:00:00', 'M', 43),
 (24, 'A-1234', '2A0125', 'LAB-1', 'B', 2, '13:00:00', '14:40:00', 'M', 43),
-(25, 'E-6093', '5A0060', 'LAB-1', 'B', 2, '10:30:00', '12:10:00', 'M', 44),
-(26, 'E-6093', '5A0060', 'LAB-1', 'B', 5, '09:40:00', '11:20:00', 'M', 44),
-(27, 'E-6093', '5A0060', 'B5-3', 'B', 4, '12:10:00', '14:40:00', 'M', 44),
-(28, 'C-45678', '3B0058', 'B5-5', 'C', 5, '09:40:00', '11:20:00', 'M', 42),
+(25, 'E-6093', '5A0060', 'LAB-1', 'B', 2, '10:30:00', '12:10:00', 'M', 43),
+(26, 'E-6093', '5A0060', 'LAB-1', 'B', 5, '09:40:00', '11:20:00', 'M', 43),
+(27, 'E-6093', '5A0060', 'B5-3', 'B', 4, '12:10:00', '14:40:00', 'M', 43),
+(28, 'C-45678', '3B0058', 'B5-5', 'C', 5, '09:40:00', '11:20:00', 'M', 41),
 (29, 'B-4321', '2C0187', 'B5-5', 'C', 2, '10:30:00', '12:10:00', 'M', 45),
 (30, 'B-4321', '2C0187', 'B5-5', 'C', 4, '09:40:00', '12:10:00', 'M', 45),
-(31, 'F-9358', '6C0037', 'B5-5', 'C', 1, '11:20:00', '13:00:00', 'M', 44),
-(32, 'F-9358', '6C0037', 'B5-5', 'C', 3, '12:10:00', '13:50:00', 'M', 44),
+(31, 'F-9358', '6C0037', 'B5-5', 'C', 1, '11:20:00', '13:00:00', 'M', 43),
+(32, 'F-9358', '6C0037', 'B5-5', 'C', 3, '12:10:00', '13:50:00', 'M', 43),
 (33, 'D-0987', '3B0103', 'B5-5', 'C', 3, '07:10:00', '10:30:00', 'M', 43),
 (34, 'D-0987', '3B0103', 'B5-5', 'C', 5, '11:20:00', '13:00:50', 'M', 43),
 (35, 'G-3687', '8B0116', 'B5-5', 'C', 3, '10:30:00', '12:10:00', 'M', 45),
@@ -550,7 +582,12 @@ INSERT INTO `horario_curso` (`cod_horario_curso`, `cod_docente_fk`, `cod_curso_f
 (37, 'E-6093', '5A0060', 'LAB-1', 'C', 2, '07:10:00', '09:40:00', 'M', 42),
 (38, 'E-6093', '5A0060', 'LAB-2', 'C', 6, '07:10:00', '08:50:00', 'M', 42),
 (39, 'E-6093', '5A0060', 'B5-4', 'C', 2, '12:10:00', '13:50:00', 'M', 42),
-(40, 'C-45678', '3A0014', 'B5-3', 'A', 3, '12:10:00', '14:40:00', 'M', 40);
+(40, 'C-45678', '3A0014', 'B5-3', 'A', 3, '12:10:00', '14:40:00', 'M', 36),
+(41, 'E-6093', '3A0014', 'B5-4', 'B', 5, '12:10:00', '14:40:00', 'M', 35),
+(42, 'F-9358', '7C0080', 'B5-3', 'A', 5, '08:00:00', '09:40:00', 'M', 39),
+(43, 'C-45678', '7C0080', 'B5-3', 'B', 6, '08:00:00', '09:40:00', 'M', 40),
+(44, 'A-1234', '3B0165', 'B5-5', 'A', 1, '12:10:00', '14:40:00', 'M', 40),
+(45, 'C-45678', '3B0165', 'B5-4', 'B', 4, '12:10:00', '14:40:00', 'M', 39);
 
 -- --------------------------------------------------------
 
@@ -668,7 +705,7 @@ INSERT INTO `persona` (`dni`, `apellido_paterno`, `apellido_materno`, `nombres`,
 
 CREATE TABLE `plan_curricular` (
   `cod_plan_curricular` int(11) NOT NULL,
-  `cod_carrera_fk` int(11) NOT NULL,
+  `cod_carrera_fk` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `anio` varchar(6) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -677,7 +714,7 @@ CREATE TABLE `plan_curricular` (
 --
 
 INSERT INTO `plan_curricular` (`cod_plan_curricular`, `cod_carrera_fk`, `anio`) VALUES
-(3, 27, '2010');
+(3, 'ABDC', '2010');
 
 -- --------------------------------------------------------
 
@@ -856,12 +893,6 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `carrera`
---
-ALTER TABLE `carrera`
-  MODIFY `cod_carrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
-
---
 -- AUTO_INCREMENT de la tabla `facultad`
 --
 ALTER TABLE `facultad`
@@ -871,7 +902,7 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `horario_curso`
 --
 ALTER TABLE `horario_curso`
-  MODIFY `cod_horario_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `cod_horario_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `plan_curricular`
@@ -900,7 +931,7 @@ ALTER TABLE `administrador`
 --
 ALTER TABLE `alumno`
   ADD CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`dni_fk`) REFERENCES `persona` (`dni`),
-  ADD CONSTRAINT `alumno_ibfk_2` FOREIGN KEY (`cod_carrera_fk`) REFERENCES `carrera` (`cod_carrera`);
+  ADD CONSTRAINT `alumno_ibfk_2` FOREIGN KEY (`cod_carrera_fk`) REFERENCES `carrera` (`cod_carrera`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `carrera`
@@ -963,7 +994,7 @@ ALTER TABLE `matricula`
 -- Filtros para la tabla `plan_curricular`
 --
 ALTER TABLE `plan_curricular`
-  ADD CONSTRAINT `plan_curricular_ibfk_1` FOREIGN KEY (`cod_carrera_fk`) REFERENCES `carrera` (`cod_carrera`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `plan_curricular_ibfk_1` FOREIGN KEY (`cod_carrera_fk`) REFERENCES `carrera` (`cod_carrera`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`

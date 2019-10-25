@@ -8,7 +8,7 @@ class CursoModel extends CI_Model{
         parent::__construct();
     }
 
-    public function getNumMaxCiclo(int $cod_plan_curricular){
+    public function getNumMaxCiclo(string $cod_plan_curricular){
 
         $filtros = array(
             "cod_plan_curricular_fk" => $cod_plan_curricular

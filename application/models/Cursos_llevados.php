@@ -81,4 +81,28 @@ class Cursos_llevados extends CI_Model{
         return $query->result();
     }
 
+    public function deleteCursosLlevadosByListHorarioCurso(array $listHorarioCurso, string $cod_alumno){
+
+        $listCodCursoDeleted = array();
+        $encontrado = false;
+
+        foreach($listHorarioCurso as $horarioCurso)
+        {
+
+            
+
+                array_push($listCodCursoDeleted, $horarioCurso->cod_curso_fk);
+
+            
+            
+        }
+
+        
+        $this->db->where_in('cod_curso_fk', $listCodCursoDeleted);
+        $this->db->where('cod_alumno_fk', $cod_alumno);
+        $this->db->where('estado', 'EN CURSO');
+        $this->db->delete('cursos_llevados');
+
+    }
+
 }

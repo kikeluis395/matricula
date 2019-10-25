@@ -53,6 +53,21 @@ class Login extends CI_Controller {
 			{
 
 				$usuario = $this->UsuarioModel->getUserJoinAlumno($codigo, $clave);
+
+				$this->load->model("AlumnoModel");
+				$alumno = $this->AlumnoModel->getAlumnoJoinMatricula($usuario->cod_alumno);
+				$diferencia_anios = (date('Y') - (int)$alumno->anio);
+
+				if($diferencia_anios > 3)
+				{
+					$estado = 0;
+					$this->AlumnoModel->modifyEstadoAlumno($usuario->cod_alumno, $estado);
+
+					$usuario = $this->UsuarioModel->getUserJoinAlumno($codigo, $clave);
+
+				}
+
+				
 				$this->session->set_userdata('usuario', $usuario);
 				header("Location:" . base_url() . "home");
 

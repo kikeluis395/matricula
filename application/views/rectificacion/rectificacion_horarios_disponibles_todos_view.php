@@ -2,7 +2,6 @@
     <div>
     <h5 class="modal-title" id="modalHorariosDisponibles"><?php echo $curso->cod_curso . ' - ' . $curso->descripcion?></h5>
     <span>Créditos: <?php echo $curso->num_creditos?></span>
-    <input type="hidden" id="inputseccion" value="<?php echo $seccion?>">
     <br>
         <span>Ciclo:
             <?php 
@@ -127,7 +126,7 @@
 
                         echo "<tr>";
 
-                            echo "<td class='text-center'><button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Elegir Horario' onclick='RegistrarHorarioCambioRectificacion(\"".base_url()."\",\"".$horarioDisponible->cod_curso."\",\"".$horarioDisponible->seccion."\")'><i class='fas fa-sign-in-alt'></i></button></td>";
+                            echo "<td class='text-center'><button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Elegir Horario' onclick='RegistrarHorarioRectificacion(\"".base_url()."\",\"".$horarioDisponible->cod_curso."\",\"".$horarioDisponible->seccion."\")'><i class='fas fa-sign-in-alt'></i></button></td>";
                             echo "<td>".$horarioDisponible->seccion."</td>";
 
                                 for($dia = 1; $dia <= 6; $dia++)

@@ -83,6 +83,7 @@ class HorariosModel extends CI_Model{
             "seccion" => $seccion
         );
 
+        $this->db->reset_query();
         $query = $this->db->get_where('horario_curso', $filtros);
 
         return $query->result();
@@ -102,6 +103,27 @@ class HorariosModel extends CI_Model{
             "cupos" => $cupos_actual
         );
 
+        $this->db->reset_query();
+        $this->db->where_in('cod_horario_curso', $listIDHorarioCurso);
+        $this->db->update('horario_curso',$data);
+
+    }
+
+    public function modifiyCuposByListHorariosCursoRectificacion(array $list_horario_curso, int $cupos){
+
+        $cupos_actual = $cupos + 1;
+        $listIDHorarioCurso  =  array ();
+
+        foreach($list_horario_curso as $horario_curso)
+        {
+            array_push($listIDHorarioCurso, $horario_curso->cod_horario_curso);
+        }
+
+        $data = array(
+            "cupos" => $cupos_actual
+        );
+
+        $this->db->reset_query();
         $this->db->where_in('cod_horario_curso', $listIDHorarioCurso);
         $this->db->update('horario_curso',$data);
 
@@ -163,5 +185,19 @@ class HorariosModel extends CI_Model{
         $query = $this->db->get('horario_curso as ho_cu');
 
         return $query->result();
+    }
+
+    public function getHorariosByCursoAndPeriodoAndSeccionRectificacion(string $cod_curso, string $seccion, string $periodo){
+
+
+        $this->db->select('ho_cu.cod_horario_curso, ho_cu.cod_curso_fk, ho_cu.seccion, ho_al.periodo, ho_cu.cupos');
+        $this->db->join('horario_alumno as ho_al', 'ho_cu.cod_horario_curso = ho_al.cod_horario_curso_fk');
+        $this->db->where('ho_cu.cod_curso_fk', $cod_curso);
+        $this->db->where('ho_cu.seccion', $seccion);
+        $this->db->where('ho_al.periodo', $periodo);
+        $query = $this->db->get('horario_curso as ho_cu');
+
+        return $query->result();
+
     }
 }

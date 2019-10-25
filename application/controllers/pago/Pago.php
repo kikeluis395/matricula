@@ -26,31 +26,46 @@ class Pago extends CI_Controller {
 			$usuario = $this->session->userdata('usuario');
 			$listActiveLink = array("a_matricula" => "a_matricula", "a_pago" => "a_pago");
 
-			$cod_activacion = 3;
-			$this->load->model("ActivacionModel");
-			$activacionPago = $this->ActivacionModel->getActivacionByCodigo($cod_activacion);
-
-			if($activacionPago->estado == 1)
+			if($usuario->estado == 1)
 			{
 
-				$this->load->model("MatriculaModel");
-				$matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
+				$cod_activacion = 3;
+				$this->load->model("ActivacionModel");
+				$activacionPago = $this->ActivacionModel->getActivacionByCodigo($cod_activacion);
 
-
-				$data = array(
-					"show" => false,
-					"message" => "",
-					"tipo" => "",
-					"usuario" => $usuario,
-					"listActiveLink" => $listActiveLink
-				);
-
-				if($matricula)
+				if($activacionPago->estado == 1)
 				{
-					$this->load->view("pago/pago_exito", $data);
+
+					$this->load->model("MatriculaModel");
+					$matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
+
+
+					$data = array(
+						"show" => false,
+						"message" => "",
+						"tipo" => "",
+						"usuario" => $usuario,
+						"listActiveLink" => $listActiveLink
+					);
+
+					if($matricula)
+					{
+						$this->load->view("pago/pago_exito", $data);
+					}else
+					{
+						$this->load->view("pago/pago_view", $data);
+					}
+
 				}else
 				{
-					$this->load->view("pago/pago_view", $data);
+
+					$data = array(
+						"usuario" => $usuario,
+						"listActiveLink" => $listActiveLink
+					);
+
+					$this->load->view("pago/pago_activacion", $data);
+
 				}
 
 			}else
@@ -61,9 +76,10 @@ class Pago extends CI_Controller {
 					"listActiveLink" => $listActiveLink
 				);
 
-				$this->load->view("pago/pago_activacion", $data);
+				$this->load->view("pago/alumno_no_activo_view", $data);
 
 			}
+			
 
 			
 
