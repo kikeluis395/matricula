@@ -336,3 +336,129 @@ console.log(seccionAnterior);
 });
 
 }
+
+function RegistrarHorarioAdmin(baseURL){
+  
+  if(validarAgregarHorario()){
+
+    var tiempoEntrada = $("#timeEntrada").val().trim().slice(-2);
+    var tiempoSalida = $("#timeSalida").val().trim().slice(-2);
+    var hora_entrada = "";
+    var hora_salida = "";
+    var horaIntEntrada;
+    var horaIntSalida;
+
+    if(tiempoEntrada.trim() == "PM"){
+
+      horaIntEntrada = 12 + parseInt($("#timeEntrada").val().trim().slice(0, 2));
+      
+
+    }else{
+
+      horaIntEntrada = parseInt($("#timeEntrada").val().trim().slice(0, 2));
+
+    }
+
+    var minutoEntrada = $("#timeEntrada").val().trim().slice(3, 5);
+    hora_entrada = "" + horaIntEntrada + ":" + minutoEntrada + ":00"; 
+
+    if(tiempoSalida.trim() == "PM"){
+
+      horaIntSalida = 12 + parseInt($("#timeSalida").val().trim().slice(0, 2));
+      
+
+    }else{
+
+      horaIntSalida = parseInt($("#timeSalida").val().trim().slice(0, 2));
+
+    }
+
+    var minutoSalida = $("#timeSalida").val().trim().slice(3, 5);
+    hora_salida = "" + horaIntSalida + ":" + minutoSalida + ":00"; 
+
+    var datos = {
+      "cod_docente" : $("#selectDocente option:selected").val(),
+      "cod_curso" : $("#selectCurso option:selected").val(),
+      "cod_aula" : $("#selectAula option:selected").val(),
+      "seccion" : $("#inputSeccion").val(),
+      "cod_dia" : parseInt($("#selectDia option:selected").val()),
+      "hora_entrada" : hora_entrada,
+      "hora_salida" : hora_salida,
+      "turno" : $("#selectTurno option:selected").val(),
+      "cupos" : parseInt($("#inputCupos").val())
+    };
+  
+    $.post( baseURL + "horarios_admin/Horarios_admin/RegistrarHorarioAdmin", datos, function(response) {
+  
+      $("#contenedor-horarios-admin").html(response);
+  
+      $('#modalAgregarHorarioAdmin').modal('hide');
+
+      $('#timeEntrada').timepicker({
+        timeFormat: 'hh:mm p',
+        interval: 50,
+        minTime: '07:10',
+        maxTime: '09:20pm',
+        defaultTime: '07:10',
+        startTime: '07:10',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+    $('#timeSalida').timepicker({
+        timeFormat: 'hh:mm p',
+        interval: 50,
+        minTime: '08:00',
+        maxTime: '10:10pm',
+        defaultTime: '08',
+        startTime: '08:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+    $('#tableHorariosAdmin').DataTable({
+        scrollY: 250,
+        scrollCollapse: true,
+        paging: true,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No hay elementos encontrados!",
+            "info": "Mostrando _TOTAL_ registros",
+            "infoEmpty": "No hay elementos",
+            "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+        },
+        "lengthChange": false,
+        "searching": false,
+        "responsive": true,
+        "info": false
+    });
+    })
+    .fail(function(e) {
+      console.log(e);
+    });
+
+  }else{
+
+    ShowWarning("Por favor, rellenar los datos.");
+
+  }
+
+  
+
+}
+
+function validarAgregarHorario(){
+
+  if($("#inputSeccion").val().trim().length == 0 || $("#timeEntrada").val().trim().length == 0 || $("#timeSalida").val().trim().length == 0
+  || $("#inputCupos").val().trim().length == 0){
+
+    return false;
+
+  }else{
+
+    return true;
+
+  }
+
+}

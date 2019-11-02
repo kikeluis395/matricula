@@ -36,6 +36,20 @@ class CursoModel extends CI_Model{
         
     }
 
+    public function getCursosToAdmin(int $cod_plan_curricular){
+
+        $filtros = array(
+            "cod_plan_curricular_fk" => $cod_plan_curricular
+        );
+
+        $this->db->reset_query();
+        $this->db->order_by('descripcion', 'ASC');
+        $query = $this->db->get_where('curso', $filtros);
+
+        return $query->result();
+        
+    }
+
     public function getCursosByAnio(int $anio){
 
         $filtros = array(

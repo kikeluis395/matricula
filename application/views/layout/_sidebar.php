@@ -189,6 +189,24 @@
 						</li>
 					</ul>
 				</li>
+
+				<li class="nav-item has-treeview">
+					<a href="#" class="nav-link" id="a_matricula_admin">
+						<i class="nav-icon fas fa-folder-open"></i>
+						<p>
+							Matricula
+							<i class="right fa fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="<?php echo base_url() ?>horariosAdmin" class="nav-link" id="a_horarios_admin">
+								<i class="far fa-calendar-alt nav-icon"></i>
+								<p>Horarios</p>
+							</a>
+						</li>
+					</ul>
+				</li>
 				
 				<hr>
 

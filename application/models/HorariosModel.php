@@ -200,4 +200,36 @@ class HorariosModel extends CI_Model{
         return $query->result();
 
     }
+
+    public function getHorariosByPlanCurricular(string $cod_plan_curricular){
+
+        $this->db->select('pe.apellido_paterno as apellido_paterno_docente, pe.apellido_materno as apellido_materno_docente, pe.nombres as nombres_docente, cu.descripcion as descripcion_curso, au.cod_aula, ho_cu.seccion, di.descripcion as descripcion_dia, ho_cu.hora_entrada, ho_cu.hora_salida, ho_cu.turno, ho_cu.cupos');
+        $this->db->join('docente as do', 'ho_cu.cod_docente_fk = do.cod_docente');
+        $this->db->join('curso as cu', 'ho_cu.cod_curso_fk = cu.cod_curso');
+        $this->db->join('aula as au', 'ho_cu.cod_aula_fk = au.cod_aula');
+        $this->db->join('dia as di', 'ho_cu.cod_dia_fk = di.cod_dia');
+        $this->db->join('persona as pe', 'do.dni_fk = pe.dni');
+        $this->db->where('cu.cod_plan_curricular_fk', $cod_plan_curricular);
+        $query = $this->db->get('horario_curso as ho_cu');
+
+        return $query->result();
+
+    }
+
+    public function insertHorarioCurso(string $cod_docente, string $cod_curso, string $cod_aula, string $seccion,  int $cod_dia, string $hora_entrada, string $hora_salida, string $turno, int $cupos){
+
+        $data = array(
+            "cod_docente_fk" => $cod_docente,
+            "cod_curso_fk" => $cod_curso,
+            "cod_aula_fk" => $cod_aula,
+            "seccion" => $seccion,
+            "cod_dia_fk" => $cod_dia,
+            "hora_entrada" => $hora_entrada,
+            "hora_salida" => $hora_salida,
+            "turno" => $turno,
+            "cupos" => $cupos
+        );
+
+        $this->db->insert('horario_curso', $data);
+    }
 }

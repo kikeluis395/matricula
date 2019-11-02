@@ -63,6 +63,7 @@ $route['perfil'] = 'perfil/Perfil';
 $route['activarPago'] = 'activaciones/activarPago';
 $route['activarHorarios'] = 'activaciones/activarHorarios';
 $route['activarRectificacion'] = 'activaciones/activarRectificacion';
+$route['horariosAdmin'] = 'horarios_admin/Horarios_admin';
 $route['perfilAdmin'] = 'perfil_admin/Perfil_admin';
 $route['mallaCurricular'] = 'malla_curricular/Malla_curricular';
 $route['SignIn'] = 'Login/SignIn';
