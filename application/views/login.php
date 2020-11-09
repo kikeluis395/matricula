@@ -47,23 +47,23 @@
 					
 				</form>
 
-				<div class="login100-more" style="background-image: url('assets/img/bg-unfv.jpg');background-size: cover">
+					<div class="login100-more" style="background-image: url('assets/img/sebap.png');background-size: cover">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-<!-- /.login-box -->
-<!-- jQuery -->
+	<!-- /.login-box -->
+	<!-- jQuery -->
 
-<script src="<?php echo base_url('assets'); ?>/js/jquery-3.4.1.min.js"></script>
-<!-- Bootstrap 4.3 -->
-<script src="<?php echo base_url('assets'); ?>/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url('assets'); ?>/js/toastr.min.js"></script>
-<script src="<?php echo base_url('assets'); ?>/js/config_toast.js"></script>
-<script src="<?php echo base_url('assets'); ?>/js/login.js"></script>
+	<script src="<?php echo base_url('assets'); ?>/js/jquery-3.4.1.min.js"></script>
+	<!-- Bootstrap 4.3 -->
+	<script src="<?php echo base_url('assets'); ?>/js/bootstrap.min.js"></script>
+	<script src="<?php echo base_url('assets'); ?>/js/toastr.min.js"></script>
+	<script src="<?php echo base_url('assets'); ?>/js/config_toast.js"></script>
+	<script src="<?php echo base_url('assets'); ?>/js/login.js"></script>
 
-<?php if($found == false && $trial == true) : ?>
-	<?php echo "<script>ShowError('" . $message . "');</script>" ?>
-<?php endif; ?>
+	<?php if($found == false && $trial == true) : ?>
+		<?php echo "<script>ShowError('" . $message . "');</script>" ?>
+	<?php endif; ?>
 </body>
 </html>

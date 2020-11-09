@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2019 a las 06:13:34
+-- Tiempo de generación: 05-11-2019 a las 05:06:17
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.1
 
@@ -40,9 +40,9 @@ CREATE TABLE `activacion` (
 --
 
 INSERT INTO `activacion` (`cod_activacion`, `descripcion`, `periodo`, `estado`) VALUES
-(1, 'MATRICULA', '2', 0),
-(2, 'RECTIFICACION', '2', 1),
-(3, 'PAGO', '', 0);
+(1, 'MATRICULA', '1', 1),
+(2, 'RECTIFICACION', '2', 0),
+(3, 'PAGO', '', 1);
 
 -- --------------------------------------------------------
 
@@ -52,15 +52,16 @@ INSERT INTO `activacion` (`cod_activacion`, `descripcion`, `periodo`, `estado`) 
 
 CREATE TABLE `administrador` (
   `cod_administrador` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `dni_fk` varchar(8) COLLATE utf8_spanish_ci NOT NULL
+  `dni_fk` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
+  `cod_carrera_fk` varchar(15) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `administrador`
 --
 
-INSERT INTO `administrador` (`cod_administrador`, `dni_fk`) VALUES
-('2015111111', '11111111');
+INSERT INTO `administrador` (`cod_administrador`, `dni_fk`, `cod_carrera_fk`) VALUES
+('2015111111', '11111111', 'ABDC');
 
 -- --------------------------------------------------------
 
@@ -81,6 +82,7 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`cod_alumno`, `dni_fk`, `anio_ingreso`, `cod_carrera_fk`, `estado`) VALUES
+('', '1234567', 2019, 'ABDC', 1),
 ('2015237215', '70776456', 2015, 'ABDC', 1);
 
 -- --------------------------------------------------------
@@ -587,7 +589,8 @@ INSERT INTO `horario_curso` (`cod_horario_curso`, `cod_docente_fk`, `cod_curso_f
 (42, 'F-9358', '7C0080', 'B5-3', 'A', 5, '08:00:00', '09:40:00', 'M', 39),
 (43, 'C-45678', '7C0080', 'B5-3', 'B', 6, '08:00:00', '09:40:00', 'M', 40),
 (44, 'A-1234', '3B0165', 'B5-5', 'A', 1, '12:10:00', '14:40:00', 'M', 40),
-(45, 'C-45678', '3B0165', 'B5-4', 'B', 4, '12:10:00', '14:40:00', 'M', 39);
+(45, 'C-45678', '3B0165', 'B5-4', 'B', 4, '12:10:00', '14:40:00', 'M', 39),
+(46, 'F-9358', '2H0033', 'B5-3', 'A', 2, '09:40:00', '13:00:00', 'M', 40);
 
 -- --------------------------------------------------------
 
@@ -687,6 +690,7 @@ CREATE TABLE `persona` (
 
 INSERT INTO `persona` (`dni`, `apellido_paterno`, `apellido_materno`, `nombres`, `anio_nacimiento`, `sexo`) VALUES
 ('11111111', 'VILCHEZ', 'GONZALES', 'RAUL', '1990-03-28', 'MASCULINO'),
+('1234567', 'SANCHEZ', 'CRUZADO', 'JIMMY', '1995-08-22', 'MASCULINO'),
 ('49706895', 'MANRIQUE', 'TAPIA', 'ALEXIS', '1988-12-04', 'MASCULINO'),
 ('58690498', 'QUISPE', 'RODRIGUEZ', 'LEONARDO', '1987-08-22', 'MASCULINO'),
 ('68950134', 'SAAVEDRA', 'RAMIREZ', 'NANCY', '1986-07-16', 'FEMENINO'),
@@ -736,7 +740,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`cod_usuario`, `dni_fk`, `codigo`, `clave`, `cod_nivel_fk`) VALUES
 (2, '70776456', '2015237215', 'daniel7712', 3),
-(3, '11111111', '2015111111', 'admin123.', 1);
+(3, '11111111', '2015111111', 'admin123.', 1),
+(4, '1234567', '2019123456', 'jefferson', 3);
 
 --
 -- Índices para tablas volcadas
@@ -753,7 +758,8 @@ ALTER TABLE `activacion`
 --
 ALTER TABLE `administrador`
   ADD PRIMARY KEY (`cod_administrador`),
-  ADD KEY `dni_fk` (`dni_fk`);
+  ADD KEY `dni_fk` (`dni_fk`),
+  ADD KEY `cod_carrera_fk` (`cod_carrera_fk`);
 
 --
 -- Indices de la tabla `alumno`
@@ -902,7 +908,7 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `horario_curso`
 --
 ALTER TABLE `horario_curso`
-  MODIFY `cod_horario_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `cod_horario_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `plan_curricular`
@@ -914,7 +920,7 @@ ALTER TABLE `plan_curricular`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
@@ -924,7 +930,8 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  ADD CONSTRAINT `administrador_ibfk_1` FOREIGN KEY (`dni_fk`) REFERENCES `persona` (`dni`);
+  ADD CONSTRAINT `administrador_ibfk_1` FOREIGN KEY (`dni_fk`) REFERENCES `persona` (`dni`),
+  ADD CONSTRAINT `administrador_ibfk_2` FOREIGN KEY (`cod_carrera_fk`) REFERENCES `carrera` (`cod_carrera`);
 
 --
 -- Filtros para la tabla `alumno`
