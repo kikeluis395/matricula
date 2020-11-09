@@ -38,15 +38,13 @@
 						<span class="label-input100">Contraseña</span>
 					</div>
 
-			
+
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
 							Ingresar
 						</button>
 					</div>
-					
 				</form>
-
 					<div class="login100-more" style="background-image: url('assets/img/sebap.png');background-size: cover">
 					</div>
 				</div>

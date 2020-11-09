@@ -191,11 +191,11 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
 .limiter {
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
 }
 
-.container-login100 {
+.limiter .container-login100 {
   width: 100%;  
   min-height: 100vh;
   display: -webkit-box;
