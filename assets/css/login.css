@@ -52,7 +52,8 @@
 
 body, html {
 	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+  font-family: Poppins-Regular, sans-serif;
+  background: linear-gradient(207.8deg, #201e1c 16.69%,#f7931a 100%);
 }
 
 /*---------------------------------------------*/
@@ -192,12 +193,16 @@ iframe {
 [ login ]*/
 .limiter {
   width: 80%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
   margin: 0 auto;
+
 }
 
-.limiter .container-login100 {
+.container-login100 {
   width: 100%;  
-  min-height: 100vh;
+  height: 500px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -207,11 +212,13 @@ iframe {
   justify-content: center;
   align-items: center;
   background: #f2f2f2;
+  border-radius: 10px;
 }
 
 
 .wrap-login100 {
   width: 100%;
+  height: 500px;
   background: #fff;
   overflow: hidden;
   display: -webkit-box;
@@ -220,20 +227,18 @@ iframe {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
-  flex-direction: row-reverse;
-
+  align-items: center;
+  border-radius: 10px;
 }
 
 /*==================================================================
 [ login more ]*/
 .login100-more {
-  width: calc(100% - 560px);
+  width: 40%;
+  height: 500px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  position: relative;
-  z-index: 1;
 }
 
 .login100-more::before {
@@ -254,12 +259,12 @@ iframe {
 [ Form ]*/
 
 .login100-form {
-  width: 560px;
-  min-height: 100vh;
-  display: block;
+  width: 60%;
+  height: 100%;
+  display: inline-block;
   background-color: #f7f7f7;
-  padding: 40px;
-  padding-top: 150px;
+  padding:40px;
+  padding-top: 80px;
 }
 
 .login100-form-title {

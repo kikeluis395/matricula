@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Matricula | Login</title>
+  <title>Matricula | holitas</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,8 +15,7 @@
   <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/util.css">
 </head>
 <body>
-	
-	<div class="limiter">
+<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-more" style="background-image: url('assets/img/sebap.png');background-size: cover">
@@ -46,7 +45,6 @@
 							Ingresar
 						</button>
 					</div>
-					<div><a href="<?php echo base_url() ?>registrarse">¿No tienes una cuenta? Registrate!!</a> </div>
 				</form>
 				</div>
 			</div>
@@ -60,9 +58,5 @@
 	<script src="<?php echo base_url('assets'); ?>/js/toastr.min.js"></script>
 	<script src="<?php echo base_url('assets'); ?>/js/config_toast.js"></script>
 	<script src="<?php echo base_url('assets'); ?>/js/login.js"></script>
-
-	<?php if($found == false && $trial == true) : ?>
-		<?php echo "<script>ShowError('" . $message . "');</script>" ?>
-	<?php endif; ?>
 </body>
 </html>
