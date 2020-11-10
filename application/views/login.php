@@ -21,36 +21,27 @@
 			<div class="wrap-login100">
 				<div class="login100-more" style="background-image: url('assets/img/sebap.png');background-size: cover">
 				</div>
-				<form class="login100-form validate-form" action="SignIn" method="post">
-					<span class="login100-form-title p-b-43">
+				<form class="login100-form centrado" action="SignIn" method="post">
+					<span class="login100-form-title p-b-20">
 						Iniciar sesión
 					</span>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="Codigo es requerido">
-						<input class="input100" type="text" name="codigo">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Código</span>
+					<div class="form-group">
+						<input class="form-control" type="text" name="codigo" placeholder="Código">
 					</div>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="Contraseña es requerida">
-						<input class="input100" type="password" name="pass">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Contraseña</span>
+					<div class="form-group">
+						<input class="form-control" type="password" name="pass" placeholder="Contraseña">
 					</div>
 
-
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">
-							Ingresar
-						</button>
+					<button class="login100-form-btn" type="submit">
+						Ingresar
+					</button>
+					<div>
+						<a href="<?php echo base_url() ?>registrarse">¿No tienes una cuenta? Registrate!!</a> 
 					</div>
-					<div><a href="<?php echo base_url() ?>registrarse">¿No tienes una cuenta? Registrate!!</a> </div>
 				</form>
-				</div>
 			</div>
 		</div>
+	</div>
 	<!-- /.login-box -->
 	<!-- jQuery -->
 

@@ -15,40 +15,54 @@
   <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/util.css">
 </head>
 <body>
-<div class="limiter">
+	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-more" style="background-image: url('assets/img/sebap.png');background-size: cover">
 				</div>
-				<form class="login100-form validate-form" action="SignIn" method="post">
-					<span class="login100-form-title p-b-43">
-						Iniciar sesión
+				<form class="login100-form" action="Singup" method="post">
+					<span class="login100-form-title m-b-20">
+						Registrate
 					</span>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="Codigo es requerido">
-						<input class="input100" type="text" name="codigo">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Código</span>
+					<div class="container-date">
+						<div class="form-group personal-date">
+							<input class="form-control " type="number" name="dni" placeholder="DNI">
+						</div>
+						<div class="form-group personal-date">
+							<input class="form-control" type="text" name="nombres" placeholder="Nombres">
+						</div>
+						<div class="form-group personal-date">
+							<input class="form-control" type="text" name="apellido-p" placeholder="Apellido Paterno">
+						</div>
+						<div class="form-group personal-date">
+							<input class="form-control" type="text" name="apellido-m" placeholder="Apellido Materno">
+						</div>
+						<div class="form-group personal-date">
+							<input class="form-control" type="date" name="date">
+						</div>
 					</div>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="Contraseña es requerida">
-						<input class="input100" type="password" name="pass">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Contraseña</span>
+					<div class="container-date">
+						<div class="form-group personal-date-email">
+							<input class="form-control" type="email" name="email" placeholder="Email">
+						</div>
+						<div class="form-group personal-date">
+							<input class="form-control" type="password" name="pass" placeholder="Contraseña">
+						</div>
+						<div class="form-group personal-date">
+							<input class="form-control" type="password" name="confirmpass" placeholder="Confirmar contraseña">
+						</div>
 					</div>
 
-
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">
-							Ingresar
-						</button>
+					<button class="login100-form-btn" type="submit">
+						Registrarse
+					</button>
+					<div>
+						<a href="<?php echo base_url() ?>login">¿Tienes una cuenta? Inicia sesión!!</a> 
 					</div>
 				</form>
-				</div>
 			</div>
 		</div>
+	</div>
 	<!-- /.login-box -->
 	<!-- jQuery -->
 

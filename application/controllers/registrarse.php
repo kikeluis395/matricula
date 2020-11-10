@@ -21,5 +21,10 @@ class Registrarse extends CI_Controller {
 	public function index()
 	{
     $this->load->view('registrarse');
-  }
+	}
+	public function Singup(){
+
+		$this->load->view('login');
+		
+	}
 }
