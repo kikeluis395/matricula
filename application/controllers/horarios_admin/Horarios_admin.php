@@ -84,7 +84,7 @@ class Horarios_admin extends CI_Controller {
 
 		// INSERTANDO EL HORARIO
 		$this->load->model("HorariosModel");
-        $this->HorariosModel->insertHorarioCurso($cod_docente, $cod_curso, $cod_aula, $seccion, $cod_dia, $hora_entrada, $hora_salida, $turno, $cupos);
+    $this->HorariosModel->insertHorarioCurso($cod_docente, $cod_curso, $cod_aula, $seccion, $cod_dia, $hora_entrada, $hora_salida, $turno, $cupos);
 
 		$usuario = $this->session->userdata('usuario');
 

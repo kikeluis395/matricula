@@ -20,11 +20,59 @@ class Registrarse extends CI_Controller {
 	 */
 	public function index()
 	{
-    $this->load->view('registrarse');
+		if(!$this->session->userdata('usuario')){
+			$usuario = $this->session->userdata('usuario');
+			$data = array(
+				"show" => false,
+				"message" => "",
+				"tipo" => "",
+			);
+
+			$this->load->view('registrarse', $data);
+
+		}else{
+
+			header("Location:" . base_url() . "login");
+
+		}
+		
 	}
 	public function Singup(){
 
-		$this->load->view('login');
+		$this->load->model("RegistrarseModel");
+
+		$dni = (string)$this->input->post('dni');
+		$apellido_paterno = (string)$this->input->post('apellido_paterno');
+		$apellido_materno = (string)$this->input->post('apellido_materno');
+		$nombres = (string)$this->input->post('nombres');
+		$anio_nacimiento = (string)$this->input->post('anio_nacimiento');
+		$sexo = (string)$this->input->post('sexo');
+		$email = (string)$this->input->post('email');
+		$pass = (string)$this->input->post('pass');
+		$confirmpass = (string)$this->input->post('confirmpass');
+		$cod_nivel_fk = 3;
+		$anio_ingreso = (string)date('Y');
+		$cod_carrera_fk = 'ABDC';
+
+		if($pass != $confirmpass){
+			$data = array(
+				"show" => true,
+				"message" => "Las contraseñas no coinciden",
+				"tipo" => "Error",
+			);
+		}else {
+			$newpersona = $this->RegistrarseModel->insertPersona($dni, $apellido_paterno, $apellido_materno,$nombres, $anio_nacimiento, $sexo);
+			$newuser = $this->RegistrarseModel->insertUsuario($dni, $email, $pass, $cod_nivel_fk);
+			$newAlumno = $this->RegistrarseModel->insertAlumno($email, $dni, $anio_ingreso, $cod_carrera_fk);
+
+			$data = array(
+				"show" => true,
+				"message" => "Registro insertado correctamente",
+				"tipo" => "Success",
+			);
+		}
+		$this->load->view('registrarse', $data);
+		
 		
 	}
 }

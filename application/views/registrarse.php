@@ -26,33 +26,35 @@
 					</span>
 					<div class="container-date">
 						<div class="form-group personal-date">
-							<input class="form-control " type="number" name="dni" placeholder="DNI">
+							<input class="form-control " type="number" name="dni" placeholder="DNI" required>
 						</div>
 						<div class="form-group personal-date">
-							<input class="form-control" type="text" name="nombres" placeholder="Nombres">
+							<input class="form-control" type="text" name="nombres" placeholder="Nombres" required>
 						</div>
 						<div class="form-group personal-date">
-							<input class="form-control" type="text" name="apellido-p" placeholder="Apellido Paterno">
+							<input class="form-control" type="text" name="apellido_paterno" placeholder="Apellido Paterno" required>
 						</div>
 						<div class="form-group personal-date">
-							<input class="form-control" type="text" name="apellido-m" placeholder="Apellido Materno">
+							<input class="form-control" type="text" name="apellido_materno" placeholder="Apellido Materno" required>
 						</div>
 						<div class="form-group personal-date">
-							<input class="form-control" type="date" name="date">
+							<input class="form-control" type="date" name="anio_nacimiento" required>
+						</div>
+						<div class="form-group personal-date">
+							<input class="form-control" type="text" name="sexo" placeholder="Sexo" required>
 						</div>
 					</div>
 					<div class="container-date">
 						<div class="form-group personal-date-email">
-							<input class="form-control" type="email" name="email" placeholder="Email">
+							<input class="form-control" type="email" name="email" placeholder="Email" required>
 						</div>
 						<div class="form-group personal-date">
-							<input class="form-control" type="password" name="pass" placeholder="Contraseña">
+							<input class="form-control" type="password" name="pass" placeholder="Contraseña" required>
 						</div>
 						<div class="form-group personal-date">
-							<input class="form-control" type="password" name="confirmpass" placeholder="Confirmar contraseña">
+							<input class="form-control" type="password" name="confirmpass" placeholder="Confirmar contraseña" required>
 						</div>
 					</div>
-
 					<button class="login100-form-btn" type="submit">
 						Registrarse
 					</button>
@@ -72,5 +74,8 @@
 	<script src="<?php echo base_url('assets'); ?>/js/toastr.min.js"></script>
 	<script src="<?php echo base_url('assets'); ?>/js/config_toast.js"></script>
 	<script src="<?php echo base_url('assets'); ?>/js/login.js"></script>
+	<?php if ($show == true) : ?>
+        <?php echo "<script>Show" . $tipo . "('" . $message . "');</script>"; ?>
+    <?php endif; ?>
 </body>
 </html>
