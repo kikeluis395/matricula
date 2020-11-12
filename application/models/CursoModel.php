@@ -64,16 +64,16 @@ class CursoModel extends CI_Model{
 
     }
 
-    public function getCursosByCiclo(int $ciclo){
+    public function getCursosByCiclo(int $ciclo, int $cod_plan){
 
         $filtros = array(
-            "ci.num_ciclo" => $ciclo
+            "ci.num_ciclo" => $ciclo,
+            "cu.cod_plan_curricular_fk" => $cod_plan
         );
-
+        
         $this->db->select('cu.cod_curso, cu.descripcion, cu.num_creditos, cu.cod_plan_curricular_fk, ci.num_ciclo, ci.num_anio');
         $this->db->join('ciclo as ci', 'cu.num_ciclo_fk = ci.num_ciclo');
         $query = $this->db->get_where('curso as cu', $filtros);
-
         return $query->result();
 
     }

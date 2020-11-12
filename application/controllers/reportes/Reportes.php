@@ -86,11 +86,11 @@ class Reportes extends CI_Controller {
 		$asignatura = reset($listAsignaturas);
 
 		$data = array(
-			"usuario" => $usuario,
-			"listAsignaturas" => $listAsignaturas,
-			"carrera" => $carrera,
-			"universidad" => "UNIVERSIDAD NACIONAL FEDERICO VILLARREAL",
-			"asignatura" => $asignatura
+			"usuario" 					=> $usuario,
+			"listAsignaturas" 	=> $listAsignaturas,
+			"carrera" 					=> $carrera,
+			"universidad" 			=> "SEMINARIO BÍBLICO ALIANZA DEL PERÚ",
+			"asignatura" 				=> $asignatura
 		);
 		
 		$this->load->view("asignaturas/asignaturas_pdf", $data);

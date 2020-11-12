@@ -52,14 +52,10 @@
 <body>
     <?php date_default_timezone_set("America/Lima");
     ?>
-    <img src="./assets/img/logo_unfv.png" alt="UNFV Logo" width="235px" class="logo_unfv">
+    <img src="./assets/img/logosebap.jpg" alt="UNFV Logo" width="150px" class="">
     <center>
     <div class="universidad">
         <span style="font-weight: bold; font-size: 18px;margin-bottom: 25px"><?php echo $universidad?></span>
-    </div>
-
-    <div class="facultad">
-        <span style="font-style: italic; font-size: 18px;margin-bottom: 25px"><?php echo strtoupper($carrera->descripcion_facultad)?></span>
     </div>
 
     <div class="titulo">
@@ -67,16 +63,6 @@
     </div>
     </center>
    
-    <div class="parametro">
-        <label>FACULTAD:</label>
-        <p>&nbsp;<?php echo strtoupper($carrera->descripcion_facultad)?></p>
-    </div>
-
-    <div class="parametro">
-        <label>ESCUELA:</label>
-        <p>&nbsp;<?php echo strtoupper($carrera->escuela)?></p>
-    <div class="parametro">
-
     <div class="parametro">
         <label>ESPECIALIDAD:</label>
         <p>&nbsp;<?php echo strtoupper($carrera->descripcion)?></p>
@@ -88,7 +74,7 @@
     </div>
 
     <div class="parametro">
-        <label>CODIGO:</label>
+        <label>EMAIL:</label>
         <p>&nbsp;<?php echo strtoupper($usuario->cod_alumno)?></p>
     </div>
 
@@ -108,10 +94,8 @@
                 <th scope="col">Código</th>
                 <th scope="col">Asignatura</th>
                 <th scope="col">Créditos</th>
-                <th scope="col">Turno</th>
                 <th scope="col">Sección</th>
                 <th scope="col">Ciclo</th>
-                <th scope="col">Vez</th>
             </tr>
         </thead>
         <tbody>
@@ -128,10 +112,8 @@
                                 "<td style='text-align: center'>".$asignatura->cod_curso."</td>".
                                 "<td>".$asignatura->descripcion."</td>".
                                 "<td style='text-align: center'>".$asignatura->num_creditos."</td>".
-                                "<td style='text-align: center'>".$asignatura->turno."</td>".
                                 "<td style='text-align: center'>".$asignatura->seccion."</td>".
                                 "<td style='text-align: center'>".$asignatura->num_ciclo_fk."</td>".
-                                "<td style='text-align: center'>".$asignatura->vez."</td>".
                          "</tr>";
 
                          $asignaturaActual = $asignatura->cod_curso;
@@ -148,9 +130,8 @@
                                 "<td>".$asignatura->descripcion."</td>".
                                 "<td style='text-align: center'>".$asignatura->num_creditos."</td>".
                                 "<td style='text-align: center'>".$asignatura->turno."</td>".
-                                "<td style='text-align: center'>".$asignatura->seccion."</td>".
                                 "<td style='text-align: center'>".$asignatura->num_ciclo_fk."</td>".
-                                "<td style='text-align: center'>".$asignatura->vez."</td>".
+
                          "</tr>";
 
                          $asignaturaActual = $asignatura->cod_curso;
@@ -162,8 +143,6 @@
                 echo "<td></td>";
                 echo "<td style='text-align: right'>Total de Creditos:</td>";  
                 echo "<td style='text-align: center'>".$totalCreditos."</td>";
-                echo "<td></td>";
-                echo "<td></td>";
                 echo "<td></td>";
                 echo "<td></td>";
                 echo "</tr>";

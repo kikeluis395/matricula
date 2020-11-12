@@ -24,7 +24,8 @@ class Horarios extends CI_Controller {
 		if($this->session->has_userdata('usuario')){
 
 			$usuario = $this->session->userdata('usuario');
-
+            $this->load->model("Plan_curricular");
+            $cod_plan = $this->Plan_curricular->getCodPlan($usuario->cod_alumno);
             $listActiveLink = array("a_matricula" => "a_matricula", "a_horarios" => "a_horarios");
             
             if($usuario->estado == 1)
@@ -62,7 +63,7 @@ class Horarios extends CI_Controller {
                             $ciclo = 1;
 
                             $this->load->model("CursoModel");
-                            $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
+                            $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo, $cod_plan->cod_plan_curricular);
 
                             $this->load->model("HorarioAlumnoModel");
                             $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
@@ -666,7 +667,7 @@ class Horarios extends CI_Controller {
                                     $ciclo = 1;
 
                                     $this->load->model("CursoModel");
-                                    $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
+                                    $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo, $cod_plan->cod_plan_curricular);
 
                                     $this->load->model("HorarioAlumnoModel");
                                     $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);
