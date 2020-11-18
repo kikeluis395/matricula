@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: auto!important;">
 	<!-- Brand Logo -->
 	<a href="<?php echo base_url() ?>home" class="brand-link bg_logo_unfv">
-		<img src="<?php echo base_url() ?>assets/img/logo_unfv.png" alt="UNFV Logo" width="235px" class="logo_unfv">
+		<img src="<?php echo base_url() ?>assets/img/logo_sebap.png" alt="SEBAP Logo" width="235px" class="logo_unfv">
 	</a>
 
 	<!-- Sidebar -->
@@ -74,12 +74,12 @@
 						</p>
 					</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 							<a href="<?php echo base_url() ?>pago" class="nav-link" id="a_pago">
 								<i class="fas fa-hand-holding-usd nav-icon"></i>
 								<p>Pago</p>
 							</a>
-						</li>
+						</li> -->
 						<li class="nav-item">
 							<a href="<?php echo base_url() ?>horarios" class="nav-link" id="a_horarios">
 								<i class="far fa-calendar-alt nav-icon"></i>
@@ -105,7 +105,7 @@
 					<a href="<?php echo base_url() ?>mallaCurricular" class="nav-link" style="cursor:pointer" id="a_malla_curricular">
 						<i class="nav-icon fas fa-list-alt"></i>
 						<p>
-							Malla Curricular
+							Plan de estudios
 						</p>
 					</a>
 				</li>

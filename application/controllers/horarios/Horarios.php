@@ -26,6 +26,10 @@ class Horarios extends CI_Controller {
 			$usuario = $this->session->userdata('usuario');
             $this->load->model("Plan_curricular");
             $cod_plan = $this->Plan_curricular->getCodPlan($usuario->cod_alumno);
+            
+            $this->load->model("HorarioAlumnoModel");
+            $listDiplomados = $this->HorarioAlumnoModel->getDiplomados();
+            
             $listActiveLink = array("a_matricula" => "a_matricula", "a_horarios" => "a_horarios");
             
             if($usuario->estado == 1)
@@ -85,6 +89,7 @@ class Horarios extends CI_Controller {
                                 "usuario" => $usuario,
                                 "listActiveLink" => $listActiveLink,
                                 "listCursosPermitidos" => $listCursosPermitidos,
+                                "listDiplomados" => $listDiplomados,
                                 "listHorariosMatriculados" => $listHorariosMatriculados,
                                 "listCountGroupCurso" => $listCountGroupCurso
                             );
@@ -650,6 +655,7 @@ class Horarios extends CI_Controller {
                                     "usuario" => $usuario,
                                     "listActiveLink" => $listActiveLink,
                                     "listCursosPermitidos" => $listCursosPermitidos,
+                                    "listDiplomados" => $listDiplomados,
                                     "listHorariosMatriculados" => $listHorariosMatriculados,
                                     "listCountGroupCurso" => $listCountGroupCurso
                                 );
@@ -689,6 +695,7 @@ class Horarios extends CI_Controller {
                                         "usuario" => $usuario,
                                         "listActiveLink" => $listActiveLink,
                                         "listCursosPermitidos" => $listCursosPermitidos,
+                                        "listDiplomados" => $listDiplomados,
                                         "listHorariosMatriculados" => $listHorariosMatriculados,
                                         "listCountGroupCurso" => $listCountGroupCurso
                                     );
@@ -989,6 +996,7 @@ class Horarios extends CI_Controller {
                                         "usuario" => $usuario,
                                         "listActiveLink" => $listActiveLink,
                                         "listCursosPermitidos" => $listCursosPermitidos,
+                                        "listDiplomados" => $listDiplomados,
                                         "listHorariosMatriculados" => $listHorariosMatriculados,
                                         "listCountGroupCurso" => $listCountGroupCurso
                                     );
@@ -1257,7 +1265,30 @@ class Horarios extends CI_Controller {
 
     }
 
+    public function ActualizarDiplomado(){
 
+
+        $usuario = $this->session->userdata('usuario');
+
+        $ciclo = 1;
+        
+		$cod_carrera = (string)$this->input->post('cod_carrera');
+
+		$this->load->model("HorarioAlumnoModel");
+        $this->HorarioAlumnoModel-> modifyDiplomado($usuario->cod_alumno,$cod_carrera);
+
+        $this->load->model("Plan_curricular");
+        $cod_plan = $this->Plan_curricular->getCodPlan($usuario->cod_alumno);
+
+        $this->load->model("CursoModel");
+        $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo, $cod_plan->cod_plan_curricular);
+        
+        $data = array(
+            "listCursosPermitidos" => $listCursosPermitidos,
+        );
+
+        $this->load->view("horarios/horarios_diplomado_view", $data);
+	}
 
 
 

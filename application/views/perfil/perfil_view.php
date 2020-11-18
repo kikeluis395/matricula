@@ -86,18 +86,20 @@
                                     <div class="row" style="margin-top: 15px">
                                         <div class="col-sm-6">
                                             <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label">Facultad:</label>
+                                            <label for="staticEmail" class="col-sm-3 col-form-label">Iglesia:</label>
                                             <div class="col-sm-9">
-                                              <label for="staticEmail" class="col-sm-9 "><?php echo $carrera->descripcion_facultad?></label>
+                                              <label for="staticEmail" class="col-sm-9 ">
+                                                Iglesia alianza cristiana y misionera Santa Anita
+                                              </label>
                                             </div>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <div class="form-group row">
-                                            <label for="inputPassword" class="col-sm-3 col-form-label">Escuela:</label>
+                                            <label for="inputPassword" class="col-sm-3 col-form-label">DNI:</label>
                                             <div class="col-sm-9">
-                                              <label for="staticEmail" class="col-sm-9 "><?php echo $carrera->escuela?></label>
+                                              <label for="staticEmail" class="col-sm-9 "><?php echo $usuario->dni_fk?></label>
                                             </div>
                                           </div>
                                         </div>

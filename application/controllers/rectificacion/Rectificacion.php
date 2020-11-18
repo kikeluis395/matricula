@@ -24,7 +24,8 @@ class Rectificacion extends CI_Controller {
 		if($this->session->has_userdata('usuario')){
 
 			$usuario = $this->session->userdata('usuario');
-
+            $this->load->model("Plan_curricular");
+            $cod_plan = $this->Plan_curricular->getCodPlan($usuario->cod_alumno);
             $listActiveLink = array("a_matricula" => "a_matricula", "a_rectificacion" => "a_rectificacion");
             
             if($usuario->estado == 1)
@@ -67,7 +68,7 @@ class Rectificacion extends CI_Controller {
                             }
 
                             $this->load->model("CursoModel");
-                            $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo);
+                            $listCursosPermitidos = $this->CursoModel->getCursosByCiclo($ciclo, $cod_plan->cod_plan_curricular);
 
                             $this->load->model("HorarioAlumnoModel");
                             $listHorariosAlumno = $this->HorarioAlumnoModel->getHorariosAlumnoByMatricula($matricula->cod_matricula);

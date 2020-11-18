@@ -177,6 +177,23 @@ function VerAsignaturas(baseURL){
   });
 }
 
+function ActualizarDiplomado(baseURL){
+  var cod_carrera = $("#selectDiplomado option:selected").val();
+
+  var datos = {
+    "cod_carrera" : cod_carrera
+  };
+
+  $.post( baseURL + "horarios/Horarios/ActualizarDiplomado", datos, function(response) {
+
+    $("#contenedor-cursospordiplomado").html(response);
+
+  })
+  .fail(function(jqXHR, errorType, error) {
+    console.log("No se listaron los cursos!")
+  });
+}
+
 function VerPDFAsignaturas(baseURL){
   var periodo = $("#selectPeriodo option:selected").val();
 

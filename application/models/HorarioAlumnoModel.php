@@ -19,6 +19,14 @@ class HorarioAlumnoModel extends CI_Model{
         return $query->result();
     }
 
+    public function modifyDiplomado(string $cod_alumno, string $cod_carrera_fk){
+        
+        $this->db->set('cod_carrera_fk', $cod_carrera_fk);
+        $this->db->where('cod_alumno', $cod_alumno);
+        $this->db->update('alumno');
+
+    }
+
     public function insertHorarioAlumno($list_horario_curso, string $cod_matricula, string $periodo, int $vez){
 
         $data  =  array ();
@@ -67,6 +75,12 @@ class HorarioAlumnoModel extends CI_Model{
         $query = $this->db->get_where('horario_alumno as ho_al', $filtros);
 
         return $query->result();
+    }
+    //devuelve un array de los diplomados
+    public function getDiplomados(){
+
+        return $this->db->query("SELECT * FROM DIPLOMADO")->result();
+
     }
 
     public function getHorariosAlumnoJoinCursoByPeriodo(string $periodo){

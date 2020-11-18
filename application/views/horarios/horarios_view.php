@@ -68,14 +68,28 @@
                             </div>
                         </div>
                     </div>
-
-
+                    
                     <div class="wrapper wrapper-content animated fadeInDown" style="opacity: 1;">
 
                         <div class="no-margins" style="opacity: 1;">
                            
 
                             <div class="card" style="font-size: 14px">
+                                <div class="card-header">
+                                    <label for="exampleFormControlSelect1">Escoge un diplomado</label>
+                                    <select class="form-control" id="selectDiplomado" onchange="ActualizarDiplomado('<?php echo base_url()?>')">
+                                        <option value="">-----------</option>
+                                        <?php 
+                                             
+                                            foreach($listDiplomados as $diplomado)
+                                                    {
+
+                                                        echo "<option value='".$diplomado->cod_carrera."'>".$diplomado->descripcion."</option>";
+
+                                                    }
+                                        ?>
+                                    </select>
+                                </div>
                                 <div class="card-header">
                                     <div class="card-title">Cursos Permitidos</div>
                                 </div>
@@ -90,7 +104,7 @@
                                             <th scope="col">Ciclo</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="contenedor-cursospordiplomado">
                                         <?php foreach ($listCursosPermitidos as $cursoPermitido)
                                             {
                                                 echo "<tr>".

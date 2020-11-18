@@ -75,7 +75,7 @@
                             <div class="career-program">
                                 <div class="career-labels">
                                     <div class="career-label">
-                                        <div style="background-color: #2A8E2A" class="career-label-color"></div>
+                                        <div style="background-color: #0165df" class="career-label-color"></div>
                                         <div class="career-label-text">Aprobado</div>
                                     </div>
                                     <div class="career-label">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="career-grade">
-                                    <div class="inner">Plan Curricular <?php echo $plan_curricular->anio?></div>
+                                    <div class="inner">PLAN DE ESTUDIO <?php echo $plan_curricular->anio?></div>
                                 </div>
                                 <!-- NEW PLANES-->
                                 <!--ORDEN SEMESTRAL-->
