@@ -45,9 +45,23 @@
 						</div>
 					</div>
 					<div class="container-date">
-						<div class="form-group personal-date-email">
+						<div class="form-group personal-date">
 							<input class="form-control" type="email" name="email" placeholder="Email" required>
 						</div>
+						<div class=" form-group personal-date">
+							<select class="form-control" name="diplomado">
+								<option value="" >-----------</option>
+								<?php 
+                       
+											 foreach($listDiplomados as $diplomado)
+											 {
+												 
+												 echo "<option value='".$diplomado->cod_carrera."'>".$diplomado->descripcion."</option>";
+												 
+												}
+												?>
+            </select>
+					</div>
 						<div class="form-group personal-date">
 							<input class="form-control" type="password" name="pass" placeholder="Contraseña" required>
 						</div>

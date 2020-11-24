@@ -22,9 +22,12 @@ class Registrarse extends CI_Controller {
 	{
 		if(!$this->session->userdata('usuario')){
 			$usuario = $this->session->userdata('usuario');
+			$this->load->model("HorarioAlumnoModel");
+			$listDiplomados = $this->HorarioAlumnoModel->getDiplomados();
 			$data = array(
 				"show" => false,
 				"message" => "",
+				"listDiplomados" => $listDiplomados,
 				"tipo" => "",
 			);
 
@@ -40,6 +43,7 @@ class Registrarse extends CI_Controller {
 	public function Singup(){
 
 		$this->load->model("RegistrarseModel");
+		
 
 		$dni = (string)$this->input->post('dni');
 		$apellido_paterno = (string)$this->input->post('apellido_paterno');
@@ -48,11 +52,14 @@ class Registrarse extends CI_Controller {
 		$anio_nacimiento = (string)$this->input->post('anio_nacimiento');
 		$sexo = (string)$this->input->post('sexo');
 		$email = (string)$this->input->post('email');
+		$diplomado = (string)$this->input->post('diplomado');
 		$pass = (string)$this->input->post('pass');
 		$confirmpass = (string)$this->input->post('confirmpass');
 		$cod_nivel_fk = 3;
 		$anio_ingreso = (string)date('Y');
-		$cod_carrera_fk = 'ABDC';
+
+		
+     
 
 		if($pass != $confirmpass){
 			$data = array(
@@ -63,8 +70,7 @@ class Registrarse extends CI_Controller {
 		}else {
 			$newpersona = $this->RegistrarseModel->insertPersona($dni, $apellido_paterno, $apellido_materno,$nombres, $anio_nacimiento, $sexo);
 			$newuser = $this->RegistrarseModel->insertUsuario($dni, $email, $pass, $cod_nivel_fk);
-			$newAlumno = $this->RegistrarseModel->insertAlumno($email, $dni, $anio_ingreso, $cod_carrera_fk);
-
+			$newAlumno = $this->RegistrarseModel->insertAlumno($email, $dni, $anio_ingreso, $diplomado);
 			$data = array(
 				"show" => true,
 				"message" => "Registro insertado correctamente",

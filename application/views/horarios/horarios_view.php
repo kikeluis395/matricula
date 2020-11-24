@@ -75,21 +75,21 @@
                            
 
                             <div class="card" style="font-size: 14px">
-                                <div class="card-header">
+                                <!-- <div class="card-header">
                                     <label for="exampleFormControlSelect1">Escoge un diplomado</label>
                                     <select class="form-control" id="selectDiplomado" onchange="ActualizarDiplomado('<?php echo base_url()?>')">
                                         <option value="">-----------</option>
                                         <?php 
                                              
-                                            foreach($listDiplomados as $diplomado)
-                                                    {
+                                            // foreach($listDiplomados as $diplomado)
+                                            //         {
 
-                                                        echo "<option value='".$diplomado->cod_carrera."'>".$diplomado->descripcion."</option>";
+                                            //             echo "<option value='".$diplomado->cod_carrera."'>".$diplomado->descripcion."</option>";
 
-                                                    }
+                                            //         }
                                         ?>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="card-header">
                                     <div class="card-title">Cursos Permitidos</div>
                                 </div>

@@ -117,23 +117,11 @@ class Pago extends CI_Controller {
 
 			}else
 			{
-				$cod_liquidacion = $_POST["cod_liquidacion"];
-
-				$this->load->model("LiquidacionModel");
-				$liquidacion = $this->LiquidacionModel->verificarPago($cod_liquidacion);
-
-				if($liquidacion)
-				{
-
-					$this->load->model("PagoModel");
-					$this->PagoModel->insertPago($cod_liquidacion);
-					$pago = $this->PagoModel->getPago($cod_liquidacion);
-
 					$this->load->model("Plan_curricular");
 					$plan_curricular = $this->Plan_curricular->getPlanCurricularByCarrera($usuario->cod_carrera_fk);
 
 					$this->load->model("MatriculaModel");
-					$this->MatriculaModel->insertMatricula((string)$usuario->cod_alumno,(string)$pago->cod_pago,(string)$plan_curricular->cod_plan_curricular );
+					$this->MatriculaModel->insertMatricula((string)$usuario->cod_alumno,(string)$plan_curricular->cod_plan_curricular );
 					$matricula = $this->MatriculaModel->getMatriculaFromAlumno($usuario->cod_alumno);
 
 					if($matricula)
@@ -159,25 +147,11 @@ class Pago extends CI_Controller {
 
 						$this->load->view('pago/pago_view', $data);
 					}
-					
-				}else{
-
-					$data = array(
-						"show" => true,
-						"message" => "No se encontraron coincidencias del numero de liquidacion",
-						"tipo" => "Error",
-						"usuario" => $usuario,
-						"listActiveLink" => $listActiveLink
-					);
-
-					$this->load->view('pago/pago_view', $data);
-
-				}
 			}
 
 		}else{
 
-			header("Location:" . base_url() . "login");
+				header("Location:" . base_url() . "login");
 
 		}
 	}

@@ -23,12 +23,26 @@ class Reporte_alumnos extends CI_Controller {
 		
 		if($this->session->has_userdata('usuario')){
 
-			$usuario = $this->session->userdata('usuario');
+				$usuario = $this->session->userdata('usuario');
+				$this->load->model("HorarioAlumnoModel");
+				$listDiplomados = $this->HorarioAlumnoModel->getDiplomados();
 
+					$data = array(
+						"show" => false,
+						"message" => "",
+						"tipo" => "",
+						"listDiplomados" => $listDiplomados,
+						"usuario" => $usuario
+					);
+	
+					$this->load->view("reporte_alumnos/reporte_alumnos", $data);
 
-				$this->load->view("reporte_alumnos/reporte_alumnos");
+		}else{
+	
+				header("Location:" . base_url() . "login");
+	
+		}
 
-    }
-		
   }
+		
 }

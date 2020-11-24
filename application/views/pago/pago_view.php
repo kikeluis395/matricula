@@ -89,13 +89,6 @@
                                 <div class="card-body">
                                     <form class="login100-form validate-form" action="VerificarPago" method="post">
                                         <div class="form-group row justify-content-center">
-                                            <div class="col-sm-8">
-                                                <div class="wrap-input100 validate-input" data-validate="Numero es requerido">
-                                                    <input class="input100" type="text" name="cod_liquidacion">
-                                                    <span class="focus-input100"></span>
-                                                    <span class="label-input100">Ingresar número de liquidación</span>
-                                                </div>
-                                            </div>
                                             <div class="col-sm-5">
                                                 <button type="submit" class="btn btn-primary btn-block mt-2">Verificar</button>
                                             </div>

@@ -25,6 +25,7 @@
 
             </ul>
 
+
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
 
@@ -45,6 +46,7 @@
         <!-- sidebar -->
         <?php require_once(APPPATH . 'views/layout/_sidebar.php'); ?>
 
+
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
 
@@ -61,8 +63,8 @@
                                     <i class="fas fa-file-invoice-dollar text-navy mid-icon fa-3x ml-3"></i>
                                 </div>
                                 <div class="col-md-11 col-lg-11 col-sm-11">
-                                    <h2>Reportes</h2>
-                                    <span>Muestra de asignaturas en formato PDF por periodo.</span>
+                                    <h2>Reporte de alumnos</h2>
+                                    <span>Muestra alumnos matriculados en formato PDF por diplomado.</span>
                                 </div>
                             </div>
                         </div>
@@ -78,9 +80,18 @@
                                 <div class="card-header">
                                     <div class="card-title">
                                         <div class="form-group-inline">
-                                            <label for="exampleFormControlSelect1">Periodo</label>
-                                            <select class="form-control" id="selectPeriodo">
-                                              
+                                            <label for="exampleFormControlSelect1">Diplomado</label>
+                                            <select class="form-control">
+                                                <option value=""></option>
+                                              <?php
+                                                foreach($listDiplomados as $diplomado)
+                                                {
+                                                    
+                                                    echo "<option value='".$diplomado->cod_carrera."'>".$diplomado->descripcion."</option>";
+                                                    
+                                                   }
+                                                   ?>
+                                              ?>
                                             </select>
                                         </div>
                                     </div>

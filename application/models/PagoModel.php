@@ -21,7 +21,7 @@ class PagoModel extends CI_Model{
    public function insertPago(string $cod_liquidacion){
 
         $fecha = round(microtime(true) * 1000);
-        $monto = "164.00";
+        $monto = "0";
 
         $data = array(
             "cod_pago" => $cod_liquidacion,

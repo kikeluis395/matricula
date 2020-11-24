@@ -27,14 +27,13 @@ class MatriculaModel extends CI_Model{
         return $this->db->get_where("matricula", $filtros)->row();
     }
 
-    public function insertMatricula(string $cod_alumno, string $cod_pago, int $cod_plan_curricular){
+    public function insertMatricula(string $cod_alumno, int $cod_plan_curricular){
 
         $anio = date("Y");
         $cod_matricula = $cod_alumno . $anio;
 
         $data = array(
             "cod_matricula" => $cod_matricula,
-            "cod_pago_fk" => $cod_pago,
             "cod_alumno_fk" => $cod_alumno,
             "anio" => $anio,
             "cod_plan_curricular_fk" => $cod_plan_curricular
