@@ -61,6 +61,7 @@ $route['horarios'] = 'horarios/Horarios';
 $route['rectificacion'] = 'rectificacion/Rectificacion';
 $route['asignaturas'] = 'asignaturas/Asignaturas';
 $route['reportes'] = 'reportes/Reportes';
+$route['reporte_alumnos'] = 'reportes/Reporte_alumnos';
 $route['perfil'] = 'perfil/Perfil';
 $route['activarPago'] = 'activaciones/activarPago';
 $route['activarHorarios'] = 'activaciones/activarHorarios';

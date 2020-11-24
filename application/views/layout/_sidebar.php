@@ -207,6 +207,18 @@
 						</li>
 					</ul>
 				</li>
+				<li class="nav-item has-treeview">
+					<li class="nav-item">
+								<a href="<?php echo base_url() ?>reporte_alumnos" class="nav-link" id="a_reportes">
+									<i class="fas fa-file-pdf nav-icon"></i>
+									<p>
+										Reportes
+									<i class="right fa fa-angle-left"></i>
+									</p>
+								</a>
+					</li>
+				</li>
+
 				
 				<hr>
 
