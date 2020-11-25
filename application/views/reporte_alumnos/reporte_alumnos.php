@@ -81,13 +81,13 @@
                                     <div class="card-title">
                                         <div class="form-group-inline">
                                             <label for="exampleFormControlSelect1">Diplomado</label>
-                                            <select class="form-control" name="diplomado">
+                                            <select class="form-control" name="diplomado" id="selectDiplomado">
                                                 <option value=""></option>
                                               <?php
                                                 foreach($listDiplomados as $diplomado)
                                                 {
                                                     
-                                                    echo "<option value='".$diplomado->cod_carrera."'>".$diplomado->descripcion."</option>";
+                                                    echo "<option value='".$diplomado->descripcion."'>".$diplomado->descripcion."</option>";
                                                     
                                                    }
                                                    ?>
@@ -99,7 +99,7 @@
                                 <div class="card-body text-center">
                                     <img src="<?php echo base_url() ?>assets/img/logo_pdf.png" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
                                     
-                                    <button class="btn btn-primary" onclick="VerPDFAsignaturas('<?php echo base_url()?>')" target="_blank" role="button">Ver PDF</button>
+                                    <button class="btn btn-primary" onclick="VerPDFAlumnos('<?php echo base_url()?>')" target="_blank" role="button">Ver PDF</button>
                                 </div>
                             </div>
 

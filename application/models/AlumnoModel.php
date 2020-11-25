@@ -14,6 +14,19 @@ class AlumnoModel extends CI_Model{
 
     }
 
+    public function getAlumnoAll(string $diplomado){
+
+        $filtros = array(
+            "di.descripcion" => $diplomado
+        );
+
+        $this->db->select('al.cod_alumno, al.dni_fk, pe.apellido_paterno, pe.apellido_materno, pe.nombres, al.anio_ingreso, al.iglesia');
+        $this->db->join('persona as pe', 'al.dni_fk = pe.dni');
+        $this->db->join('diplomado as di', 'al.cod_carrera_fk = di.cod_carrera');
+        return $this->db->get_where("alumno as al", $filtros)->result();
+
+    }
+
     public function getAlumnoByDni(string $dni){
 
         $filtros = array(

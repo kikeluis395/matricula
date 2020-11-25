@@ -80,17 +80,17 @@
 
     <div class="parametro">
         <label>DIPLOMADO:</label>
-        <p><?php echo strtoupper($diplomado->descripcion)?></p>
+        <p><?php echo strtoupper($diplomado)?></p>
     </div>
 
     <table class="table">
         <thead>
             <tr style="text-align: center">
-                <th scope="col">Código</th>
-                <th scope="col">Asignatura</th>
-                <th scope="col">Créditos</th>
-                <th scope="col">Sección</th>
-                <th scope="col">Ciclo</th>
+                <th scope="col">Email</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombres y Apellidos</th>
+                <th scope="col">Año de ingreso</th>
+                <th scope="col">Iglesia</th>
             </tr>
         </thead>
         <tbody>
@@ -98,49 +98,39 @@
 
         
             $cont = 1;
-            $totalCreditos = 0;
-            foreach ($listAsignaturas as $asignatura)
-                {
-                    if($cont == 1)
-                    {
-                        echo "<tr>".
-                                "<td style='text-align: center'>".$asignatura->cod_curso."</td>".
-                                "<td>".$asignatura->descripcion."</td>".
-                                "<td style='text-align: center'>".$asignatura->num_creditos."</td>".
-                                "<td style='text-align: center'>".$asignatura->seccion."</td>".
-                                "<td style='text-align: center'>".$asignatura->num_ciclo_fk."</td>".
-                         "</tr>";
+            if(!empty($listAlumnos)){
+              foreach ($listAlumnos as $alumno)
+                  {
+                      if($cont == 1)
+                      {
+                          echo "<tr>".
+                                  "<td style='text-align: center'>".$alumno->cod_alumno."</td>".
+                                  "<td style='text-align: center'>".$alumno->dni_fk."</td>".
+                                  "<td>".$alumno->apellido_paterno. $alumno->apellido_materno. $alumno->nombres."</td>".
+                                  "<td style='text-align: center'>".$alumno->anio_ingreso."</td>".
+                                  "<td style='text-align: center'>".$alumno->iglesia."</td>".
+                          "</tr>";
 
-                         $asignaturaActual = $asignatura->cod_curso;
+                          $alumnoActual = $alumno->cod_alumno;
+                          $cont++;
+                      }
+                      
 
-                         $cont++;
-                         $totalCreditos += $asignatura->num_creditos;
-                    }
-                    
+                      if($alumnoActual != $alumno->cod_alumno)
+                      {
+                          echo "<tr>".
+                                  "<td style='text-align: center'>".$alumno->cod_alumno."</td>".
+                                  "<td style='text-align: center'>".$alumno->dni_fk."</td>".
+                                  "<td>".$alumno->apellido_paterno. $alumno->apellido_materno. $alumno->nombres."</td>".
+                                  "<td style='text-align: center'>".$alumno->anio_ingreso."</td>".
+                                  "<td style='text-align: center'>".$alumno->iglesia."</td>".
+                          "</tr>";
 
-                    if($asignaturaActual != $asignatura->cod_curso)
-                    {
-                        echo "<tr>".
-                                "<td style='text-align: center'>".$asignatura->cod_curso."</td>".
-                                "<td>".$asignatura->descripcion."</td>".
-                                "<td style='text-align: center'>".$asignatura->num_creditos."</td>".
-                                "<td style='text-align: center'>".$asignatura->turno."</td>".
-                                "<td style='text-align: center'>".$asignatura->num_ciclo_fk."</td>".
-
-                         "</tr>";
-
-                         $asignaturaActual = $asignatura->cod_curso;
-                         $totalCreditos += $asignatura->num_creditos;
-                    }
-                    
-                }     
-                echo "<tr>";
-                echo "<td></td>";
-                echo "<td style='text-align: right'>Total de Creditos:</td>";  
-                echo "<td style='text-align: center'>".$totalCreditos."</td>";
-                echo "<td></td>";
-                echo "<td></td>";
-                echo "</tr>";
+                          $alumnoActual = $alumno->cod_alumno;
+                      }
+                      
+                  }
+            }     
         ?>
         </tbody>
     </table>

@@ -44,15 +44,15 @@ class Reporte_alumnos extends CI_Controller {
 		}
 
 	}
-	public function PdfAsignaturas(){
+	public function PdfAlumnos(){
 
 		$diplomado = (string)$this->input->get('diplomado');
 
 		$usuario = $this->session->userdata('usuario');
 
 		$this->load->model("AlumnoModel");
-    $listAlumnos = $this->AlumnoModel->getAlumnos();
-
+    $listAlumnos = $this->AlumnoModel->getAlumnoAll($diplomado);
+		
 
 		$data = array(
 			"usuario" 					=> $usuario,
@@ -79,7 +79,7 @@ class Reporte_alumnos extends CI_Controller {
         $this->pdf->render();
         
         // Output the generated PDF (1 = download and 0 = preview)
-		$file = $this->pdf->stream("asignaturas.pdf", array("Attachment"=>1));
+		$file = $this->pdf->stream("reporte.pdf", array("Attachment"=>0));
 		
 	}
 		

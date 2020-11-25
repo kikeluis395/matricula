@@ -205,6 +205,17 @@ function VerPDFAsignaturas(baseURL){
   window.open(baseURL + 'reportes/Reportes/PdfAsignaturas?periodo=' + periodo, '_blank');
 }
 
+function VerPDFAlumnos(baseURL){
+  var diplomado = $("#selectDiplomado option:selected").val();
+
+  var datos = {
+    "diplomado" : diplomado
+  };
+
+  ShowSuccess("Descargando...");
+  window.open(baseURL + 'reportes/Reporte_alumnos/PdfAlumnos?diplomado=' + diplomado, '_blank');
+}
+
 function CambiarEstado(baseURL, estadoActual, ruta){
 
   var estado = 0;
