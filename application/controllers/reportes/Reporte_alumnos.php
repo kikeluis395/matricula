@@ -43,6 +43,44 @@ class Reporte_alumnos extends CI_Controller {
 	
 		}
 
-  }
+	}
+	public function PdfAsignaturas(){
+
+		$diplomado = (string)$this->input->get('diplomado');
+
+		$usuario = $this->session->userdata('usuario');
+
+		$this->load->model("AlumnoModel");
+    $listAlumnos = $this->AlumnoModel->getAlumnos();
+
+
+		$data = array(
+			"usuario" 					=> $usuario,
+			"diplomado"					=> $diplomado,
+			"listAlumnos" 	=> $listAlumnos,
+			"universidad" 			=> "SEMINARIO BÍBLICO ALIANZA DEL PERÚ",
+		);
+		
+		$this->load->view("reporte_alumnos/reporte_alumnos_pdf", $data);
+        
+        // Get output html
+        $html = $this->output->get_output();
+        
+        // Load pdf library
+        $this->load->library('pdf');
+        
+        // Load HTML content
+        $this->pdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation
+        $this->pdf->setPaper('A4');
+        
+        // Render the HTML as PDF
+        $this->pdf->render();
+        
+        // Output the generated PDF (1 = download and 0 = preview)
+		$file = $this->pdf->stream("asignaturas.pdf", array("Attachment"=>1));
+		
+	}
 		
 }

@@ -81,7 +81,7 @@
                                     <div class="card-title">
                                         <div class="form-group-inline">
                                             <label for="exampleFormControlSelect1">Diplomado</label>
-                                            <select class="form-control">
+                                            <select class="form-control" name="diplomado">
                                                 <option value=""></option>
                                               <?php
                                                 foreach($listDiplomados as $diplomado)
