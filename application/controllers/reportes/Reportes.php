@@ -78,7 +78,7 @@ class Reportes extends CI_Controller {
 		$usuario = $this->session->userdata('usuario');
 
 		$this->load->model("HorarioAlumnoModel");
-        $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByPeriodo($periodo);
+        $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByPeriodo($periodo, $usuario->dni_fk);
 
         $this->load->model("CarreraModel");
         $carrera = $this->CarreraModel->getCarreraJoinFacultad($usuario->cod_carrera_fk);

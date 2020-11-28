@@ -20,8 +20,6 @@ class Registrarse extends CI_Controller {
 	 */
 	public function index()
 	{
-		if(!$this->session->userdata('usuario')){
-			$usuario = $this->session->userdata('usuario');
 			$this->load->model("HorarioAlumnoModel");
 			$listDiplomados = $this->HorarioAlumnoModel->getDiplomados();
 			$data = array(
@@ -32,16 +30,12 @@ class Registrarse extends CI_Controller {
 			);
 
 			$this->load->view('registrarse', $data);
-
-		}else{
-
-			header("Location:" . base_url() . "login");
-
-		}
 		
 	}
 	public function Singup(){
 
+		$this->load->model("HorarioAlumnoModel");
+		$listDiplomados = $this->HorarioAlumnoModel->getDiplomados();
 		$this->load->model("RegistrarseModel");
 		
 
@@ -65,6 +59,7 @@ class Registrarse extends CI_Controller {
 			$data = array(
 				"show" => true,
 				"message" => "Las contraseñas no coinciden",
+				"listDiplomados" => $listDiplomados,
 				"tipo" => "Error",
 			);
 		}else {
@@ -74,6 +69,7 @@ class Registrarse extends CI_Controller {
 			$data = array(
 				"show" => true,
 				"message" => "Registro insertado correctamente",
+				"listDiplomados" => $listDiplomados,
 				"tipo" => "Success",
 			);
 		}

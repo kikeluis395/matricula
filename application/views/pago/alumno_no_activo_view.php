@@ -72,8 +72,8 @@
                                     <i class="fas fa-file-invoice-dollar text-navy mid-icon fa-3x ml-3"></i>
                                 </div>
                                 <div class="col-md-11 col-lg-11 col-sm-11">
-                                    <h2>Pago Matricula</h2>
-                                    <span> Verificación del código de liquidación.</span>
+                                    <h2>Activacion Matricula</h2>
+                                    <span> Activar matricula del alumno.</span>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                             <div class="card" style="padding: 10px">
                                 <div class="card-body text-center">
                                     <img src="<?php echo base_url() ?>assets/img/error.png" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
-                                    <h4>Su usuario no está activo, por favor, consultar con la escuela correspondiente!</h4></div>
+                                    <h4>Su usuario no está activo, por favor, consultar con el administrador!</h4></div>
                             </div>
 
                         </div>

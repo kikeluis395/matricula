@@ -88,7 +88,7 @@
             <tr style="text-align: center">
                 <th scope="col">Email</th>
                 <th scope="col">DNI</th>
-                <th scope="col">Nombres y Apellidos</th>
+                <th scope="col">Apellidos y Nombres</th>
                 <th scope="col">Año de ingreso</th>
                 <th scope="col">Iglesia</th>
             </tr>
@@ -106,9 +106,9 @@
                           echo "<tr>".
                                   "<td style='text-align: center'>".$alumno->cod_alumno."</td>".
                                   "<td style='text-align: center'>".$alumno->dni_fk."</td>".
-                                  "<td>".$alumno->apellido_paterno. $alumno->apellido_materno. $alumno->nombres."</td>".
+                                  "<td>".strtoupper($alumno->apellido_paterno." ". $alumno->apellido_materno." ". $alumno->nombres)."</td>".
                                   "<td style='text-align: center'>".$alumno->anio_ingreso."</td>".
-                                  "<td style='text-align: center'>".$alumno->iglesia."</td>".
+                                  "<td style='text-align: center'>".strtoupper($alumno->iglesia)."</td>".
                           "</tr>";
 
                           $alumnoActual = $alumno->cod_alumno;
@@ -121,9 +121,9 @@
                           echo "<tr>".
                                   "<td style='text-align: center'>".$alumno->cod_alumno."</td>".
                                   "<td style='text-align: center'>".$alumno->dni_fk."</td>".
-                                  "<td>".$alumno->apellido_paterno. $alumno->apellido_materno. $alumno->nombres."</td>".
+                                  "<td>".strtoupper($alumno->apellido_paterno." ". $alumno->apellido_materno." ". $alumno->nombres)."</td>".
                                   "<td style='text-align: center'>".$alumno->anio_ingreso."</td>".
-                                  "<td style='text-align: center'>".$alumno->iglesia."</td>".
+                                  "<td style='text-align: center'>".strtoupper($alumno->iglesia)."</td>".
                           "</tr>";
 
                           $alumnoActual = $alumno->cod_alumno;

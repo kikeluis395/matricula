@@ -122,7 +122,7 @@
     <?php require_once(APPPATH . 'views/layout/_js.php'); ?>
     <!-- Modal -->
 <div class="modal fade bd-example-modal-xl" id="modalHorariosMatriculados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-xl modal-largo" role="document">
     <div class="modal-content" id="contenedor-horarios-matriculados">
     <div class="modal-header">
     <h5 class="modal-title">Horarios Matriculados</h5>

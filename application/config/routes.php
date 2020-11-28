@@ -56,6 +56,7 @@ $route['registrarse'] = 'Registrarse';
 $route['Singup'] = 'Registrarse/Singup';
 $route['home'] = 'home/Home';
 $route['home_admin'] = 'home_admin/Home_admin';
+$route['pago_matricula'] = 'pago_matricula/Pago_matricula';
 $route['pago'] = 'pago/Pago';
 $route['horarios'] = 'horarios/Horarios';
 $route['rectificacion'] = 'rectificacion/Rectificacion';

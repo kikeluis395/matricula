@@ -9,16 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php require_once(APPPATH . 'views/layout/_css.php'); ?>
-    <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/login.css">
-    <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/util.css">
-    <style>
-        .login100-form{
-            width: 100%;
-            min-height: inherit;
-            background-color: #fff;
-            padding-top: 40px;
-        }
-    </style>
 
 </head>
 
@@ -44,7 +34,7 @@
                         <div class="container-fluid">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>home">Home</a></li>
-                                <li class="breadcrumb-item active">Pago</li>
+                                <li class="breadcrumb-item active">Activacion Matricula</li>
                             </ol>
                         </div><!-- /.container-fluid -->
                     </div>
@@ -72,8 +62,8 @@
                                     <i class="fas fa-file-invoice-dollar text-navy mid-icon fa-3x ml-3"></i>
                                 </div>
                                 <div class="col-md-11 col-lg-11 col-sm-11">
-                                    <h2>Pago Matricula</h2>
-                                    <span> Verificación del código de liquidación.</span>
+                                    <h2>Activación de Matricula</h2>
+                                    <span> Activación de matricula del alumno.</span>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +78,7 @@
                             <div class="card" style="padding: 10px">
                                 <div class="card-body text-center">
                                     <img src="<?php echo base_url() ?>assets/img/check.png" class="img-circle mb-3" alt="Check Image" style="margin-top: 15px;width:100px">
-                                    <h4>Felicidades, usted ha sido matriculado exitosamente!</h4>
+                                    <h4>Felicidades, usted ha activado su matricula exitosamente!</h4>
                                     <p class="mb-3">El siguiente proceso es elegir los horarios</p>
                                     <a class="btn btn-primary" href="<?php echo base_url() ?>horarios" role="button">Ver horarios</a>
                                 </div>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Asignaturas extends CI_Controller {
+class Pago_matricula extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,39 +20,45 @@ class Asignaturas extends CI_Controller {
 	 */
 	public function index()
 	{
-		
 		if($this->session->has_userdata('usuario')){
 
 			$usuario = $this->session->userdata('usuario');
 
-			$listActiveLink = array("a_alumno" => "a_alumno","a_asignaturas" => "a_asignaturas");
+			$listActiveLink = array("a_alumno" => "a_alumno","a_pago_matricula" => "a_pago_matricula");
 
 			$this->load->model("HorarioAlumnoModel");
 			$listPeriodos = $this->HorarioAlumnoModel->getPeriodosByMatriculaAndAlumno($usuario->cod_alumno);
 
 			if($listPeriodos)
 			{
-
-				$listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByPeriodo($listPeriodos[0]->periodo, $usuario->dni_fk);
-
+        $creditos=0;
+        $listAsignaturas = $this->HorarioAlumnoModel->getHorariosAlumnoJoinCursoByPeriodo($listPeriodos[0]->periodo, $usuario->dni_fk);
+        
+        foreach($listAsignaturas as $asignatura){
+          $creditos += intval($asignatura->num_creditos);
+        }
+        $total= $creditos*25;
+            
 				$data = array(
 					"show" => false,
 					"message" => "",
 					"tipo" => "",
-					"usuario" => $usuario,
+          "usuario" => $usuario,
+          "creditos" => $creditos,
+          "total"    => $total,
 					"listActiveLink" => $listActiveLink,
 					"listAsignaturas" => $listAsignaturas,
 					"listPeriodos" => $listPeriodos
 				);
 
-				$this->load->view("asignaturas/asignaturas_view", $data);
+				$this->load->view("pago_matricula/pago_matricula_view", $data);
 
 			}else
 			{
 
 				$data = array(
 					"show" => true,
-					"message" => "Aun no hay periodos matriculados!",
+					"message" => "Aun no has escogido cursos!",
 					"tipo" => "Warning",
 					"usuario" => $usuario,
 					"listActiveLink" => $listActiveLink,
@@ -60,7 +66,7 @@ class Asignaturas extends CI_Controller {
 					"listPeriodos" => array()
 				);
 
-				$this->load->view("asignaturas/asignaturas_view", $data);
+				$this->load->view("pago_matricula/pago_matricula_view", $data);
 
 			}
 

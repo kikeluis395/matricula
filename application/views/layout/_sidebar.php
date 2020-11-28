@@ -76,14 +76,20 @@
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
 							<a href="<?php echo base_url() ?>pago" class="nav-link" id="a_pago">
-								<i class="fas fa-hand-holding-usd nav-icon"></i>
-								<p>Pago</p>
+							<i class="fas fa-toggle-on nav-icon"></i>
+								<p>Activar matrícula</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="<?php echo base_url() ?>horarios" class="nav-link" id="a_horarios">
 								<i class="far fa-calendar-alt nav-icon"></i>
 								<p>Horarios</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="<?php echo base_url() ?>pago_matricula" class="nav-link" id="a_pago_matricula">
+							<i class="fas fa-hand-holding-usd nav-icon"></i>
+								<p>Pagos</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -172,7 +178,7 @@
 						<li class="nav-item">
 							<a href="<?php echo base_url() ?>activarPago" class="nav-link" id="a_pago">
 								<i class="fas fa-toggle-on nav-icon"></i>
-								<p>Pago</p>
+								<p>Matricula</p>
 							</a>
 						</li>
 						<li class="nav-item">

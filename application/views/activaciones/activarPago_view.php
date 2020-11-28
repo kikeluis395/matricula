@@ -34,7 +34,7 @@
                         <div class="container-fluid">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>home">Home</a></li>
-                                <li class="breadcrumb-item active">Activar pago</li>
+                                <li class="breadcrumb-item active">Activar periodo de matricula</li>
                             </ol>
                         </div><!-- /.container-fluid -->
                     </div>
@@ -62,8 +62,8 @@
                                     <i class="fas fa-file-invoice-dollar text-navy mid-icon fa-3x ml-3"></i>
                                 </div>
                                 <div class="col-md-11 col-lg-11 col-sm-11">
-                                    <h2>Activar pago</h2>
-                                    <span>Cambiar de estado en las activaciones para el pago</span>
+                                    <h2>Activar periodo de matricula</h2>
+                                    <span>Cambiar de estado en las activaciones para la matricula</span>
                                 </div>
                             </div>
                         </div>

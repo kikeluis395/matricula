@@ -83,19 +83,22 @@ class HorarioAlumnoModel extends CI_Model{
 
     }
 
-    public function getHorariosAlumnoJoinCursoByPeriodo(string $periodo){
+    public function getHorariosAlumnoJoinCursoByPeriodo(string $periodo, string $dni_fk){
 
         $filtros = array(
-            "ho_al.periodo" => $periodo
+            "ho_al.periodo" => $periodo,
+            "al.dni_fk"     => $dni_fk 
         );
 
         $this->db->select('ho_al.cod_matricula_fk, cu.cod_curso, cu.descripcion, cu.num_creditos, cu.num_ciclo_fk, pe.apellido_paterno, pe.apellido_materno, pe.nombres, au.cod_aula, ho_cu.seccion, ho_cu.turno, ho_al.vez, ho_al.periodo');
+        $this->db->join('matricula as ma', 'ma.cod_alumno_fk = al.cod_alumno');
+        $this->db->join('horario_alumno as ho_al', 'ho_al.cod_matricula_fk = ma.cod_matricula');
         $this->db->join('horario_curso as ho_cu', 'ho_al.cod_horario_curso_fk = ho_cu.cod_horario_curso');
         $this->db->join('docente as doc', 'ho_cu.cod_docente_fk = doc.cod_docente');
         $this->db->join('aula as au', 'ho_cu.cod_aula_fk = au.cod_aula');
         $this->db->join('curso as cu', 'ho_cu.cod_curso_fk = cu.cod_curso');
         $this->db->join('persona as pe', 'doc.dni_fk = pe.dni');
-        $query = $this->db->get_where('horario_alumno as ho_al', $filtros);
+        $query = $this->db->get_where('alumno as al', $filtros);
 
         return $query->result();
     }

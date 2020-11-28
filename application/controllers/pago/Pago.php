@@ -128,7 +128,7 @@ class Pago extends CI_Controller {
 					{
 						$data = array(
 							"show" => true,
-							"message" => "El pago ha sido encontrado",
+							"message" => "Ha activado su matricula",
 							"tipo" => "Success",
 							"usuario" => $usuario,
 							"listActiveLink" => $listActiveLink

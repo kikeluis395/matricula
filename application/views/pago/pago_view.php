@@ -9,16 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php require_once(APPPATH . 'views/layout/_css.php'); ?>
-    <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/login.css">
-    <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/util.css">
-    <style>
-        .login100-form{
-            width: 100%;
-            min-height: inherit;
-            background-color: #fff;
-            padding-top: 40px;
-        }
-    </style>
+
 
 </head>
 
@@ -44,7 +35,7 @@
                         <div class="container-fluid">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>home">Home</a></li>
-                                <li class="breadcrumb-item active">Pago</li>
+                                <li class="breadcrumb-item active">Activación de Matricula</li>
                             </ol>
                         </div><!-- /.container-fluid -->
                     </div>
@@ -72,8 +63,8 @@
                                     <i class="fas fa-file-invoice-dollar text-navy mid-icon fa-3x ml-3"></i>
                                 </div>
                                 <div class="col-md-11 col-lg-11 col-sm-11">
-                                    <h2>Pago Matricula</h2>
-                                    <span> Verificación del código de liquidación.</span>
+                                    <h2>Activación de Matricula</h2>
+                                    <span> Activación de Matricula del alumno.</span>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +81,7 @@
                                     <form class="login100-form validate-form" action="VerificarPago" method="post">
                                         <div class="form-group row justify-content-center">
                                             <div class="col-sm-5">
-                                                <button type="submit" class="btn btn-primary btn-block mt-2">Verificar</button>
+                                                <button type="submit" class="btn btn-primary btn-block mt-2">Activar</button>
                                             </div>
                                         </div>
                                     </form>
