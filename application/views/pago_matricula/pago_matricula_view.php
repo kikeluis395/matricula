@@ -72,7 +72,7 @@
                     <div class="wrapper wrapper-content animated fadeInDown" style="opacity: 1;">
                         <div class="no-margins" style="opacity: 1;">
                            
-                        <?php if(count($listPeriodos)>0):?>
+                            <?php if(count($listPeriodos)>0):?>
                             <div class="card" style="font-size: 14px">
                                 <div class="card-header">
                                     <div class="card-title">
@@ -155,32 +155,12 @@
                             </div>
 
                             <?php endif; ?>
-                            <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-5 col-lg-5 col-sm-5">
-                                        <h5>Pago por credito</h5>
-                                    </div>
-                                    <table class="table table-hover" id="tableAsignaturas">
-                                        <thead>
-                                            <tr class="text-center">
-                                            <th scope="col">Cantidad de creditos</th>
-                                            <th scope="col">Precio por credito</th>
-                                            <th scope="col">Total a pagar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr class="text-center">
-                                            <td><?php echo "$credititos"?></td>
-                                            <td>25</td>
-                                            <td><?php echo "$totalsito" ?></td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                            
+
+                            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modalRealizarPago">
+                                Realizar Pago
+                            </button>
+
+
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
@@ -190,7 +170,63 @@
 
     </div>
     <?php require_once(APPPATH . 'views/layout/_js.php'); ?>
-    
+    <div class="modal fade bd-example-modal-m" id="modalRealizarPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-m" role="document">
+            <!-- PAGO POR CREDITO -->
+            <div class="modal-content" id="contenedor-horarios-matriculados">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-sm-5">
+                                <h5>Resumen del pago</h5>
+                            </div>
+                            <table class="table table-hover" id="tableAsignaturas">
+                                <thead>
+                                    <tr class="text-center">
+                                    <th scope="col">Cantidad de creditos</th>
+                                    <th scope="col">Precio por credito</th>
+                                    <th scope="col">Total a pagar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="text-center">
+                                    <td><?php echo "$credititos"?></td>
+                                    <td>25 PEN</td>
+                                    <td><?php echo "$totalsito"." PEN" ?></td>
+                                 </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 col-lg-5 col-sm-5 ">
+                                <form class="login100-form centrado" action="SignIn" method="post">
+                                    <span class="login100-form-title p-b-20">
+                                        Pago por depósito
+                                    </span>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="codigo" placeholder="Numero de liquidación">
+                                    </div>
+                                    <div style="display:none">
+                                        <input class="form-control" type="text" name="codigo" placeholder="Numero de liquidación" value="<?php echo "$totalsito"?>">
+                                    </div>
+
+                                    <button class="login100-form-btn" type="submit">
+                                        Ingresar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- FIN PAGO POR CREDITO -->
+            <!-- DATOS DEL PAGO -->
+
+        </div>
+    </div>
 
     <script>
         $('[data-toggle="tooltip"]').tooltip();

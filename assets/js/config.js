@@ -123,7 +123,7 @@ function RegistrarCursosLlevados(baseURL){
 
 
 
-  $.post( baseURL + "horarios/Horarios/RegistrarCursosLlevados", function(response) {
+  $.post( baseURL + "pago_matricula/Pago_matricula", function(response) {
 
     $('#modalHorariosMatriculados').modal('hide');
 
