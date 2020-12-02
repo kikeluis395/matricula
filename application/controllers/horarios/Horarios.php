@@ -1260,7 +1260,7 @@ class Horarios extends CI_Controller {
         
         }
 
-        
+        $this->load->view("pago_matricula/pago_matricula");
 
 
     }

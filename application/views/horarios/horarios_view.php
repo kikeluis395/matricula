@@ -288,7 +288,9 @@
         <?php 
             if(count($listHorariosMatriculados) > 0)
             {
-                echo "<button type='button' class='btn btn-primary' onclick='RegistrarCursosLlevados(\"".base_url()."\")'>Registrar Matrícula</button>";
+                echo "<a href='pago_matricula/pago_matricula'>".
+                "<button type='button' class='btn btn-primary' onclick='RegistrarCursosLlevados(\"".base_url()."\")'>Registrar Matrícula</button>";
+                "</a>";
             }
         ?>
       </div>

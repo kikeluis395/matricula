@@ -13,7 +13,7 @@
 <script src="<?php echo base_url('assets'); ?>/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?php echo base_url('assets'); ?>/js/dataTables.responsive.min.js"></script>
 <script src="<?php echo base_url('assets'); ?>/js/responsive.bootstrap4.min.js"></script>
-
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 <script src="<?php echo base_url('assets'); ?>/js/config.js"></script>
 
 <script src="<?php echo base_url('assets'); ?>/js/sum.js"></script>

@@ -115,6 +115,12 @@
 						</p>
 					</a>
 				</li>
+				<li class="nav-item">
+							<a href="https://www.sebap.org/" class="nav-link" id="a_pago" target="blank">
+							<i class="fab fa-internet-explorer"></i>
+								<p>Pagina web</p>
+							</a>
+						</li>
 
 				<hr>
 

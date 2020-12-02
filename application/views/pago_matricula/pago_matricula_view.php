@@ -110,6 +110,7 @@
                                         
                                             $cont = 1;
                                             $credititos=0;
+                                            $totalsito= 0;
                                             foreach ($listAsignaturas as $asignatura)
                                                 {
                                                     if($cont == 1)
@@ -125,6 +126,7 @@
 
                                                          $asignaturaActual = $asignatura->cod_curso;
                                                          $credititos+=$asignatura->num_creditos;
+                                                         $totalsito=$credititos*25;
                                                          $cont++;
                                                     }
                                                     
@@ -142,8 +144,9 @@
 
                                                          $asignaturaActual = $asignatura->cod_curso;
                                                          $credititos+=$asignatura->num_creditos;
+                                                         $totalsito=$credititos*25;
                                                     }
-                                                    $totalsito=$credititos*25;
+                                                    
                                                     
                                                 }       
                                         
@@ -171,7 +174,7 @@
     </div>
     <?php require_once(APPPATH . 'views/layout/_js.php'); ?>
     <div class="modal fade bd-example-modal-m" id="modalRealizarPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-m" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <!-- PAGO POR CREDITO -->
             <div class="modal-content" id="contenedor-horarios-matriculados">
                 <div class="card">
@@ -204,7 +207,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-5 col-lg-5 col-sm-5 ">
                                 <form class="login100-form centrado" action="SignIn" method="post">
-                                    <span class="login100-form-title p-b-20">
+                                    <!-- <span class="login100-form-title p-b-20">
                                         Pago por depósito
                                     </span>
                                     <div class="form-group">
@@ -212,12 +215,38 @@
                                     </div>
                                     <div style="display:none">
                                         <input class="form-control" type="text" name="codigo" placeholder="Numero de liquidación" value="<?php echo "$totalsito"?>">
-                                    </div>
-
-                                    <button class="login100-form-btn" type="submit">
+                                    </div> -->
+                                    <div id="paypal-button-container"></div>
+                                    <!-- <button class="login100-form-btn" type="submit">
                                         Ingresar
-                                    </button>
+                                    </button> -->
                                 </form>
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '88.44'
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
                             </div>
                         </div>
                     </div>
