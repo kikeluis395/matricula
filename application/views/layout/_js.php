@@ -13,7 +13,9 @@
 <script src="<?php echo base_url('assets'); ?>/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?php echo base_url('assets'); ?>/js/dataTables.responsive.min.js"></script>
 <script src="<?php echo base_url('assets'); ?>/js/responsive.bootstrap4.min.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AcQQUkZFtQZc5C-7KoUTE229g5vCMME05NhJlWsqhFLatqcNw6bJzn22dlPPnvX944sueW1-MkZJyC6f&currency=USD&vault=true"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+  </script>
 <script src="<?php echo base_url('assets'); ?>/js/config.js"></script>
 
 <script src="<?php echo base_url('assets'); ?>/js/sum.js"></script>

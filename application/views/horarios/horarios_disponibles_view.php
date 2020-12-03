@@ -124,10 +124,10 @@
                         $seccion_actual = $horarioDisponible->seccion;
                         $countSeccionActual++;
 
-                        echo "<tr>";
+                        echo "<tr>".
 
-                            echo "<td class='text-center'><button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Elegir Horario' onclick='RegistrarHorario(\"".base_url()."\",\"".$horarioDisponible->cod_curso."\",\"".$horarioDisponible->seccion."\")'><i class='fas fa-sign-in-alt'></i></button></td>";
-                            echo "<td>".$horarioDisponible->seccion."</td>";
+                            "<td class='text-center'><button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Elegir Horario' onclick='RegistrarHorario(\"".base_url()."\",\"".$horarioDisponible->cod_curso."\",\"".$horarioDisponible->seccion."\")'><i class='fas fa-sign-in-alt'></i></button></td>".
+                            "<td>".$horarioDisponible->seccion."</td>";
 
                                 for($dia = 1; $dia <= 6; $dia++)
                                 {
