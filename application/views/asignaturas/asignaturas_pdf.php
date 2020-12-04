@@ -52,7 +52,7 @@
 <body>
     <?php date_default_timezone_set("America/Lima");
     ?>
-    <img src="./assets/img/logosebap.jpg" alt="UNFV Logo" width="150px" class="">
+    <img src="./assets/img/logosebap.jpg" alt="Logo" width="150px" class="">
     <center>
     <div class="universidad">
         <span style="font-weight: bold; font-size: 18px;margin-bottom: 25px"><?php echo $universidad?></span>

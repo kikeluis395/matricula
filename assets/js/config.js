@@ -1,8 +1,4 @@
 function irAjax(baseURL){
-
-
-
-
    $.post( baseURL + "malla_curricular/Malla_curricular", function(response) {
       console.log(response);
       $("#contenedor-principal").html(response);

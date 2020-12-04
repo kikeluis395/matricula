@@ -1348,7 +1348,7 @@ class Rectificacion extends CI_Controller {
             "listCountGroupCurso" => $listCountGroupCurso
         );
 
-        $this->load->view("rectificacion/rectificacion_horarios_matriculados_view", $data);
+        $this->load->view("horarios/horarios_matriculados_view", $data);
     }
 
 

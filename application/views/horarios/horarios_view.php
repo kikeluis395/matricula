@@ -146,6 +146,7 @@
                     <th scope="col">Viernes</th>
                     <th scope="col">Sábado</th>
                     <th scope="col">Docente</th>
+                    <th scope="col">Acción</th>
                 </tr>
             </thead>
             <tbody class="text-center" style="font-size:13px">
@@ -260,7 +261,8 @@
                                 }
 
                                 echo "<td>".$horarioMatriculado->apellido_paterno." ".$horarioMatriculado->apellido_materno.", ".$horarioMatriculado->nombres."</td>";
-                
+                                echo "<td class='text-center'><button type='button' class='btn btn-danger btn-sm' data-toggle='tooltip' data-placement='top' title='Dejar curso' onclick='DejarCurso(\"".base_url()."\",\"".$horarioMatriculado->cod_curso."\",\"".$horarioMatriculado->seccion."\")'><i class='fas fa-trash'></i></button></td>";
+                                echo "<td class='text-center'><button type='button' class='btn btn-info btn-sm' data-toggle='tooltip' data-placement='top' title='Cambiar horario' onclick='VerHorariosDisponiblesRectificacion(\"".base_url()."\",\"".$horarioMatriculado->cod_curso."\",\"".$horarioMatriculado->seccion."\")'><i class='fas fa-exchange-alt'></i></button></td>";
                                 echo "</tr>";
 
                                 break;

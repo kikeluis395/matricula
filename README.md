@@ -1,2 +1,2 @@
 # matricula
-Proyecto del curso de ingenieria de software para el instituto cristiano SEBAP
+Proyecto del curso de taller de base de datos para el instituto cristiano SEBAP
