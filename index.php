@@ -54,7 +54,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-	define('DBNAME', 'matricula_pruebita');
+	define('DBNAME', 'matricula1');
 	define('DBUSER', 'root');
 	define('DBPASS', '');
 
